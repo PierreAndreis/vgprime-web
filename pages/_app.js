@@ -19,6 +19,7 @@ class VGPRIME extends App {
     const { Component, pageProps, apolloClient } = this.props;
     return (
       <Container>
+        <div className="vgproLogoBg" />
         <ApolloProvider client={apolloClient}>
           <Component {...pageProps} />
         </ApolloProvider>

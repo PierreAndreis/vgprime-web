@@ -58,7 +58,12 @@ injectGlobal`
     background-attachment: fixed;
     overflow-x: none;
     height: 100%;
-    background: #161E26;
+    background: #1D272F;
+    background: #ECEEF1;
+
+    color: white;
+
+    color: #4A4A4A;
   }
   html, body, #__next {
     height: 100%
@@ -71,5 +76,15 @@ injectGlobal`
 
   a:hover {
     text-decoration: none;
+  }
+
+  .vgproLogoBg {
+    width: 100%;
+    height: 100%;
+    background: url("/static/images/logo_bg.png") no-repeat;
+    opacity: 0.5;
+    background-position: center top;
+    position: absolute;
+    z-index: -1;
   }
 `;

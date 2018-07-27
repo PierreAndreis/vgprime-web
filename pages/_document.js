@@ -26,6 +26,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,500,700|Roboto:300,400,500,700"
             rel="stylesheet"
           />
+          <link defer="defer" href="/static/vainglory-icons-font.css" rel="stylesheet" />
           <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
         </Head>
 

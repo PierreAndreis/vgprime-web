@@ -7,6 +7,7 @@ import qLeaderboard from "../../graphql/leaderboard";
 import ErrorMessage from "../common/ErrorMessage";
 import { Box } from "../common/Box";
 import Button from "./../common/Button";
+import { SkeletonContext } from "../common/Skeleton";
 
 export default class extends React.Component {
   state = {
@@ -36,17 +37,28 @@ export default class extends React.Component {
             variables={{ page: this.state.page }}
           >
             {({ loading, error, data }) => {
-              if (loading) return <p>Loading</p>;
               if (error) return <ErrorMessage message={error.message} />;
 
-              return data.leaderboard.map(p => (
-                <PlayerRow key={p.id} payload={p} />
-              ));
+              return (
+                <SkeletonContext.Provider
+                  value={loading ? "loading" : "loaded"}
+                >
+                  {data.leaderboard.map(p => (
+                    <PlayerRow key={p.id} payload={p} />
+                  ))}
+                </SkeletonContext.Provider>
+              );
             }}
           </Query>
         </Box>
 
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around"
+          }}
+        >
           <Button onClick={this.previous} disabled={this.state.page === 0}>
             Previous
           </Button>

@@ -5,6 +5,7 @@ export default gql`
     leaderboard(page: $page) {
       id
       name
+      tier
       points
       rank
       region
