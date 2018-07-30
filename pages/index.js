@@ -1,10 +1,45 @@
 import React from "react";
-import Container from "../components/common/Container";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import { css } from "emotion";
 import Rules from "../components/Rules/Rules";
+import Records from "../components/Records";
+
+const container = css`
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 15px;
+
+  display: grid;
+  grid-template:
+    "header header header" auto
+    "sidebar rules records" auto
+    / auto 1fr 300px;
+  grid-column-gap: 15px;
+
+  & h4 {
+    font-size: 17px;
+    text-transform: uppercase;
+    font-family: "Roboto Condensed";
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-left: 5px;
+    margin-bottom: 15px;
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 380px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 
 const header = css`
+  grid-area: header;
+  order: 0;
+
   display: flex;
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -22,26 +57,26 @@ const logo = css`
   font-size: 35px;
 
   & > b {
-    color: white;
-
     color: black;
   }
 `;
 
-const content = css`
-  display: flex;
-
-  & > div {
-    box-sizing: border-box;
-    padding: 15px;
-  }
-
-  @media screen and (max-width: 500px) {
-    flex-direction: column;
-    align-items: center;
-  }
+const sidebar = css`
+  grid-area: sidebar;
+  order: 3;
 `;
 
+const rules = css`
+  grid-area: rules;
+  position: relative;
+  box-sizing: border-box;
+  order: 1;
+`;
+
+const records = css`
+  grid-area: records;
+  order: 2;
+`;
 // const test = css`
 //   position: absolute;
 //   width: 100%;
@@ -62,23 +97,25 @@ const content = css`
 export default class Home extends React.Component {
   render() {
     return (
-      <Container>
+      <div className={container}>
         <div className={header}>
           <div className={logo}>
             <b>VG</b>PRIME
           </div>
         </div>
-        <div className={content}>
-          <div style={{ flex: 1 }}>
-            <h4>Rules & Prizes</h4>
-            <Rules />
-          </div>
-          <div>
-            <h4>Leaderboard</h4>
-            <Leaderboard />
-          </div>
+
+        <div className={sidebar}>
+          <h4>Leaderboard</h4>
+          <Leaderboard />
         </div>
-      </Container>
+        <div className={rules}>
+          <h4>Rules</h4>
+          <Rules />
+        </div>
+        <div className={records}>
+          <Records />
+        </div>
+      </div>
     );
   }
 }

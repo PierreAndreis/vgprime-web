@@ -5,9 +5,15 @@ import PlayerRow from "./PlayerRow";
 import qLeaderboard from "../../graphql/leaderboard";
 
 import ErrorMessage from "../common/ErrorMessage";
-import { Box } from "../common/Box";
+import Box from "../common/Box";
 import Button from "./../common/Button";
 import { SkeletonContext } from "../common/Skeleton";
+import { css } from "../../node_modules/emotion";
+
+const container = css`
+  ${Box};
+  border-bottom: 20px solid rgba(0, 0, 0, 0.05);
+`;
 
 export default class extends React.Component {
   state = {
@@ -31,7 +37,7 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-        <Box>
+        <div className={container}>
           <Query
             query={qLeaderboard}
             variables={{ page: this.state.page }}
@@ -50,13 +56,16 @@ export default class extends React.Component {
               );
             }}
           </Query>
-        </Box>
+        </div>
 
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
+            marginTop: "-15px",
+            position: "relative",
+            zIndex: "2"
           }}
         >
           <Button onClick={this.previous} disabled={this.state.page === 0}>

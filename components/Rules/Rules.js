@@ -1,13 +1,15 @@
 import React from "react";
-import styled from "react-emotion";
-import { Box } from "../common/Box";
+import { css } from "emotion";
+import Box from "../common/Box";
 
-const RulesBox = styled(Box)`
-  background-image: linear-gradient(-135deg, #78a6ef 0%, #63c0c9 100%);
+const container = css`
+  width: auto;
+  ${Box} background-image: linear-gradient(-135deg, #78a6ef 0%, #63c0c9 100%);
   color: rgba(255, 255, 255, 0.9);
-  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
 
-  padding: 15px;
+  padding: 10px;
 
   & p {
     font-size: 14px;
@@ -25,7 +27,7 @@ const RulesBox = styled(Box)`
 export default class extends React.Component {
   render() {
     return (
-      <RulesBox>
+      <div className={container}>
         <h1>How to participate</h1>
         <p>
           1994 issue of "Before & After" magazine traces "Lorem ipsum ..."
@@ -43,26 +45,34 @@ export default class extends React.Component {
           page of type samples. Since then, the Latin-like text has been
           the printing industry's standard for fake, or dummy, text. Before
           electronic publishing, graphic designers had to mock up layouts
-          by drawing in squiggled lines to indicate text. The advent of
-          self-adhesive sheets preprinted with "Lorem ipsum" gave a more
-          realistic way to indicate where text would go on a page.
+          by drawing in squiggled lines to indicate text.
+        </p>
+        <h1>Rules</h1>
+        <p>
+          During the 1500s, a printer adapted Cicero's text to develop a
+          page of type samples. Since then, the Latin-like text has been
+          the printing industry's standard for fake, or dummy, text. Before
+          electronic publishing, graphic designers had to mock up layouts
+          by drawing in squiggled lines to indicate text.
         </p>
         <h1> Prizes </h1>
         <div style={{ display: "flex" }}>
-          {Array.from(Array(6), i => i).map(i => (
+          {Array.from(Array(6), i => i).map((i, index) => (
             <div
-              key={i}
+              key={index}
               style={{
-                width: "65px",
-                height: "65px",
+                width: "35px",
+                height: "35px",
                 borderRadius: "50%",
                 background: "rgba(100, 100, 100, 0.8)",
-                marginLeft: "10px"
+                marginLeft: "10px",
+                flexShrink: 0,
+                flexGrow: 0
               }}
             />
           ))}
         </div>
-      </RulesBox>
+      </div>
     );
   }
 }

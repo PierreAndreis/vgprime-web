@@ -1,14 +1,10 @@
-import styled from "react-emotion";
+import { css } from "emotion";
 
-export const Box = styled.div`
-  width: 320px;
-  margin: 5px 2px 15px;
+export const Box = css`
   background: #213141;
   box-sizing: border-box;
   position: relative;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
-
-  padding: 10px;
 
   border-radius: 5px;
 
@@ -19,3 +15,5 @@ export const Box = styled.div`
   background: #ffffff;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
 `;
+
+export default Box;

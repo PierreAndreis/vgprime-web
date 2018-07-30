@@ -2,11 +2,8 @@ import { css } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
 
 const playerWrap = css`
-  padding: 2px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 0;
-  margin-bottom: 5px;
-
+  padding: 2px 5px;
   height: 50px;
 
   display: flex;
@@ -15,10 +12,19 @@ const playerWrap = css`
   color: #4a4a4a;
 
   border-sizing: border-box;
+  transition: all 300ms;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
 
   & > div {
     flex-grow: 0;
     flex-shrink: 0;
+  }
+
+  &:last-of-type {
+    border: 0;
   }
 `;
 
@@ -34,7 +40,7 @@ const position = css`
 `;
 
 const info = css`
-  width: 130px;
+  width: 140px;
   font-size: 14px;
 
   font-family: "Roboto Condensed";
@@ -44,7 +50,6 @@ const info = css`
   justify-content: center;
   & i {
     font-size: 18px;
-    margin: 0 5px;
     color: #eaa900;
   }
   & > div {
@@ -52,17 +57,26 @@ const info = css`
     align-items: center;
     overflow: hidden;
     text-overflow: ellipsis;
+    & > span {
+      margin: 0 5px;
+      padding-top: 2px;
+      font-size: 10px;
+      color: grey;
+      text-transform: uppercase;
+    }
   }
 `;
 
 const games = css`
-  width: 60px;
+  width: 50px;
   text-align: center;
   margin-left: auto;
   display: flex;
   flex-direction: column;
   & > div {
     font-size: 15px;
+    font-family: "Roboto Condensed";
+    font-weight: bold;
   }
   & > span {
     margin-top: 5px;
@@ -78,6 +92,8 @@ const points = css`
   flex-direction: column;
   & > div {
     font-size: 18px;
+    font-family: "Roboto Condensed";
+    font-weight: bold;
   }
   & > span {
     margin-top: 5px;
@@ -108,13 +124,6 @@ const winRateLabel = css`
   margin-left: 6px;
   padding-top: 3px;
 `;
-// id
-// name
-// points
-// rank
-// region
-// games
-// wins
 
 export default ({ payload }) => {
   let winPercent;
@@ -134,6 +143,9 @@ export default ({ payload }) => {
           <SkeletonWrapper width={100}>
             {() => [
               <i key="tier" className={`vg-rank-${payload.tier}`} />,
+              <span key="region">
+                {payload.region === "sg" ? "sea" : payload.region}
+              </span>,
               payload.name
             ]}
           </SkeletonWrapper>
