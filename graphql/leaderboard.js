@@ -6,6 +6,7 @@ export default gql`
       id
       name
       region
+      positionChange
       tier
       points
       rank

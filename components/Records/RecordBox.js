@@ -2,7 +2,6 @@ import React from "react";
 import { css } from "emotion";
 
 import { Query } from "react-apollo";
-import styled from "react-emotion";
 import qRecord from "./../../graphql/record";
 
 import Box from "./../common/Box";
@@ -89,6 +88,8 @@ export default ({ type, title }) => (
 
         const player = data[key];
 
+        let winRate = Math.floor((player.wins / player.games) * 100);
+
         return (
           <div className={container}>
             <div className={name}>
@@ -110,8 +111,10 @@ export default ({ type, title }) => (
                 <span>Losses</span>
               </div>
               <div>
-                <div>
-                  {Math.floor((player.wins / player.games) * 100)}%
+                <div
+                  style={{ color: winRate > 50 ? "#4A90E2" : "#D0021B" }}
+                >
+                  {winRate}%
                 </div>
                 <span>Win Rate</span>
               </div>

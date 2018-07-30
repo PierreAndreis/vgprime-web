@@ -1,4 +1,4 @@
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
 
 const playerWrap = css`
@@ -37,6 +37,31 @@ const position = css`
   font-size: 16px;
   font-weight: bold;
   color: #4a90e2;
+  position: relative;
+`;
+
+const positionChange = css`
+  position: absolute;
+  font-size: 9px;
+  right: 5px;
+  top: -7px;
+  text-align: center;
+  width: 15px;
+  color: black;
+
+  & span {
+    display: block;
+    width: 10px;
+    height: 7px;
+    margin: 2px auto;
+  }
+
+  &.up {
+    color: #7ed321;
+  }
+  &.down {
+    color: #d0021b;
+  }
 `;
 
 const info = css`
@@ -131,11 +156,33 @@ export default ({ payload }) => {
   if (payload) {
     winPercent = (payload.wins / payload.games) * 100;
   }
+  // ▼
+
+  console.log(payload.positionChange);
+
+  const psChange = payload.positionChange !== 0 && (
+    <div
+      className={cx(
+        positionChange,
+        payload.positionChange > 0 ? "up" : "down"
+      )}
+    >
+      <span>{payload.positionChange > 0 && "▲"}</span>
+      <div>{payload.positionChange}</div>
+      <span>{payload.positionChange < 0 && "▼"}</span>
+    </div>
+  );
 
   return (
     <div className={playerWrap}>
       <div className={position}>
-        <SkeletonWrapper width={30}>{() => payload.rank}</SkeletonWrapper>
+        <SkeletonWrapper width={30}>
+          {() => (
+            <>
+              {payload.rank} {psChange}
+            </>
+          )}
+        </SkeletonWrapper>
       </div>
 
       <div className={info}>

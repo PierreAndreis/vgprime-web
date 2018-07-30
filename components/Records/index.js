@@ -1,15 +1,11 @@
 import React from "react";
 import { css } from "emotion";
-import Test from "./RecordBox";
+import RecordBox from "./RecordBox";
 
-const grid4x4 = css`
-  margin: 10px 0;
-`;
-
-export default props => (
-  <div className={grid4x4}>
-    <Test type={"mostMVPs"} title="Most MVPs" />
-    <Test type={"mostGames"} title="Most Games Played" />
-    <Test type={"mostWins"} title="Most Wins" />
+export default () => (
+  <div>
+    <RecordBox type={"mostMVPs"} title="Most MVPs" />
+    <RecordBox type={"mostGames"} title="Most Games Played" />
+    <RecordBox type={"mostWins"} title="Most Wins" />
   </div>
 );
