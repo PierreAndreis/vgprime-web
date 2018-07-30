@@ -12,6 +12,7 @@ import { css } from "../../node_modules/emotion";
 
 const container = css`
   ${Box};
+  width: 360px;
   border-bottom: 20px solid rgba(0, 0, 0, 0.05);
 `;
 

@@ -10,7 +10,7 @@ const container = css`
   ${Box};
   margin: 15px 0;
   padding: 10px;
-  width: auto;
+  width: 360px;
 `;
 
 const name = css`

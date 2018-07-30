@@ -156,22 +156,22 @@ export default ({ payload }) => {
   if (payload) {
     winPercent = (payload.wins / payload.games) * 100;
   }
-  // ▼
 
-  console.log(payload.positionChange);
-
-  const psChange = payload.positionChange !== 0 && (
-    <div
-      className={cx(
-        positionChange,
-        payload.positionChange > 0 ? "up" : "down"
-      )}
-    >
-      <span>{payload.positionChange > 0 && "▲"}</span>
-      <div>{payload.positionChange}</div>
-      <span>{payload.positionChange < 0 && "▼"}</span>
-    </div>
-  );
+  let psChange;
+  if (payload) {
+    psChange = payload.positionChange !== 0 && (
+      <div
+        className={cx(
+          positionChange,
+          payload.positionChange > 0 ? "up" : "down"
+        )}
+      >
+        <span>{payload.positionChange > 0 && "▲"}</span>
+        <div>{payload.positionChange}</div>
+        <span>{payload.positionChange < 0 && "▼"}</span>
+      </div>
+    );
+  }
 
   return (
     <div className={playerWrap}>
@@ -205,6 +205,12 @@ export default ({ payload }) => {
             {Math.floor(winPercent) || 0}% W/R
           </div>
         </div>
+      </div>
+      <div className={games}>
+        <div>
+          <SkeletonWrapper width={30}>{() => payload.mvp}</SkeletonWrapper>
+        </div>
+        <span>MVPs</span>
       </div>
       <div className={games}>
         <div>

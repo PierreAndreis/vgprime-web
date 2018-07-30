@@ -7,6 +7,7 @@ export default gql`
       name
       region
       positionChange
+      mvp
       tier
       points
       rank

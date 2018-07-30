@@ -5,7 +5,7 @@ import Rules from "../components/Rules/Rules";
 import Records from "../components/Records";
 
 const container = css`
-  width: 100%;
+  width: auto;
   max-width: 1300px;
   margin: 0 auto;
   padding: 15px;
@@ -14,7 +14,7 @@ const container = css`
   grid-template:
     "header header header" auto
     "sidebar rules records" auto
-    / auto 1fr 300px;
+    / auto 1fr auto;
   grid-column-gap: 15px;
 
   & h4 {
@@ -27,7 +27,15 @@ const container = css`
     margin-bottom: 15px;
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 1300px) {
+    grid-template:
+      "header header" auto
+      "sidebar rules" auto
+      "sidebar records" auto
+      / 400px 1fr;
+  }
+
+  @media screen and (max-width: 800px) {
     width: 380px;
     padding: 0;
     display: flex;
@@ -63,7 +71,7 @@ const logo = css`
 
 const sidebar = css`
   grid-area: sidebar;
-  order: 3;
+  order: 2;
 `;
 
 const rules = css`
@@ -71,28 +79,20 @@ const rules = css`
   position: relative;
   box-sizing: border-box;
   order: 1;
+  margin-bottom: 20px;
 `;
 
 const records = css`
   grid-area: records;
-  order: 2;
+  order: 3;
+  @media screen and (max-width: 1300px) {
+    display: flex;
+    flex-wrap: wrap;
+    & > div {
+      margin: 0 5px;
+    }
+  }
 `;
-// const test = css`
-//   position: absolute;
-//   width: 100%;
-//   height: 30%;
-//   overflow: hidden;
-//   transform: skewY(-12deg);
-//   transform-origin: 0;
-//   z-index: -1;
-//   background: linear-gradient(
-//     150deg,
-//     #7aaeff 15%,
-//     #77c8f5 70%,
-//     #74e1eb 94%
-//   );
-//   /* background-image: linear-gradient(-45deg, #7aaeff 0%, #74e1eb 100%); */
-// `;
 
 export default class Home extends React.Component {
   render() {
