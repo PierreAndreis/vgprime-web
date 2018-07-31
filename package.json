@@ -19,7 +19,8 @@
     "react": "^16.4.1",
     "react-apollo": "2.1.0",
     "react-dom": "^16.4.1",
-    "react-emotion": "^9.2.6"
+    "react-emotion": "^9.2.6",
+    "why-did-you-update": "^0.1.1"
   },
   "author": "",
   "license": "ISC"

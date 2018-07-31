@@ -1,5 +1,6 @@
 import React from "react";
-import styled, { keyframes } from "react-emotion";
+import {css} from "emotion";
+import { keyframes } from "react-emotion";
 
 const cardLoading = keyframes`
   0%, to {
@@ -10,7 +11,7 @@ const cardLoading = keyframes`
   }
 `;
 
-const StyletonCSS = styled.div`
+const StyletonCSS = css`
   display: inline-block;
   border-radius: 2px;
   background: linear-gradient(
@@ -20,13 +21,8 @@ const StyletonCSS = styled.div`
     rgba(186, 194, 197, 0.2)
   );
   animation: ${cardLoading} 2s ease infinite;
-  animation-delay: ${() => Math.floor(Math.random() * 3) + 1}s;
   background-size: 600% 600%;
   margin-bottom: 1px;
-
-  ${"" /* .skeletonDiv:nth-child(odd) .loadingSkeleton {
-  animation-delay: 0.4s;
-} */};
 `;
 
 const Skeleton = ({ width, height, borderRadius }) => {
@@ -36,7 +32,7 @@ const Skeleton = ({ width, height, borderRadius }) => {
     borderRadius
   };
 
-  return <StyletonCSS style={style} />;
+  return <div className={StyletonCSS} style={{...style,animationDelay: `${Math.floor(Math.random() * 3) + 1}s;`}} />;
 };
 
 Skeleton.defaultProps = {

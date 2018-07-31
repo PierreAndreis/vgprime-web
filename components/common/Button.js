@@ -1,6 +1,6 @@
-import styled from "react-emotion";
+import {css, cx} from "emotion";
 
-export default styled.button`
+const button = css`
   border: 0;
   padding: 10px 15px;
   margin: 0 5px 2px;
@@ -35,3 +35,5 @@ export default styled.button`
     color: #3e3e3e;
   }
 `;
+
+export default ({className, ...props}) => <button className={cx(className, button)} {...props} />

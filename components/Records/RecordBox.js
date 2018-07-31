@@ -8,9 +8,9 @@ import Box from "./../common/Box";
 
 const container = css`
   ${Box};
-  margin: 15px 0;
+  margin: 15px 5px;
   padding: 10px;
-  width: 360px;
+  width: 290px;
 `;
 
 const name = css`
@@ -70,7 +70,7 @@ const stats = css`
     }
     & span {
       margin-top: -5px;
-      font-size: 10px;
+      font-size: 9px;
       text-transform: uppercase;
       font-weight: bold;
     }

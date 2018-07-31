@@ -12,10 +12,11 @@ const container = css`
 
   display: grid;
   grid-template:
-    "header header header" auto
-    "sidebar rules records" auto
-    / auto 1fr auto;
-  grid-column-gap: 15px;
+    "header header" auto
+    "rules sidebar" auto
+    "records sidebar" auto
+    / 1fr 360px;
+  grid-column-gap: 10px;
 
   & h4 {
     font-size: 17px;
@@ -32,7 +33,7 @@ const container = css`
       "header header" auto
       "sidebar rules" auto
       "sidebar records" auto
-      / 400px 1fr;
+      / 360px 1fr;
   }
 
   @media screen and (max-width: 800px) {
@@ -85,13 +86,10 @@ const rules = css`
 const records = css`
   grid-area: records;
   order: 3;
-  @media screen and (max-width: 1300px) {
-    display: flex;
-    flex-wrap: wrap;
-    & > div {
-      margin: 0 5px;
-    }
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 10px;
 `;
 
 export default class Home extends React.Component {
