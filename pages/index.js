@@ -1,20 +1,22 @@
 import React from "react";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import { css } from "emotion";
-import Rules from "../components/Rules/Rules";
+import Prizes from "../components/Prizes";
 import Records from "../components/Records";
+import Search from "../components/Search";
 
 const container = css`
   width: auto;
   max-width: 1300px;
   margin: 0 auto;
   padding: 15px;
+  box-sizing: border-box;
 
   display: grid;
   grid-template:
     "header header" auto
-    "rules sidebar" auto
-    "records sidebar" auto
+    "prizes sidebar" auto
+    "content sidebar" 1fr
     / 1fr 360px;
   grid-column-gap: 10px;
 
@@ -31,8 +33,8 @@ const container = css`
   @media screen and (max-width: 1300px) {
     grid-template:
       "header header" auto
-      "sidebar rules" auto
-      "sidebar records" auto
+      "sidebar prizes" auto
+      "sidebar content" auto
       / 360px 1fr;
   }
 
@@ -58,8 +60,11 @@ const header = css`
 `;
 
 const logo = css`
-  width: 150px;
-  height: 40px;
+  width: 180px;
+  height: 60px;
+
+  background: url("/static/images/logo.png") no-repeat;
+  background-size: contain;
 
   color: #7aaeff;
   font-weight: bold;
@@ -75,21 +80,29 @@ const sidebar = css`
   order: 2;
 `;
 
-const rules = css`
-  grid-area: rules;
+const prizes = css`
+  grid-area: prizes;
   position: relative;
-  box-sizing: border-box;
   order: 1;
-  margin-bottom: 20px;
+`;
+
+const content = css`
+  grid-area: content;
+  order: 3;
 `;
 
 const records = css`
-  grid-area: records;
+  grid-area: content;
   order: 3;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 10px;
+  justify-content: center;
+`;
+
+const searchArea = css`
+  width: 330px;
+  box-sizing: border-box;
+  margin: 15px auto 30px;
 `;
 
 export default class Home extends React.Component {
@@ -97,21 +110,25 @@ export default class Home extends React.Component {
     return (
       <div className={container}>
         <div className={header}>
-          <div className={logo}>
-            <b>VG</b>PRIME
-          </div>
+          <div className={logo} />
         </div>
 
         <div className={sidebar}>
           <h4>Leaderboard</h4>
           <Leaderboard />
         </div>
-        <div className={rules}>
-          <h4>Rules</h4>
-          <Rules />
+        <div className={prizes}>
+          <h4>Prizes</h4>
+          <Prizes />
         </div>
-        <div className={records}>
-          <Records />
+        <div className={content}>
+          <div className={searchArea}>
+            <h4>Search a Player</h4>
+            <Search />
+          </div>
+          <div className={records}>
+            <Records />
+          </div>
         </div>
       </div>
     );

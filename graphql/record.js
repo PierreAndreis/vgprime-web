@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export default gql`
-  query Record($type: Type!) {
-    record(type: $type) {
+  query Record($type: Type!, $limit: Int) {
+    record(type: $type, limit: $limit) {
       id
       name
       region

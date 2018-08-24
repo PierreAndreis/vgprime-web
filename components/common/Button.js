@@ -1,6 +1,6 @@
-import {css, cx} from "emotion";
+import { css, cx } from "emotion";
 
-const button = css`
+export const buttonCss = css`
   border: 0;
   padding: 10px 15px;
   margin: 0 5px 2px;
@@ -36,4 +36,6 @@ const button = css`
   }
 `;
 
-export default ({className, ...props}) => <button className={cx(className, button)} {...props} />
+export default ({ className, ...props }) => (
+  <button className={cx(className, buttonCss)} {...props} />
+);

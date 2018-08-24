@@ -7,10 +7,19 @@ import qRecord from "./../../graphql/record";
 import Box from "./../common/Box";
 
 const container = css`
+  padding: 10px 10px 0;
+  margin-bottom: 10px;
+  border-top: 1px solid rgba(75, 75, 75, 0.1);
+  &:first-of-type {
+    border-top: 0;
+  }
+`;
+
+const records = css`
+  display: flex;
   ${Box};
-  margin: 15px 5px;
-  padding: 10px;
-  width: 290px;
+  flex-direction: column;
+  margin: 10px 5px;
 `;
 
 const name = css`
@@ -80,56 +89,63 @@ const stats = css`
 export default ({ type, title }) => (
   <div>
     <h4>{title}</h4>
-    <Query query={qRecord} variables={{ type }}>
-      {({ loading, error, data }) => {
-        if (loading) return null;
+    <div className={records}>
+      <Query query={qRecord} variables={{ type, limit: 3 }}>
+        {({ loading, error, data }) => {
+          if (loading) return null;
 
-        const key = Object.keys(data)[0];
+          const key = Object.keys(data)[0];
 
-        const player = data[key];
+          const players = data[key];
 
-        let winRate = Math.floor((player.wins / player.games) * 100);
-
-        return (
-          <div className={container}>
-            <div className={name}>
-              <i className={`vg-rank-${player.tier}`} />
-              {player.name}
-              <span>{player.region === "sg" ? "sea" : player.region}</span>
-              <div className={points}>
-                <div>{player.points}</div>
-                <span>Points</span>
-              </div>
-            </div>
-            <div className={stats}>
-              <div>
-                <div>{player.wins}</div>
-                <span>Wins</span>
-              </div>
-              <div>
-                <div>{player.games - player.wins}</div>
-                <span>Losses</span>
-              </div>
-              <div>
-                <div
-                  style={{ color: winRate > 50 ? "#4A90E2" : "#D0021B" }}
-                >
-                  {winRate}%
+          return players.map(player => {
+            let winRate = Math.floor((player.wins / player.games) * 100);
+            return (
+              <div className={container} key={player.id}>
+                <div className={name}>
+                  <i className={`vg-rank-${player.tier}`} />
+                  {player.name}
+                  <span>
+                    {player.region === "sg" ? "sea" : player.region}
+                  </span>
+                  <div className={points}>
+                    <div>{player.points}</div>
+                    <span>Points</span>
+                  </div>
                 </div>
-                <span>Win Rate</span>
+                <div className={stats}>
+                  <div>
+                    <div>{player.wins}</div>
+                    <span>Wins</span>
+                  </div>
+                  <div>
+                    <div>{player.games - player.wins}</div>
+                    <span>Losses</span>
+                  </div>
+                  <div>
+                    <div
+                      style={{
+                        color: winRate > 50 ? "#4A90E2" : "#D0021B"
+                      }}
+                    >
+                      {winRate}%
+                    </div>
+                    <span>Win Rate</span>
+                  </div>
+                  <div>
+                    <div>{player.games}</div>
+                    <span>Games</span>
+                  </div>
+                  <div>
+                    <div>{player.mvp}</div>
+                    <span>MVPs</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div>{player.games}</div>
-                <span>Games</span>
-              </div>
-              <div>
-                <div>{player.mvp}</div>
-                <span>MVPs</span>
-              </div>
-            </div>
-          </div>
-        );
-      }}
-    </Query>
+            );
+          });
+        }}
+      </Query>
+    </div>
   </div>
 );
