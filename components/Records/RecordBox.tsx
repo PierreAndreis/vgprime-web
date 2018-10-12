@@ -1,8 +1,9 @@
 import React from "react";
 import { css } from "emotion";
-
 import { Query } from "react-apollo";
-import qRecord from "./../../graphql/record";
+
+import qRecord from "../../graphql/record";
+import {Record} from '../../graphql/record';
 
 import Box from "./../common/Box";
 
@@ -86,17 +87,22 @@ const stats = css`
   }
 `;
 
-export default ({ type, title }) => (
+type Props = {
+  type: string
+  title: string
+}
+
+const RecordBox: React.SFC<Props> = ({ type, title }) => (
   <div>
     <h4>{title}</h4>
     <div className={records}>
       <Query query={qRecord} variables={{ type, limit: 3 }}>
-        {({ loading, error, data }) => {
+        {({ loading, data }) => {
           if (loading) return null;
 
           const key = Object.keys(data)[0];
 
-          const players = data[key];
+          const players = data[key] as Record[];
 
           return players.map(player => {
             let winRate = Math.floor((player.wins / player.games) * 100);
@@ -149,3 +155,5 @@ export default ({ type, title }) => (
     </div>
   </div>
 );
+
+export default RecordBox;

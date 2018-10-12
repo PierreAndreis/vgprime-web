@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { css } from "emotion";
 import Box from "./common/Box";
 
@@ -26,11 +26,11 @@ const container = css`
   }
 `;
 
-export default class extends React.Component {
+export default class extends React.Component<{}> {
   render() {
     return (
       <div className={container}>
-        {Array.from(Array(6), i => i).map((i, index) => (
+        {Array.from(Array(6), i => i).map((_, index) => (
           <div
             key={index}
             style={{

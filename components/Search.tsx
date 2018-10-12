@@ -1,7 +1,7 @@
-import React from "react";
-
+import * as React from "react";
 import Box from "./common/Box";
 import { css } from "emotion";
+import Router from 'next/router';
 import { buttonCss } from "./common/Button";
 
 const searchBox = css`
@@ -18,12 +18,15 @@ const searchBox = css`
 
 const input = css`
   ${Box};
-  width: 90%;
+  width: 99%;
   border: 0;
   outline: 0;
   transparent: 0;
   padding: 15px;
+  padding-right: 30%;
   font-size: 15px;
+  border-radius: 30px;
+  box-shadow: 3px 3px 5px #dcdcdc;
 `;
 
 const submitButton = css`
@@ -33,14 +36,20 @@ const submitButton = css`
   width: 30%;
   height: 100%;
   margin: 0;
+  border-radius: 100px;
 `;
 
-class Search extends React.Component {
+type State = {
+  value: string
+}
+
+
+class Search extends React.Component<{}, State> {
   state = {
     value: ""
   };
 
-  changeInput = e => {
+  changeInput = (e: any) => {
     const value = e.target.value;
 
     this.setState({
@@ -48,10 +57,9 @@ class Search extends React.Component {
     });
   };
 
-  onSubmit = e => {
+  onSubmit = (e: any) => {
     e.preventDefault();
-
-    alert(this.state.value);
+    Router.push({pathname: '/player', query: {name: this.state.value}});
   };
 
   render() {

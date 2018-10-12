@@ -1,6 +1,9 @@
-import React from "react";
-import Leaderboard from "../components/Leaderboard/Leaderboard";
+import * as React from "react";
+import {Query} from 'react-apollo';
 import { css } from "emotion";
+import {byPage as qLeaderboard, PlayersList} from '../graphql/leaderboard';
+import ErrorMessage from '../components/common/ErrorMessage';
+import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Prizes from "../components/Prizes";
 import Records from "../components/Records";
 import Search from "../components/Search";
@@ -105,17 +108,36 @@ const searchArea = css`
   margin: 15px auto 30px;
 `;
 
-export default class Home extends React.Component {
+type State =  {
+  page: number;
+}
+
+export default class Home extends React.Component<{}, State> {
+  state = {
+    page: 0
+  }
+
+  next = () => {
+    this.setState(state => ({page: state.page + 1}));
+  }
+  previous = () => {
+    this.setState(state => ({page: state.page - 1}));
+  }
   render() {
     return (
       <div className={container}>
         <div className={header}>
           <div className={logo} />
         </div>
-
         <div className={sidebar}>
           <h4>Leaderboard</h4>
-          <Leaderboard />
+          <Query query={qLeaderboard} variables={{page: this.state.page}}>
+            {({ error, data, loading }) => {
+              if (error) return <ErrorMessage message={error.message} />;
+              const players = data.leaderboard as PlayersList;
+              return <Leaderboard players={players} loading={loading} nextHandler={this.next} previousHandler={this.previous}/>
+            }}
+          </Query>
         </div>
         <div className={prizes}>
           <h4>Prizes</h4>

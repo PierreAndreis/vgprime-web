@@ -1,4 +1,8 @@
-export default ({ message }) => (
+interface ErrorMessageProps {
+  message: string;
+}
+
+export default ({message}: ErrorMessageProps) => (
   <aside>
     {message}
     <style jsx>{`

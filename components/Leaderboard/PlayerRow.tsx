@@ -1,5 +1,6 @@
 import { css, cx } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
+import { Player } from "../../graphql/leaderboard";
 
 const playerWrap = css`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -150,16 +151,23 @@ const winRateLabel = css`
   padding-top: 3px;
 `;
 
-export default ({ payload }) => {
-  let winPercent;
+
+export type PlayerRowProps = {
+  payload: Player;
+  isActive: boolean;
+}
+
+const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => {
+  
+  let winPercent: number = 0;
 
   if (payload) {
     winPercent = (payload.wins / payload.games) * 100;
   }
 
-  let psChange;
-  if (payload) {
-    psChange = payload.positionChange !== 0 && (
+  let psChange: React.ReactNode;
+  if (payload && payload.positionChange !== 0) {
+    psChange = (
       <div
         className={cx(
           positionChange,
@@ -193,7 +201,7 @@ export default ({ payload }) => {
               <span key="region">
                 {payload.region === "sg" ? "sea" : payload.region}
               </span>,
-              payload.name
+              payload.name + (isActive ? ' ****' : '')
             ]}
           </SkeletonWrapper>
         </div>
@@ -232,3 +240,5 @@ export default ({ payload }) => {
     </div>
   );
 };
+
+export default PlayerRow;
