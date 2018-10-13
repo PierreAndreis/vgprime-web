@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "./common/Box";
 import { css } from "emotion";
-import Router from 'next/router';
+import {withRouter} from 'next/router';
 import { buttonCss } from "./common/Button";
 
 const searchBox = css`
@@ -26,7 +26,7 @@ const input = css`
   padding-right: 30%;
   font-size: 15px;
   border-radius: 30px;
-  box-shadow: 3px 3px 5px #dcdcdc;
+  /* box-shadow: 3px 3px 5px #dcdcdc; */
 `;
 
 const submitButton = css`
@@ -43,11 +43,15 @@ type State = {
   value: string
 }
 
-
-class Search extends React.Component<{}, State> {
-  state = {
-    value: ""
-  };
+class Search extends React.Component<any, State> {
+  constructor(props: any) {
+    super(props);
+    let defaultValue = this.props.defaultValue ? this.props.defaultValue : '';
+    this.state = {
+      value: defaultValue
+    };
+  }
+  
 
   changeInput = (e: any) => {
     const value = e.target.value;
@@ -59,7 +63,9 @@ class Search extends React.Component<{}, State> {
 
   onSubmit = (e: any) => {
     e.preventDefault();
-    Router.push({pathname: '/player', query: {name: this.state.value}});
+    if (this.props.router) {
+      this.props.router.push({pathname: '/player', query: {name: this.state.value}});
+    }
   };
 
   render() {
@@ -70,6 +76,7 @@ class Search extends React.Component<{}, State> {
             className={input}
             value={this.state.value}
             onChange={this.changeInput}
+            autoFocus
           />
           <button className={submitButton}>Search</button>
         </div>
@@ -78,4 +85,4 @@ class Search extends React.Component<{}, State> {
   }
 }
 
-export default Search;
+export default withRouter(Search);

@@ -6,6 +6,7 @@ import Leaderboard from "./../components/Leaderboard/Leaderboard";
 import Prizes from "./../components/Prizes";
 import ErrorMessage from "./../components/common/ErrorMessage";
 import Search from '../components/Search';
+import PlayerInfo from '../components/Player/Player';
 
 // import Search from "components/Search";
 import { byPlayerName as qLeaderboard } from './../graphql/leaderboard';
@@ -93,7 +94,7 @@ const logo = css`
 const sidebar = css`
   grid-area: sidebar;
   order: 2;
-  animation: fadeIn 1s ease;
+  animation: fadeIn 1s ease
 `;
 
 const prizes = css`
@@ -113,7 +114,7 @@ const playerInfo = css`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  animation: fadeIn 1s ease;
+  animation: fadeIn 1s ease
 `;
 
 const searchArea = css`
@@ -140,12 +141,20 @@ class PlayerPage extends React.Component<Props> {
           query={qLeaderboard}
           variables={{ playerName: this.props.playerName }} >
           {({ error, data, loading }) => {
-            if (error) return <ErrorMessage message={error.message} />;
-            console.log('actualData:', data);
-            console.log('actual playerName:', this.props.playerName);
+            if (error) {
+              console.log('error while fetching data', error);
+              return <ErrorMessage message={error.message} />;
+            }
+            
+            if (!data.leaderboard) {
+              console.log('invalid data on player:', data);
+              console.log('actual playerName:', this.props.playerName);
+              return <ErrorMessage message='No data fetched' />;
+            }
             const players = data.leaderboard as PlayersList;
-            const playerWithThisName = players.filter(x => x.name === this.props.playerName);
-            const playerFound = playerWithThisName.length > 0;
+            const player = players.find(x => x.name === this.props.playerName);
+            const playerFound = player !== undefined;
+            
             return (
               <>
                 <div className={sidebar}>
@@ -155,12 +164,12 @@ class PlayerPage extends React.Component<Props> {
                 <div className={content}>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
-                    <Search />
+                    <Search defaultValue={playerFound ? this.props.playerName : ''}/>
                   </div>
                   <div className={playerInfo}>
                     {
-                      playerFound
-                        ? <div>{this.props.playerName} encontrado!</div>
+                      player !== undefined
+                        ? <PlayerInfo player={player}/>
                         : <div>{this.props.playerName} não existe!</div>
                     }
                   </div>

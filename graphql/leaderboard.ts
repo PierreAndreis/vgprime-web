@@ -11,9 +11,10 @@ export interface Player {
   rank: number;
   games: number;
   wins: number;
+  historical: any;
 }
 
-export type PlayerList = ReadonlyArray<Player>;
+export type PlayersList = ReadonlyArray<Player>;
 
 export const byPage = gql`
   query Leaderboard($page: Int) {
@@ -47,6 +48,7 @@ export const byPlayerName = gql`
       region
       games
       wins
+      historical
     }
   }
 `;

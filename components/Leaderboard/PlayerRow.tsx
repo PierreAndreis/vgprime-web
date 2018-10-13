@@ -1,6 +1,21 @@
-import { css, cx } from "emotion";
+import { css, keyframes, cx } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
+
+const enteringAnimation = keyframes`
+  0% {
+    background-position: 100% 0%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+`;
+
+const playerActivebackground = css`
+  background-image: linear-gradient(to right, rgb(66, 134, 244, 0.3) , white, white);
+  background-size: 150% 150%;
+  animation: ${enteringAnimation} .4s ease forwards
+`;
 
 const playerWrap = css`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -182,7 +197,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
   }
 
   return (
-    <div className={playerWrap}>
+    <div className={isActive ? `${playerWrap} ${playerActivebackground}` : playerWrap}>
       <div className={position}>
         <SkeletonWrapper width={30}>
           {() => (
@@ -201,7 +216,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
               <span key="region">
                 {payload.region === "sg" ? "sea" : payload.region}
               </span>,
-              payload.name + (isActive ? ' ****' : '')
+              payload.name
             ]}
           </SkeletonWrapper>
         </div>

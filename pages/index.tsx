@@ -134,6 +134,10 @@ export default class Home extends React.Component<{}, State> {
           <Query query={qLeaderboard} variables={{page: this.state.page}}>
             {({ error, data, loading }) => {
               if (error) return <ErrorMessage message={error.message} />;
+              if (!data.leaderboard) {
+                console.log('invalid data:', data);
+                return <ErrorMessage message='No data fetched'/>
+              }
               const players = data.leaderboard as PlayersList;
               return <Leaderboard players={players} loading={loading} nextHandler={this.next} previousHandler={this.previous}/>
             }}
