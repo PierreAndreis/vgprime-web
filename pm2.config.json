@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "NextJS Web",
+      "script": "npm",
+      "args": "start",
+      "env": {
+        "NODE_ENV": "production",
+        "API_URL": "http://services.vgpro.gg"
+      }
+    }
+  ]
+}
