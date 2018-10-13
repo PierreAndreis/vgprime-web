@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "./common/Box";
 import { css } from "emotion";
-import {withRouter} from 'next/router';
+import { withRouter, SingletonRouter } from "next/router";
 import { buttonCss } from "./common/Button";
 
 const searchBox = css`
@@ -21,7 +21,6 @@ const input = css`
   width: 99%;
   border: 0;
   outline: 0;
-  transparent: 0;
   padding: 15px;
   padding-right: 30%;
   font-size: 15px;
@@ -40,20 +39,20 @@ const submitButton = css`
 `;
 
 type State = {
-  value: string
-}
+  value: string;
+};
 
-class Search extends React.Component<any, State> {
-  constructor(props: any) {
-    super(props);
-    let defaultValue = this.props.defaultValue ? this.props.defaultValue : '';
-    this.state = {
-      value: defaultValue
-    };
-  }
-  
+type Props = {
+  placeholder?: string;
+  router?: SingletonRouter;
+};
 
-  changeInput = (e: any) => {
+class Search extends React.Component<Props, State> {
+  state = {
+    value: ""
+  };
+
+  changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
     this.setState({
@@ -64,7 +63,10 @@ class Search extends React.Component<any, State> {
   onSubmit = (e: any) => {
     e.preventDefault();
     if (this.props.router) {
-      this.props.router.push({pathname: '/player', query: {name: this.state.value}});
+      this.props.router.push({
+        pathname: "/player",
+        query: { name: this.state.value }
+      });
     }
   };
 
@@ -76,6 +78,7 @@ class Search extends React.Component<any, State> {
             className={input}
             value={this.state.value}
             onChange={this.changeInput}
+            placeholder={this.props.placeholder || "Search a player name"}
             autoFocus
           />
           <button className={submitButton}>Search</button>
@@ -85,4 +88,5 @@ class Search extends React.Component<any, State> {
   }
 }
 
+// @ts-ignore Argument of type 'typeof Search' is not assignable to parameter of type 'ComponentType<Props & WithRouterProps<Record<string, string | string[] | undefined>>>'.
 export default withRouter(Search);

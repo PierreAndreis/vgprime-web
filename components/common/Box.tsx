@@ -14,6 +14,8 @@ export const Box = css`
 
   background: #ffffff;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+
+  padding: 1.5em;
 `;
 
 export default Box;
