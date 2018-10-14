@@ -12,9 +12,14 @@ const enteringAnimation = keyframes`
 `;
 
 const playerActivebackground = css`
-  background-image: linear-gradient(to right, rgb(66, 134, 244, 0.3) , white, white);
+  background-image: linear-gradient(
+    to right,
+    rgb(66, 134, 244, 0.3),
+    white,
+    white
+  );
   background-size: 150% 150%;
-  animation: ${enteringAnimation} .4s ease forwards
+  animation: ${enteringAnimation} 0.4s ease forwards;
 `;
 
 const playerWrap = css`
@@ -48,7 +53,6 @@ const position = css`
   width: 25px;
   text-align: right;
   padding-right: 25px;
-  border-sizing: border-box;
 
   font-size: 16px;
   font-weight: bold;
@@ -166,14 +170,15 @@ const winRateLabel = css`
   padding-top: 3px;
 `;
 
-
 export type PlayerRowProps = {
   payload: Player;
   isActive: boolean;
-}
+};
 
-const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => {
-  
+const PlayerRow: React.SFC<PlayerRowProps> = ({
+  payload,
+  isActive = false
+}) => {
   let winPercent: number = 0;
 
   if (payload) {
@@ -197,7 +202,11 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
   }
 
   return (
-    <div className={isActive ? `${playerWrap} ${playerActivebackground}` : playerWrap}>
+    <div
+      className={
+        isActive ? `${playerWrap} ${playerActivebackground}` : playerWrap
+      }
+    >
       <div className={position}>
         <SkeletonWrapper width={30}>
           {() => (
@@ -221,9 +230,14 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
           </SkeletonWrapper>
         </div>
         <div style={{ padding: "1px" }}>
-          <div className={winRateBar}>
-            <div style={{ width: `${winPercent}%` }} />
-          </div>
+          <SkeletonWrapper width={50} height={8}>
+            {() => (
+              <div className={winRateBar}>
+                <div style={{ width: `${winPercent}%` }} />
+              </div>
+            )}
+          </SkeletonWrapper>
+
           <div className={winRateLabel}>
             {Math.floor(winPercent) || 0}% W/R
           </div>

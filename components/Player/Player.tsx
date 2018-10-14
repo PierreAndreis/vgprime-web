@@ -1,10 +1,10 @@
-import * as React from 'react';
-import {css} from 'emotion';
-import { Player as PlayerType } from 'graphql/leaderboard';
-import PlayerInfo from './PlayerInfo';
-import Stats from './Stats';
-import Graph from './Graph';
-import { SkeletonContext } from '../common/Skeleton';
+import * as React from "react";
+import { css } from "emotion";
+import { Player as PlayerType } from "graphql/leaderboard";
+import PlayerInfo from "./PlayerInfo";
+import Stats from "./Stats";
+import Graph from "./Graph";
+import { SkeletonContext } from "../common/Skeleton";
 
 // layout:
 // info   stats
@@ -45,13 +45,13 @@ const graph1 = css`
 `;
 const graph2 = css`
   grid-area: graph2;
-`
+`;
 
 type Props = {
   player: PlayerType;
-}
+};
 
-const Player: React.SFC<Props> = ({player}) => {
+const Player: React.SFC<Props> = ({ player }) => {
   return (
     <SkeletonContext.Provider value="loaded">
       <div className={container}>
@@ -61,20 +61,19 @@ const Player: React.SFC<Props> = ({player}) => {
         </div>
         <div className={stats}>
           <h4>Player Stats</h4>
-          <Stats player={player}/>
+          <Stats player={player} />
         </div>
         <div className={graph1}>
           <h4>Points over time</h4>
-          <Graph player={player}/>
+          <Graph player={player} />
         </div>
         <div className={graph2}>
           <h4>Rank over time</h4>
-          <Graph player={player}/>
+          <Graph player={player} />
         </div>
       </div>
-
     </SkeletonContext.Provider>
-  )
-}
+  );
+};
 
 export default Player;

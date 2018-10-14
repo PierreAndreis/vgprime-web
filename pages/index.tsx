@@ -10,6 +10,7 @@ import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Records from "../components/Records";
 import Search from "../components/Search";
 import Layout from "../components/common/Layout";
+import { SkeletonContext } from "../components/common/Skeleton";
 
 const records = css`
   grid-area: content;
@@ -51,12 +52,13 @@ export default class Home extends React.Component<{}, State> {
             }
             const players = data.leaderboard as PlayersList;
             return (
-              <>
+              <SkeletonContext.Provider
+                value={loading ? "loading" : "loaded"}
+              >
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard
                     players={players}
-                    loading={loading}
                     nextHandler={this.next}
                     previousHandler={this.previous}
                   />
@@ -70,7 +72,7 @@ export default class Home extends React.Component<{}, State> {
                     <Records />
                   </div>
                 </Layout.Content>
-              </>
+              </SkeletonContext.Provider>
             );
           }}
         </Query>

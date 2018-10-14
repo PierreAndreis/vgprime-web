@@ -12,6 +12,7 @@ import PlayerInfo from "../components/Player/Player";
 // import Search from "components/Search";
 import { byPlayerName as qLeaderboard } from "./../graphql/leaderboard";
 import { PlayersList } from "../graphql/leaderboard";
+import { SkeletonContext } from "../components/common/Skeleton";
 
 const playerInfo = css`
   grid-area: content;
@@ -49,45 +50,40 @@ class PlayerPage extends React.Component<Props> {
               return <ErrorMessage message={error.message} />;
             }
 
-            if (!data.leaderboard) {
-              console.log("invalid data on player:", data);
-              console.log("actual playerName:", this.props.playerName);
-              return <ErrorMessage message="No data fetched" />;
+            let players: PlayersList = [];
+            let playerName = this.props.playerName;
+
+            let player;
+
+            if (data.leaderboard) {
+              players = data.leaderboard;
+              player = (data.leaderboard as PlayersList).find(
+                p => p.name === playerName
+              );
             }
-            const players = data.leaderboard as PlayersList;
-            const player = players.find(
-              x => x.name === this.props.playerName
-            );
-            const playerFound = player !== undefined;
 
             return (
-              <>
+              <SkeletonContext.Provider
+                value={loading ? "loading" : "loaded"}
+              >
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
-                  <Leaderboard
-                    players={players}
-                    loading={loading}
-                    playerName={this.props.playerName}
-                  />
+                  <Leaderboard players={players} playerName={playerName} />
                 </Layout.Sidebar>
                 <Layout.Content>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
-                    <Search
-                      placeholder={
-                        playerFound ? this.props.playerName : ""
-                      }
-                    />
+                    <Search placeholder={playerName} />
                   </div>
                   <div className={playerInfo}>
                     {player !== undefined ? (
                       <PlayerInfo player={player} />
                     ) : (
-                      <div>{this.props.playerName} não existe!</div>
+                      <div>{playerName} não existe!</div>
                     )}
                   </div>
                 </Layout.Content>
-              </>
+              </SkeletonContext.Provider>
             );
           }}
         </Query>
