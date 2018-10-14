@@ -7,10 +7,10 @@ import Prizes from "./../components/Prizes";
 import ErrorMessage from "./../components/common/ErrorMessage";
 import Search from '../components/Search';
 import PlayerInfo from '../components/Player/Player';
-
-// import Search from "components/Search";
 import { byPlayerName as qLeaderboard } from './../graphql/leaderboard';
 import { PlayersList } from '../graphql/leaderboard'
+import { SkeletonContext } from "../components/common/Skeleton";
+import Router from 'next/router'
 
 const container = css`
   width: auto;
@@ -141,40 +141,38 @@ class PlayerPage extends React.Component<Props> {
           query={qLeaderboard}
           variables={{ playerName: this.props.playerName }} >
           {({ error, data, loading }) => {
+            console.log('actual data', data);
             if (error) {
-              console.log('error while fetching data', error);
               return <ErrorMessage message={error.message} />;
             }
-            
-            if (!data.leaderboard) {
-              console.log('invalid data on player:', data);
-              console.log('actual playerName:', this.props.playerName);
-              return <ErrorMessage message='No data fetched' />;
+
+            const players = data.leaderboard ? data.leaderboard as PlayersList : [] as PlayersList;
+            const player = players.find((p) => p.name === this.props.playerName);
+            if (!loading && !player) {
+              Router.push({pathname: '/', query: {error: 'PlayerNotFound', payload: this.props.playerName}});
             }
-            const players = data.leaderboard as PlayersList;
-            const player = players.find(x => x.name === this.props.playerName);
-            const playerFound = player !== undefined;
-            
             return (
-              <>
+              <SkeletonContext.Provider value={loading ? 'loading' : 'loaded'}>
                 <div className={sidebar}>
                   <h4>Leaderboard</h4>
-                  <Leaderboard players={players} loading={loading} playerName={this.props.playerName} />
+                  <Leaderboard players={players} playerName={this.props.playerName} />
                 </div>
                 <div className={content}>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
-                    <Search defaultValue={playerFound ? this.props.playerName : ''}/>
+                    <Search defaultValue={this.props.playerName}/>
                   </div>
                   <div className={playerInfo}>
+                    
                     {
-                      player !== undefined
+                      loading ? <div>Loading...</div> :
+                      players.length > 0 && player
                         ? <PlayerInfo player={player}/>
-                        : <div>{this.props.playerName} não existe!</div>
+                        : <div>{this.props.playerName} does not exists!</div>
                     }
                   </div>
                 </div>
-              </>
+              </SkeletonContext.Provider>
             )
           }}
         </Query>

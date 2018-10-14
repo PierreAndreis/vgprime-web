@@ -17,11 +17,11 @@ const container = css`
 
 
 export type PlayerRowProps = {
-  player: Player;
+  player: Player | undefined;
 }
 
 const PlayerRow: React.SFC<PlayerRowProps> = ({ player }) => {
-  
+  if (player === undefined) return null;
 
   return (
     <div className={boxCss}>

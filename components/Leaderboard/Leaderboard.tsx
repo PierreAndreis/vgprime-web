@@ -23,7 +23,6 @@ const navigationButtons = css`
 
 interface LeaderboardProps {
   players: PlayersList;
-  loading: boolean;
   playerName?: string;
   nextHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   previousHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -31,17 +30,14 @@ interface LeaderboardProps {
 export {LeaderboardProps};
 
 const Leaderboard = (
-  { players, loading, playerName, 
+  { players, playerName, 
     nextHandler, previousHandler 
   }: LeaderboardProps) => (
   <div>
     <div className={container}>
-      <SkeletonContext.Provider
-        value={loading ? "loading" : "loaded"}>
         {players.map(p => (
           <PlayerRow payload={p} isActive={p.name === playerName} key={p.rank} />
         ))}
-      </SkeletonContext.Provider>
     </div>
     {
       nextHandler && previousHandler &&

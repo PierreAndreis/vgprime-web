@@ -7,6 +7,7 @@ import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Prizes from "../components/Prizes";
 import Records from "../components/Records";
 import Search from "../components/Search";
+import {SkeletonContext, Skeleton} from '../components/common/Skeleton';
 
 const container = css`
   width: auto;
@@ -134,12 +135,12 @@ export default class Home extends React.Component<{}, State> {
           <Query query={qLeaderboard} variables={{page: this.state.page}}>
             {({ error, data, loading }) => {
               if (error) return <ErrorMessage message={error.message} />;
-              if (!data.leaderboard) {
-                console.log('invalid data:', data);
-                return <ErrorMessage message='No data fetched'/>
-              }
-              const players = data.leaderboard as PlayersList;
-              return <Leaderboard players={players} loading={loading} nextHandler={this.next} previousHandler={this.previous}/>
+              const players = data.leaderboard ? data.leaderboard as PlayersList : [] as PlayersList;
+              return (
+                <SkeletonContext.Provider value={loading ? 'loading' : 'loaded'}>
+                  <Leaderboard players={players} nextHandler={this.next} previousHandler={this.previous}/>
+                </SkeletonContext.Provider>
+              );
             }}
           </Query>
         </div>
