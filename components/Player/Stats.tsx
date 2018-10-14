@@ -1,11 +1,12 @@
-import * as React from 'react';
-import { Player } from 'graphql/leaderboard';
-import { css } from 'emotion';
+import * as React from "react";
+import { Player } from "../../graphql/leaderboard";
+import { css } from "emotion";
 import boxCss from "./../common/Box";
+import { SkeletonWrapper } from "../common/Skeleton";
 
 const container = css`
   ${boxCss};
-  magin: 0;
+  margin: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -33,19 +34,20 @@ const value = css`
 const description = css`
   font-size: 14px;
   font-weight: 300;
-  color: 
   text-transform: uppercase;
 `;
 
 type Props = {
   player: Player;
-}
+};
 
-const Stats = ({player}: Props) => {
+const Stats: React.SFC<Props> = ({ player }) => {
   return (
     <div className={container}>
       <div className={info}>
-        <span className={value}>{player.wins}</span>
+        <span className={value}>
+          <SkeletonWrapper>{() => player.wins}</SkeletonWrapper>
+        </span>
         <span className={description}>Wins</span>
       </div>
       <div className={info}>
@@ -61,7 +63,7 @@ const Stats = ({player}: Props) => {
         <span className={description}>Games</span>
       </div>
     </div>
-  )
+  );
 };
 
 export default Stats;
