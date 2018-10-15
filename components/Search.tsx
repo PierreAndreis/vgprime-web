@@ -24,7 +24,6 @@ const input = css`
   width: 99%;
   border: 0;
   outline: 0;
-  transparent: 0;
   padding: 15px;
   padding-right: 30%;
   font-size: 15px;
@@ -69,7 +68,7 @@ class Search extends React.Component<any, State> {
     };
   }
 
-  changeInput = (e: any) => {
+  changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
     this.setState({
@@ -124,4 +123,5 @@ class Search extends React.Component<any, State> {
   }
 }
 
-export default withRouter(Search);
+// @ts-ignore Argument of type 'typeof Search' is not assignable to parameter of type 'ComponentType<Props & WithRouterProps<Record<string, string | string[] | undefined>>>'.
+export default Search;

@@ -22,6 +22,7 @@ type Props = {
 const graphBox = css`
   ${Box};
   padding: 20px;
+  padding-left: 0px;
   min-height: 250px;
 `;
 
@@ -46,7 +47,7 @@ const Graph: React.SFC<Props> = ({ player, dataKey }) => {
         </LineChart>
       </ResponsiveContainer>
     </div>
-  )
+  );
 };
 
 export default Graph;

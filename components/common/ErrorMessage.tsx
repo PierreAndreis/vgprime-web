@@ -1,20 +1,22 @@
 import { css } from "emotion";
+import Layout from "./Layout";
+import Box from "./Box";
 
 const errorMessageClass = css`
-  aside {
-    padding: 1.5em;
-    font-size: 14px;
-    color: white;
-    background-color: red;
-  }
+  ${Box};
+  font-size: 14px;
+  color: white;
+  background-color: red;
+
+  margin: 15px 0;
 `;
 
 interface ErrorMessageProps {
   message: string;
 }
 
-export default ({message}: ErrorMessageProps) => (
-  <aside className={errorMessageClass}>
-    {message}
-  </aside>
-)
+export default ({ message }: ErrorMessageProps) => (
+  <Layout.Content>
+    <aside className={errorMessageClass}>{message}</aside>
+  </Layout.Content>
+);
