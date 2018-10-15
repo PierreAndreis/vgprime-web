@@ -1,8 +1,11 @@
 import * as React from "react";
 import Box from "./common/Box";
 import { css } from "emotion";
-import {withRouter} from 'next/router';
+import { withRouter } from "next/router";
 import { buttonCss } from "./common/Button";
+import { ApolloConsumer } from "react-apollo";
+import Router from 'next/router';
+import gql from "graphql-tag";
 
 const searchBox = css`
   height: 45px;
@@ -39,19 +42,32 @@ const submitButton = css`
   border-radius: 100px;
 `;
 
+const GET_PLAYER = gql`
+  query getPlayer($name: String!) {
+    player(name: $name) {
+      id
+    }
+  }
+`;
+
 type State = {
-  value: string
-}
+  value: string;
+  loading: boolean;
+  errored: boolean;
+  success: boolean;
+};
 
 class Search extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
-    let defaultValue = this.props.defaultValue ? this.props.defaultValue : '';
+    let defaultValue = this.props.defaultValue ? this.props.defaultValue : "";
     this.state = {
-      value: defaultValue
+      value: defaultValue,
+      loading: false,
+      errored: false,
+      success: false
     };
   }
-  
 
   changeInput = (e: any) => {
     const value = e.target.value;
@@ -61,26 +77,49 @@ class Search extends React.Component<any, State> {
     });
   };
 
-  onSubmit = (e: any) => {
-    e.preventDefault();
-    if (this.props.router) {
-      this.props.router.push({pathname: '/player', query: {name: this.state.value}});
-    }
-  };
-
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <div className={searchBox}>
-          <input
-            className={input}
-            value={this.state.value}
-            onChange={this.changeInput}
-            autoFocus
-          />
-          <button className={submitButton}>Search</button>
-        </div>
-      </form>
+      <ApolloConsumer>
+        {client => {
+          return (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                this.setState({loading: true, errored: false, success: false});
+                this.forceUpdate();
+                const { data } = await client.query({
+                  query: GET_PLAYER,
+                  variables: { name: this.state.value }
+                }) as any;
+                this.setState({loading: false});
+                if (data.player === null) {
+                  this.setState({errored: true});
+                } else {
+                  this.setState({success: true});
+                  const path = Router.pathname;
+                  await Router.push({
+                    pathname: "/player",
+                    query: { name: this.state.value }
+                  });
+                  if (path === '/player') {
+                    this.setState({success: false});
+                  }
+                }
+              }}
+            >
+              <div className={searchBox}>
+                <input
+                  className={input}
+                  value={this.state.value}
+                  onChange={this.changeInput}
+                  autoFocus
+                />
+                <button title={this.state.errored ? `Player not found!`: 'Search for the specified player'} className={submitButton}>{this.state.loading === true || this.state.success === true ? 'Searching...' : 'Search'} {this.state.errored === true && '<!>'}</button>
+              </div>
+            </form>
+          );
+        }}
+      </ApolloConsumer>
     );
   }
 }

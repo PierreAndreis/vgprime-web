@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Query } from "react-apollo";
+import { Query, withApollo } from "react-apollo";
 import { NextContext } from "next";
 import { css } from "emotion";
 import Leaderboard from "./../components/Leaderboard/Leaderboard";
@@ -131,6 +131,7 @@ class PlayerPage extends React.Component<Props> {
   static async getInitialProps({ query }: NextContext) {
     return { playerName: query.name };
   }
+
   render() {
     return (
       <div className={container}>
@@ -141,7 +142,6 @@ class PlayerPage extends React.Component<Props> {
           query={qLeaderboard}
           variables={{ playerName: this.props.playerName }} >
           {({ error, data, loading }) => {
-            console.log('actual data', data);
             if (error) {
               return <ErrorMessage message={error.message} />;
             }
@@ -163,7 +163,6 @@ class PlayerPage extends React.Component<Props> {
                     <Search defaultValue={this.props.playerName}/>
                   </div>
                   <div className={playerInfo}>
-                    
                     {
                       loading ? <div>Loading...</div> :
                       players.length > 0 && player

@@ -7,7 +7,7 @@ import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Prizes from "../components/Prizes";
 import Records from "../components/Records";
 import Search from "../components/Search";
-import {SkeletonContext, Skeleton} from '../components/common/Skeleton';
+import {SkeletonContext} from '../components/common/Skeleton';
 
 const container = css`
   width: auto;
