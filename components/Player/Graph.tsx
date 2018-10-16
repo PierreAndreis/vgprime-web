@@ -13,9 +13,10 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { SkeletonWrapper } from '../common/Skeleton';
 
 type Props = {
-  player: Player;
+  player?: Player;
   dataKey: string;
 }
 
@@ -26,26 +27,67 @@ const graphBox = css`
   min-height: 250px;
 `;
 
+const tooltipBox = css`
+  background-color: rgba(45, 45, 220, 0.5);
+  //border: 2px solid #dcdcdc;
+  padding: 20px;
+  color: #fff;
+  .label, .intro {
+    b {
+      font-weight: bold;
+    }
+  }
+  .label {
+    padding-bottom: 5px;
+  }
+`;
+
+// type TooltipProps = {
+//   type?: string;
+//   payload?: any[];
+//   label?: string;
+// }
+const CustomTooltip: React.SFC<any> = ({active, payload, label}) => {
+  if (active) {
+    const date = new Date(label).toLocaleDateString();
+    const info = payload[0].dataKey === 'rank' ? 'Rank'
+      : payload[0].dataKey === 'points' ? 'Points'
+      : 'Value'
+    return (
+      <div className={`custom-tooltip ${tooltipBox}`}>
+        <p className='label'><b>Date:</b> {date}</p>
+        <p className='intro'><b>{info}:</b> {payload[0].value}</p>
+      </div>
+    );
+  } else {
+    return (<div>Lol</div>)
+  }
+};
 
 const Graph: React.SFC<Props> = ({ player, dataKey }) => {
-  const historical = Object.values(player.historical).map((val: any) => {
+  const historical = player ? Object.values(player.historical).map((val: any) => {
     return val;
-  });
-  console.log(historical);
+  })
+  : [];
+  
   return (
     <div className={graphBox}>
-      <ResponsiveContainer minHeight="230px" width='100%'>
-        <LineChart data={historical}>
-          <Line dataKey={dataKey}></Line>
-          <XAxis dataKey='date' tickFormatter={t => {
-            return new Date(t).toLocaleDateString()
-          }}></XAxis>
-          <YAxis></YAxis>
-          <Tooltip/>
-          <Legend />
-          <CartesianGrid stroke="#ccc" />
-        </LineChart>
-      </ResponsiveContainer>
+      <SkeletonWrapper>
+      {() => 
+        <ResponsiveContainer minHeight="230px" width='100%'>
+          <LineChart data={historical} syncId='date'>
+            <Line dataKey={dataKey}></Line>
+            <XAxis dataKey='date' tickFormatter={t => {
+              return new Date(t).toLocaleDateString()
+            }}></XAxis>
+            <YAxis></YAxis>
+            <Tooltip content={<CustomTooltip/>}/>
+            <Legend />
+            <CartesianGrid stroke="#ccc" />
+          </LineChart>
+        </ResponsiveContainer>
+      }
+      </SkeletonWrapper>
     </div>
   );
 };

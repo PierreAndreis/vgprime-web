@@ -1,5 +1,5 @@
 import { css, cx } from "emotion";
-import { SkeletonWrapper } from "../common/Skeleton";
+import { SkeletonWrapper, Skeleton } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
 
 import boxCss from "./../common/Box";
@@ -17,7 +17,7 @@ const container = css`
 
 
 export type PlayerRowProps = {
-  player: Player | undefined;
+  player?: Player;
 }
 
 const PlayerRow: React.SFC<PlayerRowProps> = ({ player }) => {
@@ -25,8 +25,9 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ player }) => {
 
   return (
     <div className={boxCss}>
-      <div className="name">{player.name}</div>
-
+      <div className="name">
+        <SkeletonWrapper>{() => player.name}</SkeletonWrapper>
+      </div>
     </div>
   );
 };

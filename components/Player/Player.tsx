@@ -4,7 +4,7 @@ import { Player as PlayerType } from "../../graphql/leaderboard";
 import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
-import { SkeletonContext } from "../common/Skeleton";
+import { SkeletonWrapper } from "../common/Skeleton";
 
 // layout:
 // info   stats
@@ -48,12 +48,11 @@ const graph2 = css`
 `;
 
 type Props = {
-  player: PlayerType;
+  player?: PlayerType;
 };
 
 const Player: React.SFC<Props> = ({ player }) => {
   return (
-    <SkeletonContext.Provider value="loaded">
       <div className={container}>
         <div className={info}>
           <h4>Player Info</h4>
@@ -72,7 +71,6 @@ const Player: React.SFC<Props> = ({ player }) => {
           <Graph dataKey="rank" player={player}/>
         </div>
       </div>
-    </SkeletonContext.Provider>
   );
 };
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { css } from "emotion";
+import { css, keyframes } from "emotion";
 import {
   byPage as qLeaderboard,
   PlayersList
@@ -12,12 +12,28 @@ import Search from "../components/Search";
 import Layout from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
 const records = css`
   grid-area: content;
   order: 3;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+`;
+
+const transitionTimeMs = 300;
+
+const recordsExiting = css`
+  ${records};
+  animation: ${fadeOut} ${transitionTimeMs/1000}s ease forwards;
 `;
 
 const searchArea = css`
@@ -28,11 +44,13 @@ const searchArea = css`
 
 type State = {
   page: number;
+  exiting: boolean;
 };
 
 export default class Home extends React.Component<{}, State> {
   state = {
-    page: 0
+    page: 0,
+    exiting: false
   };
 
   next = () => {
@@ -66,9 +84,12 @@ export default class Home extends React.Component<{}, State> {
                 <Layout.Content>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
-                    <Search />
+                    <Search beforeSearch={() => {
+                      this.state.exiting = true;
+                      this.forceUpdate();
+                    }} timeout={transitionTimeMs/2}/>
                   </div>
-                  <div className={records}>
+                  <div className={this.state.exiting ? recordsExiting : records}>
                     <Records />
                   </div>
                 </Layout.Content>

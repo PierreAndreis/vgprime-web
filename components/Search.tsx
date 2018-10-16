@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "./common/Box";
 import { css } from "emotion";
-import { withRouter } from "next/router";
 import { buttonCss } from "./common/Button";
 import { ApolloConsumer } from "react-apollo";
 import Router from 'next/router';
@@ -49,6 +48,13 @@ const GET_PLAYER = gql`
   }
 `;
 
+type Props = {
+  defaultValue?: string;
+  beforeSearch?: () => void;
+  timeout?: number;
+  placeholder?: string;
+}
+
 type State = {
   value: string;
   loading: boolean;
@@ -56,8 +62,8 @@ type State = {
   success: boolean;
 };
 
-class Search extends React.Component<any, State> {
-  constructor(props: any) {
+class Search extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     let defaultValue = this.props.defaultValue ? this.props.defaultValue : "";
     this.state = {
@@ -75,6 +81,13 @@ class Search extends React.Component<any, State> {
       value
     });
   };
+
+  pushRoute = () => {
+    Router.push({
+      pathname: "/player",
+      query: { name: this.state.value }
+    });
+  }
 
   render() {
     return (
@@ -95,11 +108,14 @@ class Search extends React.Component<any, State> {
                   this.setState({errored: true});
                 } else {
                   this.setState({success: true});
+
+                  if (this.props.beforeSearch && this.props.timeout) {
+                    this.props.beforeSearch();
+                    setTimeout(this.pushRoute, this.props.timeout)
+                  } else {
+                    this.pushRoute();
+                  }
                   const path = Router.pathname;
-                  await Router.push({
-                    pathname: "/player",
-                    query: { name: this.state.value }
-                  });
                   if (path === '/player') {
                     this.setState({success: false});
                   }
@@ -111,6 +127,7 @@ class Search extends React.Component<any, State> {
                   className={input}
                   value={this.state.value}
                   onChange={this.changeInput}
+                  placeholder={this.props.placeholder ? this.props.placeholder : ''}
                   autoFocus
                 />
                 <button title={this.state.errored ? `Player not found!`: 'Search for the specified player'} className={submitButton}>{this.state.loading === true || this.state.success === true ? 'Searching...' : 'Search'} {this.state.errored === true && '<!>'}</button>

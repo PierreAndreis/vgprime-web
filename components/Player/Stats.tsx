@@ -38,7 +38,7 @@ const description = css`
 `;
 
 type Props = {
-  player: Player;
+  player?: Player;
 };
 
 const Stats: React.SFC<Props> = ({ player }) => {
@@ -46,20 +46,26 @@ const Stats: React.SFC<Props> = ({ player }) => {
     <div className={container}>
       <div className={info}>
         <span className={value}>
-          <SkeletonWrapper>{() => player.wins}</SkeletonWrapper>
+          <SkeletonWrapper>{() => player ? player.wins : 0}</SkeletonWrapper>
         </span>
         <span className={description}>Wins</span>
       </div>
       <div className={info}>
-        <span className={value}>{player.games - player.wins}</span>
+        <span className={value}>
+          <SkeletonWrapper>{() => player ? player.games - player.wins : 0}</SkeletonWrapper>
+        </span>
         <span className={description}>Losses</span>
       </div>
       <div className={info}>
-        <span className={value}>{player.mvp}</span>
+        <span className={value}>
+          <SkeletonWrapper>{() => player ? player.mvp : 0}</SkeletonWrapper>
+        </span>
         <span className={description}>MVPs</span>
       </div>
       <div className={info}>
-        <span className={value}>{player.games}</span>
+        <span className={value}>
+          <SkeletonWrapper>{() => player ? player.games : 0}</SkeletonWrapper>
+        </span>
         <span className={description}>Games</span>
       </div>
     </div>

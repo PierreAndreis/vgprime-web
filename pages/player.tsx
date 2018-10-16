@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Query, withApollo } from "react-apollo";
+import { Query } from "react-apollo";
 import { NextContext } from "next";
 import { css } from "emotion";
 import Layout from "./../components/common/Layout";
@@ -20,7 +20,6 @@ const playerInfo = css`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  animation: fadeIn 1s ease;
 `;
 
 const searchArea = css`
@@ -77,11 +76,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search placeholder={playerName} />
                   </div>
                   <div className={playerInfo}>
-                    {player !== undefined ? (
-                      <PlayerInfo player={player} />
-                    ) : (
-                      <div>{playerName} não existe!</div>
-                    )}
+                    <PlayerInfo player={player} />
                   </div>
                 </Layout.Content>
               </SkeletonContext.Provider>
