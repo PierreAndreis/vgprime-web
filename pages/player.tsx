@@ -40,10 +40,7 @@ class PlayerPage extends React.Component<Props> {
   render() {
     return (
       <Layout>
-        <Query
-          query={qLeaderboard}
-          variables={{ playerName: this.props.playerName }}
-        >
+        <Query query={qLeaderboard} variables={{ playerName: this.props.playerName }}>
           {({ error, data, loading }) => {
             if (error) {
               console.log("error while fetching data", error);
@@ -57,9 +54,7 @@ class PlayerPage extends React.Component<Props> {
 
             if (data.leaderboard) {
               players = data.leaderboard;
-              player = (data.leaderboard as PlayersList).find(
-                p => p.name === playerName
-              );
+              player = (data.leaderboard as PlayersList).find(p => p.name === playerName);
             }
 
             return (

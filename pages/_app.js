@@ -14,8 +14,8 @@ if (typeof window !== "undefined") {
   hydrate(window.__NEXT_DATA__.ids);
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  const {whyDidYouUpdate} = require('why-did-you-update');
+if (process.env.NODE_ENV !== "production") {
+  const { whyDidYouUpdate } = require("why-did-you-update");
   whyDidYouUpdate(React, { exclude: [/^Skeleton|Query|Styled/] });
 }
 

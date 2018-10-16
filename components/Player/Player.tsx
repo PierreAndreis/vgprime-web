@@ -1,14 +1,22 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css, keyframes } from "emotion";
 import { Player as PlayerType } from "../../graphql/leaderboard";
 import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
-import { SkeletonWrapper } from "../common/Skeleton";
 
 // layout:
 // info   stats
 // graph1 graph2
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const container = css`
   display: grid;
@@ -21,7 +29,7 @@ const container = css`
   grid-template-rows: 100px 200px;
   grid-template-columns: 50% 1fr;
   grid-gap: 15px;
-
+  animation: ${fadeIn} 0.5s ease;
   & > div {
     height: 100%;
     display: flex;

@@ -1,15 +1,8 @@
-import { css, cx } from "emotion";
-import { SkeletonWrapper, Skeleton } from "../common/Skeleton";
+import { css } from "emotion";
+import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
 
 import boxCss from "./../common/Box";
-
-const container = css`
-  ${boxCss};
-
-  justify-content: row;
-  height: 250px;
-`;
 
 export type PlayerRowProps = {
   player?: Player;

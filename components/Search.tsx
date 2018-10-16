@@ -5,6 +5,7 @@ import { buttonCss } from "./common/Button";
 import { ApolloConsumer } from "react-apollo";
 import Router from "next/router";
 import gql from "graphql-tag";
+import { ApolloClient, InMemoryCache } from "apollo-boost";
 
 const searchBox = css`
   height: 45px;
@@ -70,7 +71,7 @@ class Search extends React.Component<Props, State> {
       value: defaultValue,
       loading: false,
       errored: false,
-      success: false
+      success: false,
     };
   }
 
@@ -78,15 +79,46 @@ class Search extends React.Component<Props, State> {
     const value = e.target.value;
 
     this.setState({
-      value
+      value,
     });
   };
 
   pushRoute = () => {
     Router.push({
       pathname: "/player",
-      query: { name: this.state.value }
+      query: { name: this.state.value },
     });
+  };
+
+  onSubmit = (client: ApolloClient<InMemoryCache>) => async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    this.setState({
+      loading: true,
+      errored: false,
+      success: false,
+    });
+    this.forceUpdate();
+    const { data } = (await client.query({
+      query: GET_PLAYER,
+      variables: { name: this.state.value },
+    })) as any;
+    this.setState({ loading: false });
+    if (data.player === null) {
+      this.setState({ errored: true });
+    } else {
+      this.setState({ success: true });
+
+      if (this.props.beforeSearch && this.props.timeout) {
+        this.props.beforeSearch();
+        setTimeout(this.pushRoute, this.props.timeout);
+      } else {
+        this.pushRoute();
+      }
+      const path = Router.pathname;
+      if (path === "/player") {
+        this.setState({ success: false });
+      }
+    }
   };
 
   render() {
@@ -94,46 +126,13 @@ class Search extends React.Component<Props, State> {
       <ApolloConsumer>
         {client => {
           return (
-            <form
-              onSubmit={async e => {
-                e.preventDefault();
-                this.setState({
-                  loading: true,
-                  errored: false,
-                  success: false
-                });
-                this.forceUpdate();
-                const { data } = (await client.query({
-                  query: GET_PLAYER,
-                  variables: { name: this.state.value }
-                })) as any;
-                this.setState({ loading: false });
-                if (data.player === null) {
-                  this.setState({ errored: true });
-                } else {
-                  this.setState({ success: true });
-
-                  if (this.props.beforeSearch && this.props.timeout) {
-                    this.props.beforeSearch();
-                    setTimeout(this.pushRoute, this.props.timeout);
-                  } else {
-                    this.pushRoute();
-                  }
-                  const path = Router.pathname;
-                  if (path === "/player") {
-                    this.setState({ success: false });
-                  }
-                }
-              }}
-            >
+            <form onSubmit={this.onSubmit(client)}>
               <div className={searchBox}>
                 <input
                   className={input}
                   value={this.state.value}
                   onChange={this.changeInput}
-                  placeholder={
-                    this.props.placeholder ? this.props.placeholder : ""
-                  }
+                  placeholder={this.props.placeholder ? this.props.placeholder : ""}
                   autoFocus
                 />
                 <button

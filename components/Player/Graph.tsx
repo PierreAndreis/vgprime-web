@@ -8,19 +8,23 @@ import {
   Line,
   XAxis,
   YAxis,
-  ReferenceLine,
   CartesianGrid,
   Tooltip,
   Legend,
-  TooltipPayload
+  TooltipPayload,
 } from "recharts";
-import { SkeletonWrapper } from "../common/Skeleton";
+import { FadeLoader as LoadingIcon } from "react-spinners";
+import { SkeletonContext } from "../common/Skeleton";
+
+const loaderStyle = css``;
 
 const graphBox = css`
   ${Box};
   padding: 20px;
-  padding-left: 0px;
   min-height: 250px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 `;
 
 const tooltipBox = css`
@@ -45,12 +49,7 @@ type TooltipProps = {
   active?: boolean;
   title: string;
 };
-const CustomTooltip: React.SFC<TooltipProps> = ({
-  active,
-  payload,
-  label,
-  title
-}) => {
+const CustomTooltip: React.SFC<TooltipProps> = ({ active, payload, title }) => {
   if (!active || !payload || payload.length === 0) {
     return null;
   }
@@ -81,25 +80,29 @@ const Graph: React.SFC<Props> = ({ player, dataKey, title }) => {
 
   return (
     <div className={graphBox}>
-      <SkeletonWrapper>
-        {() => (
-          <ResponsiveContainer minHeight="230px" width="100%">
-            <LineChart data={historical} syncId="date">
-              <Line dataKey={dataKey} />
-              <XAxis
-                dataKey="date"
-                tickFormatter={t => {
-                  return new Date(t).toLocaleDateString();
-                }}
-              />
-              <YAxis reversed={dataKey === "rank"} />
-              <Tooltip content={<CustomTooltip title={title} />} />
-              <Legend />
-              <CartesianGrid stroke="#ccc" />
-            </LineChart>
-          </ResponsiveContainer>
-        )}
-      </SkeletonWrapper>
+      <SkeletonContext.Consumer>
+        {loading => {
+          if (loading === "loading")
+            return <LoadingIcon className={loaderStyle} loading={true} />;
+          return (
+            <ResponsiveContainer minHeight="230px" width="100%">
+              <LineChart data={historical} syncId="date">
+                <Line dataKey={dataKey} />
+                <XAxis
+                  dataKey="date"
+                  tickFormatter={t => {
+                    return new Date(t).toLocaleDateString();
+                  }}
+                />
+                <YAxis reversed={dataKey === "rank"} />
+                <Tooltip content={<CustomTooltip title={title} />} />
+                <Legend />
+                <CartesianGrid stroke="#ccc" />
+              </LineChart>
+            </ResponsiveContainer>
+          );
+        }}
+      </SkeletonContext.Consumer>
     </div>
   );
 };
