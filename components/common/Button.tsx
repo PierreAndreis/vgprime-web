@@ -38,9 +38,9 @@ export const buttonCss = css`
 `;
 
 type ButtonProps = {
-  className?: string,
-  disabled?: boolean
-} & React.HTMLAttributes<HTMLButtonElement>
+  className?: string;
+  disabled?: boolean;
+} & React.HTMLAttributes<HTMLButtonElement>;
 
 const Button: React.SFC<ButtonProps> = ({ className, ...props }) => (
   <button className={cx(className, buttonCss)} {...props} />

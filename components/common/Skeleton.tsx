@@ -26,12 +26,16 @@ const StyletonCSS = css`
 `;
 
 type SkeletonProps = {
-  width?: number,
-  height?: number,
-  borderRadius?: string
-}
+  width?: number;
+  height?: number;
+  borderRadius?: string;
+};
 
-const Skeleton: React.SFC<SkeletonProps> = ({ width, height, borderRadius }) => {
+const Skeleton: React.SFC<SkeletonProps> = ({
+  width,
+  height,
+  borderRadius
+}) => {
   const style = {
     width,
     height,
@@ -55,14 +59,16 @@ Skeleton.defaultProps = {
   borderRadius: "5px"
 };
 
-
 type SkeletonStatus = "loading" | "loaded" | "error";
 
 type SkeletonWrapperProps = {
-  children(): React.ReactNode,
-  status?: SkeletonStatus,
-  render?(status: SkeletonStatus, Skeleton: React.SFC<SkeletonProps>): JSX.Element
-} & SkeletonProps
+  children(): React.ReactNode;
+  status?: SkeletonStatus;
+  render?(
+    status: SkeletonStatus,
+    Skeleton: React.SFC<SkeletonProps>
+  ): JSX.Element;
+} & SkeletonProps;
 
 class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {
   render() {
@@ -71,14 +77,14 @@ class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {
     if (typeof render === "function") {
       return (
         <SkeletonContext.Consumer>
-          {(value) => render(value || status, Skeleton)}
+          {value => render(value || status, Skeleton)}
         </SkeletonContext.Consumer>
       );
     }
 
     return (
       <SkeletonContext.Consumer>
-        {(value) => {
+        {value => {
           let providedStatus = status || value;
           if (providedStatus === "loading") return <Skeleton {...props} />;
           else return children();
@@ -90,8 +96,4 @@ class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {
 
 const SkeletonContext = React.createContext<SkeletonStatus>("loading");
 
-export {
-  Skeleton,
-  SkeletonWrapper,
-  SkeletonContext
-};
+export { Skeleton, SkeletonWrapper, SkeletonContext };

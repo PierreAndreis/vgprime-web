@@ -238,9 +238,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({
             )}
           </SkeletonWrapper>
 
-          <div className={winRateLabel}>
-            {Math.floor(winPercent) || 0}% W/R
-          </div>
+          <div className={winRateLabel}>{Math.floor(winPercent) || 0}% W/R</div>
         </div>
       </div>
       <div className={games}>
@@ -251,18 +249,14 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({
       </div>
       <div className={games}>
         <div>
-          <SkeletonWrapper width={30}>
-            {() => payload.games}
-          </SkeletonWrapper>
+          <SkeletonWrapper width={30}>{() => payload.games}</SkeletonWrapper>
         </div>
         <span>GAMES</span>
       </div>
 
       <div className={points}>
         <div>
-          <SkeletonWrapper width={30}>
-            {() => payload.points}
-          </SkeletonWrapper>
+          <SkeletonWrapper width={30}>{() => payload.points}</SkeletonWrapper>
         </div>
         <span>POINTS</span>
       </div>

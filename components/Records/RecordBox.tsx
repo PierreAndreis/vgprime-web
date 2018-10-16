@@ -3,7 +3,7 @@ import { css } from "emotion";
 import { Query } from "react-apollo";
 
 import qRecord from "../../graphql/record";
-import {Record} from '../../graphql/record';
+import { Record } from "../../graphql/record";
 
 import Box from "./../common/Box";
 
@@ -88,9 +88,9 @@ const stats = css`
 `;
 
 type Props = {
-  type: string
-  title: string
-}
+  type: string;
+  title: string;
+};
 
 const RecordBox: React.SFC<Props> = ({ type, title }) => (
   <div>
@@ -111,9 +111,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                 <div className={name}>
                   <i className={`vg-rank-${player.tier}`} />
                   {player.name}
-                  <span>
-                    {player.region === "sg" ? "sea" : player.region}
-                  </span>
+                  <span>{player.region === "sg" ? "sea" : player.region}</span>
                   <div className={points}>
                     <div>{player.points}</div>
                     <span>Points</span>

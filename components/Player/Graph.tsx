@@ -1,6 +1,6 @@
-import * as React from 'react';
-import {css} from 'emotion';
-import { Player } from './../../graphql/leaderboard';
+import * as React from "react";
+import { css } from "emotion";
+import { Player } from "./../../graphql/leaderboard";
 import Box from "./../common/Box";
 import {
   ResponsiveContainer,
@@ -12,9 +12,9 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  TooltipPayload,
+  TooltipPayload
 } from "recharts";
-import { SkeletonWrapper } from '../common/Skeleton';
+import { SkeletonWrapper } from "../common/Skeleton";
 
 const graphBox = css`
   ${Box};
@@ -29,7 +29,8 @@ const tooltipBox = css`
   .label {
     padding-bottom: 10px;
   }
-  .label, .intro {
+  .label,
+  .intro {
     font-weight: 300;
     b {
       font-weight: 500;
@@ -43,18 +44,25 @@ type TooltipProps = {
   label?: string;
   active?: boolean;
   title: string;
-}
-const CustomTooltip: React.SFC<TooltipProps> = ({active, payload, label, title}) => {
+};
+const CustomTooltip: React.SFC<TooltipProps> = ({
+  active,
+  payload,
+  label,
+  title
+}) => {
   if (!active || !payload || payload.length === 0) {
     return null;
   }
-  console.log('payload', payload);
+  console.log("payload", payload);
   return (
     <div className={`custom-tooltip ${tooltipBox}`}>
       {
-      //<p className='label'><b>Date:</b> {date}</p>
+        //<p className='label'><b>Date:</b> {date}</p>
       }
-      <p className='intro'><b>{title}:</b> {payload[0].value}</p>
+      <p className="intro">
+        <b>{title}:</b> {payload[0].value}
+      </p>
     </div>
   );
 };
@@ -63,30 +71,34 @@ type Props = {
   player?: Player;
   dataKey: string;
   title: string;
-}
+};
 const Graph: React.SFC<Props> = ({ player, dataKey, title }) => {
-  const historical = player ? Object.values(player.historical).map((val: any) => {
-    return val;
-  })
-  : [];
-  
+  const historical = player
+    ? Object.values(player.historical).map((val: any) => {
+        return val;
+      })
+    : [];
+
   return (
     <div className={graphBox}>
       <SkeletonWrapper>
-      {() => 
-        <ResponsiveContainer minHeight="230px" width='100%'>
-          <LineChart data={historical} syncId='date'>
-            <Line dataKey={dataKey}></Line>
-            <XAxis dataKey='date' tickFormatter={t => {
-              return new Date(t).toLocaleDateString()
-            }}></XAxis>
-            <YAxis reversed={dataKey === 'rank'}></YAxis>
-            <Tooltip content={<CustomTooltip title={title}/>}/>
-            <Legend />
-            <CartesianGrid stroke="#ccc" />
-          </LineChart>
-        </ResponsiveContainer>
-      }
+        {() => (
+          <ResponsiveContainer minHeight="230px" width="100%">
+            <LineChart data={historical} syncId="date">
+              <Line dataKey={dataKey} />
+              <XAxis
+                dataKey="date"
+                tickFormatter={t => {
+                  return new Date(t).toLocaleDateString();
+                }}
+              />
+              <YAxis reversed={dataKey === "rank"} />
+              <Tooltip content={<CustomTooltip title={title} />} />
+              <Legend />
+              <CartesianGrid stroke="#ccc" />
+            </LineChart>
+          </ResponsiveContainer>
+        )}
       </SkeletonWrapper>
     </div>
   );

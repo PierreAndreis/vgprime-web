@@ -46,25 +46,27 @@ const Stats: React.SFC<Props> = ({ player }) => {
     <div className={container}>
       <div className={info}>
         <span className={value}>
-          <SkeletonWrapper>{() => player ? player.wins : 0}</SkeletonWrapper>
+          <SkeletonWrapper>{() => (player ? player.wins : 0)}</SkeletonWrapper>
         </span>
         <span className={description}>Wins</span>
       </div>
       <div className={info}>
         <span className={value}>
-          <SkeletonWrapper>{() => player ? player.games - player.wins : 0}</SkeletonWrapper>
+          <SkeletonWrapper>
+            {() => (player ? player.games - player.wins : 0)}
+          </SkeletonWrapper>
         </span>
         <span className={description}>Losses</span>
       </div>
       <div className={info}>
         <span className={value}>
-          <SkeletonWrapper>{() => player ? player.mvp : 0}</SkeletonWrapper>
+          <SkeletonWrapper>{() => (player ? player.mvp : 0)}</SkeletonWrapper>
         </span>
         <span className={description}>MVPs</span>
       </div>
       <div className={info}>
         <span className={value}>
-          <SkeletonWrapper>{() => player ? player.games : 0}</SkeletonWrapper>
+          <SkeletonWrapper>{() => (player ? player.games : 0)}</SkeletonWrapper>
         </span>
         <span className={description}>Games</span>
       </div>

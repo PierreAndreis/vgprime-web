@@ -63,9 +63,7 @@ class PlayerPage extends React.Component<Props> {
             }
 
             return (
-              <SkeletonContext.Provider
-                value={loading ? "loading" : "loaded"}
-              >
+              <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard players={players} playerName={playerName} />

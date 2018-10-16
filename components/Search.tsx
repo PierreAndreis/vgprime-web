@@ -3,7 +3,7 @@ import Box from "./common/Box";
 import { css } from "emotion";
 import { buttonCss } from "./common/Button";
 import { ApolloConsumer } from "react-apollo";
-import Router from 'next/router';
+import Router from "next/router";
 import gql from "graphql-tag";
 
 const searchBox = css`
@@ -53,7 +53,7 @@ type Props = {
   beforeSearch?: () => void;
   timeout?: number;
   placeholder?: string;
-}
+};
 
 type State = {
   value: string;
@@ -87,7 +87,7 @@ class Search extends React.Component<Props, State> {
       pathname: "/player",
       query: { name: this.state.value }
     });
-  }
+  };
 
   render() {
     return (
@@ -95,29 +95,33 @@ class Search extends React.Component<Props, State> {
         {client => {
           return (
             <form
-              onSubmit={async (e) => {
+              onSubmit={async e => {
                 e.preventDefault();
-                this.setState({loading: true, errored: false, success: false});
+                this.setState({
+                  loading: true,
+                  errored: false,
+                  success: false
+                });
                 this.forceUpdate();
-                const { data } = await client.query({
+                const { data } = (await client.query({
                   query: GET_PLAYER,
                   variables: { name: this.state.value }
-                }) as any;
-                this.setState({loading: false});
+                })) as any;
+                this.setState({ loading: false });
                 if (data.player === null) {
-                  this.setState({errored: true});
+                  this.setState({ errored: true });
                 } else {
-                  this.setState({success: true});
+                  this.setState({ success: true });
 
                   if (this.props.beforeSearch && this.props.timeout) {
                     this.props.beforeSearch();
-                    setTimeout(this.pushRoute, this.props.timeout)
+                    setTimeout(this.pushRoute, this.props.timeout);
                   } else {
                     this.pushRoute();
                   }
                   const path = Router.pathname;
-                  if (path === '/player') {
-                    this.setState({success: false});
+                  if (path === "/player") {
+                    this.setState({ success: false });
                   }
                 }
               }}
@@ -127,10 +131,24 @@ class Search extends React.Component<Props, State> {
                   className={input}
                   value={this.state.value}
                   onChange={this.changeInput}
-                  placeholder={this.props.placeholder ? this.props.placeholder : ''}
+                  placeholder={
+                    this.props.placeholder ? this.props.placeholder : ""
+                  }
                   autoFocus
                 />
-                <button title={this.state.errored ? `Player not found!`: 'Search for the specified player'} className={submitButton}>{this.state.loading === true || this.state.success === true ? 'Searching...' : 'Search'} {this.state.errored === true && '<!>'}</button>
+                <button
+                  title={
+                    this.state.errored
+                      ? `Player not found!`
+                      : "Search for the specified player"
+                  }
+                  className={submitButton}
+                >
+                  {this.state.loading === true || this.state.success === true
+                    ? "Searching..."
+                    : "Search"}{" "}
+                  {this.state.errored === true && "<!>"}
+                </button>
               </div>
             </form>
           );

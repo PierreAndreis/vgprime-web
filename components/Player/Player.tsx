@@ -53,24 +53,24 @@ type Props = {
 
 const Player: React.SFC<Props> = ({ player }) => {
   return (
-      <div className={container}>
-        <div className={info}>
-          <h4>Player Info</h4>
-          <PlayerInfo player={player} />
-        </div>
-        <div className={stats}>
-          <h4>Player Stats</h4>
-          <Stats player={player} />
-        </div>
-        <div className={graph1}>
-          <h4>Points over time</h4>
-          <Graph dataKey="points" title="Points" player={player}/>
-        </div>
-        <div className={graph2}>
-          <h4>Rank over time</h4>
-          <Graph dataKey="rank" title="Rank" player={player}/>
-        </div>
+    <div className={container}>
+      <div className={info}>
+        <h4>Player Info</h4>
+        <PlayerInfo player={player} />
       </div>
+      <div className={stats}>
+        <h4>Player Stats</h4>
+        <Stats player={player} />
+      </div>
+      <div className={graph1}>
+        <h4>Points over time</h4>
+        <Graph dataKey="points" title="Points" player={player} />
+      </div>
+      <div className={graph2}>
+        <h4>Rank over time</h4>
+        <Graph dataKey="rank" title="Rank" player={player} />
+      </div>
+    </div>
   );
 };
 

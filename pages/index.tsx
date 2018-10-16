@@ -1,10 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { css, keyframes } from "emotion";
-import {
-  byPage as qLeaderboard,
-  PlayersList
-} from "../graphql/leaderboard";
+import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import ErrorMessage from "../components/common/ErrorMessage";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Records from "../components/Records";
@@ -33,7 +30,7 @@ const transitionTimeMs = 300;
 
 const recordsExiting = css`
   ${records};
-  animation: ${fadeOut} ${transitionTimeMs/1000}s ease forwards;
+  animation: ${fadeOut} ${transitionTimeMs / 1000}s ease forwards;
 `;
 
 const searchArea = css`
@@ -70,9 +67,7 @@ export default class Home extends React.Component<{}, State> {
             }
             const players = data.leaderboard as PlayersList;
             return (
-              <SkeletonContext.Provider
-                value={loading ? "loading" : "loaded"}
-              >
+              <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard
@@ -84,12 +79,17 @@ export default class Home extends React.Component<{}, State> {
                 <Layout.Content>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
-                    <Search beforeSearch={() => {
-                      this.state.exiting = true;
-                      this.forceUpdate();
-                    }} timeout={transitionTimeMs/2}/>
+                    <Search
+                      beforeSearch={() => {
+                        this.state.exiting = true;
+                        this.forceUpdate();
+                      }}
+                      timeout={transitionTimeMs / 2}
+                    />
                   </div>
-                  <div className={this.state.exiting ? recordsExiting : records}>
+                  <div
+                    className={this.state.exiting ? recordsExiting : records}
+                  >
                     <Records />
                   </div>
                 </Layout.Content>
