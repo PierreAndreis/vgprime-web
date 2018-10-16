@@ -28,17 +28,16 @@ const graphBox = css`
 `;
 
 const tooltipBox = css`
-  background-color: rgba(45, 45, 220, 0.5);
-  //border: 2px solid #dcdcdc;
+  ${Box};
   padding: 20px;
-  color: #fff;
-  .label, .intro {
-    b {
-      font-weight: bold;
-    }
-  }
   .label {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
+  }
+  .label, .intro {
+    font-weight: 300;
+    b {
+      font-weight: 500;
+    }
   }
 `;
 
@@ -55,7 +54,9 @@ const CustomTooltip: React.SFC<any> = ({active, payload, label}) => {
       : 'Value'
     return (
       <div className={`custom-tooltip ${tooltipBox}`}>
-        <p className='label'><b>Date:</b> {date}</p>
+        {
+        //<p className='label'><b>Date:</b> {date}</p>
+        }
         <p className='intro'><b>{info}:</b> {payload[0].value}</p>
       </div>
     );
@@ -80,7 +81,7 @@ const Graph: React.SFC<Props> = ({ player, dataKey }) => {
             <XAxis dataKey='date' tickFormatter={t => {
               return new Date(t).toLocaleDateString()
             }}></XAxis>
-            <YAxis></YAxis>
+            <YAxis reversed={dataKey === 'rank'}></YAxis>
             <Tooltip content={<CustomTooltip/>}/>
             <Legend />
             <CartesianGrid stroke="#ccc" />
