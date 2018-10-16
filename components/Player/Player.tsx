@@ -64,11 +64,11 @@ const Player: React.SFC<Props> = ({ player }) => {
         </div>
         <div className={graph1}>
           <h4>Points over time</h4>
-          <Graph dataKey="points" player={player}/>
+          <Graph dataKey="points" title="Points" player={player}/>
         </div>
         <div className={graph2}>
           <h4>Rank over time</h4>
-          <Graph dataKey="rank" player={player}/>
+          <Graph dataKey="rank" title="Rank" player={player}/>
         </div>
       </div>
   );
