@@ -12,13 +12,9 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  TooltipPayload,
 } from "recharts";
 import { SkeletonWrapper } from '../common/Skeleton';
-
-type Props = {
-  player?: Player;
-  dataKey: string;
-}
 
 const graphBox = css`
   ${Box};
@@ -41,31 +37,34 @@ const tooltipBox = css`
   }
 `;
 
-// type TooltipProps = {
-//   type?: string;
-//   payload?: any[];
-//   label?: string;
-// }
-const CustomTooltip: React.SFC<any> = ({active, payload, label}) => {
-  if (active) {
-    const date = new Date(label).toLocaleDateString();
-    const info = payload[0].dataKey === 'rank' ? 'Rank'
-      : payload[0].dataKey === 'points' ? 'Points'
-      : 'Value'
-    return (
-      <div className={`custom-tooltip ${tooltipBox}`}>
-        {
-        //<p className='label'><b>Date:</b> {date}</p>
-        }
-        <p className='intro'><b>{info}:</b> {payload[0].value}</p>
-      </div>
-    );
-  } else {
-    return (<div>Lol</div>)
+type TooltipProps = {
+  type?: string;
+  payload?: TooltipPayload[];
+  label?: string;
+  active?: boolean;
+  title: string;
+}
+const CustomTooltip: React.SFC<TooltipProps> = ({active, payload, label, title}) => {
+  if (!active || !payload || payload.length === 0) {
+    return null;
   }
+  console.log('payload', payload);
+  return (
+    <div className={`custom-tooltip ${tooltipBox}`}>
+      {
+      //<p className='label'><b>Date:</b> {date}</p>
+      }
+      <p className='intro'><b>{title}:</b> {payload[0].value}</p>
+    </div>
+  );
 };
 
-const Graph: React.SFC<Props> = ({ player, dataKey }) => {
+type Props = {
+  player?: Player;
+  dataKey: string;
+  title: string;
+}
+const Graph: React.SFC<Props> = ({ player, dataKey, title }) => {
   const historical = player ? Object.values(player.historical).map((val: any) => {
     return val;
   })
@@ -82,7 +81,7 @@ const Graph: React.SFC<Props> = ({ player, dataKey }) => {
               return new Date(t).toLocaleDateString()
             }}></XAxis>
             <YAxis reversed={dataKey === 'rank'}></YAxis>
-            <Tooltip content={<CustomTooltip/>}/>
+            <Tooltip content={<CustomTooltip title={title}/>}/>
             <Legend />
             <CartesianGrid stroke="#ccc" />
           </LineChart>
