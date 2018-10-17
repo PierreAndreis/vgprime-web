@@ -67,7 +67,7 @@ export type Historical = {
 const FindRank = (dt: Date, historical: any) => {
   let index = -1;
   for (let i = historical.length - 1; i >= 0; i--) {
-    if (DaysBetween(dt, new Date(historical.date)) > 0) {
+    if (DaysBetween(dt, new Date(historical.date)) >= 0) {
       index = i;
       continue;
     }
