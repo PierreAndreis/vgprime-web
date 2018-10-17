@@ -4,6 +4,7 @@ import { Player as PlayerType } from "../../graphql/leaderboard";
 import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
+import { ListDatesFromToday, IsSameDay, DaysBetween } from "../../lib/date-management";
 
 // layout:
 // info   stats
@@ -55,11 +56,52 @@ const graph2 = css`
   grid-area: graph2;
 `;
 
+const DAYS_AMMOUNT_ON_GRAPH = 5;
+
+export type Historical = {
+  date: string;
+  rank: number;
+  points: number;
+};
+
+const FindRank = (dt: Date, historical: any) => {
+  let index = -1;
+  for (let i = historical.length - 1; i >= 0; i--) {
+    if (DaysBetween(dt, new Date(historical.date)) > 0) {
+      index = i;
+      continue;
+    }
+    index = i;
+    break;
+  }
+  return index > -1 ? historical[index].rank : -1;
+};
+
 type Props = {
   player?: PlayerType;
 };
 
 const Player: React.SFC<Props> = ({ player }) => {
+  const fullHistorical = player
+    ? Object.values(player.historical).map((val: any) => {
+        return val as Historical;
+      })
+    : [];
+  const historical = [] as Historical[];
+  const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
+  for (const d of neededDates) {
+    const hist = fullHistorical.find(h => IsSameDay(new Date(h.date), d));
+    if (hist) {
+      historical.push({ ...hist, date: new Date(hist.date).toLocaleDateString() });
+      continue;
+    }
+    historical.push({ date: d.toLocaleDateString(), rank: -1, points: 0 });
+  }
+
+  for (let i = 0; i < historical.length; i++) {
+    if (historical[i].rank > 0) continue;
+    historical[i].rank = FindRank(new Date(historical[i].date), fullHistorical);
+  }
   return (
     <div className={container}>
       <div className={info}>
@@ -72,11 +114,11 @@ const Player: React.SFC<Props> = ({ player }) => {
       </div>
       <div className={graph1}>
         <h4>Points over time</h4>
-        <Graph dataKey="points" title="Points" player={player} />
+        <Graph dataKey="points" title="Points" data={historical} />
       </div>
       <div className={graph2}>
         <h4>Rank over time</h4>
-        <Graph dataKey="rank" title="Rank" player={player} />
+        <Graph dataKey="rank" title="Rank" data={historical} />
       </div>
     </div>
   );

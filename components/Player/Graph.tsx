@@ -12,9 +12,11 @@ import {
   Tooltip,
   Legend,
   TooltipPayload,
+  TickFormatterFunction,
 } from "recharts";
 import { FadeLoader as LoadingIcon } from "react-spinners";
 import { SkeletonContext } from "../common/Skeleton";
+import { Historical } from "./Player";
 
 const loaderStyle = css``;
 
@@ -42,9 +44,13 @@ const tooltipBox = css`
   }
 `;
 
+interface CustomTooltipPayload extends TooltipPayload {
+  payload: Historical;
+}
+
 type TooltipProps = {
   type?: string;
-  payload?: TooltipPayload[];
+  payload?: CustomTooltipPayload[];
   label?: string;
   active?: boolean;
   title: string;
@@ -53,11 +59,16 @@ const CustomTooltip: React.SFC<TooltipProps> = ({ active, payload, title }) => {
   if (!active || !payload || payload.length === 0) {
     return null;
   }
+
+  const strDate = payload[0].payload.date;
+
   console.log("payload", payload);
   return (
     <div className={`custom-tooltip ${tooltipBox}`}>
       {
-        //<p className='label'><b>Date:</b> {date}</p>
+        <p className="label">
+          <b>Date:</b> {strDate}
+        </p>
       }
       <p className="intro">
         <b>{title}:</b> {payload[0].value}
@@ -67,22 +78,13 @@ const CustomTooltip: React.SFC<TooltipProps> = ({ active, payload, title }) => {
 };
 
 type Props = {
-  player?: Player;
+  data?: Historical[];
   dataKey: string;
   title: string;
 };
-const Graph: React.SFC<Props> = ({ player, dataKey, title }) => {
-  const fullHistorical = player
-    ? Object.values(player.historical).map((val: any) => {
-        return val;
-      })
-    : [];
-  const historical = [] as Player[];
-  while (historical.length < 5 && historical.length < fullHistorical.length) {
-    historical.push(fullHistorical.pop());
-  }
-  historical.reverse();
 
+const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
+  console.log(data);
   return (
     <div className={graphBox}>
       <SkeletonContext.Consumer>
@@ -91,14 +93,9 @@ const Graph: React.SFC<Props> = ({ player, dataKey, title }) => {
             return <LoadingIcon className={loaderStyle} loading={true} />;
           return (
             <ResponsiveContainer minHeight="230px" width="100%">
-              <LineChart data={historical} syncId="date">
+              <LineChart data={data} syncId="date">
                 <Line dataKey={dataKey} />
-                <XAxis
-                  dataKey="date"
-                  tickFormatter={t => {
-                    return new Date(t).toLocaleDateString();
-                  }}
-                />
+                <XAxis dataKey="date" />
                 <YAxis reversed={dataKey === "rank"} />
                 <Tooltip content={<CustomTooltip title={title} />} />
                 <Legend />
