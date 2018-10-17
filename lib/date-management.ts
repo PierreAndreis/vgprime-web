@@ -9,7 +9,7 @@ const ListDatesFromToday = (days: number) => {
   const today = new Date();
   const dates = [] as Date[];
   while (dates.length < days) {
-    let newDate = new Date(today.valueOf());
+    let newDate = new Date(today);
     newDate.setDate(newDate.getDate() - dates.length);
     dates.unshift(newDate);
   }

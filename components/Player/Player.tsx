@@ -77,16 +77,10 @@ const FindRank = (dt: Date, historical: any) => {
   return index > -1 ? historical[index].rank : -1;
 };
 
-type Props = {
-  player?: PlayerType;
-};
-
-const Player: React.SFC<Props> = ({ player }) => {
-  const fullHistorical = player
-    ? Object.values(player.historical).map((val: any) => {
-        return val as Historical;
-      })
-    : [];
+const generateHistorical = (historicalObject: any) => {
+  const fullHistorical = Object.values(historicalObject).map((val: any) => {
+    return val as Historical;
+  });
   const historical = [] as Historical[];
   const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
   for (const d of neededDates) {
@@ -97,11 +91,18 @@ const Player: React.SFC<Props> = ({ player }) => {
     }
     historical.push({ date: d.toLocaleDateString(), rank: -1, points: 0 });
   }
-
   for (let i = 0; i < historical.length; i++) {
     if (historical[i].rank > 0) continue;
     historical[i].rank = FindRank(new Date(historical[i].date), fullHistorical);
   }
+  return historical;
+};
+
+type Props = {
+  player?: PlayerType;
+};
+const Player: React.SFC<Props> = ({ player }) => {
+  const historical = player ? generateHistorical(player.historical) : [];
   return (
     <div className={container}>
       <div className={info}>
