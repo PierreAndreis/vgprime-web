@@ -72,11 +72,16 @@ type Props = {
   title: string;
 };
 const Graph: React.SFC<Props> = ({ player, dataKey, title }) => {
-  const historical = player
+  const fullHistorical = player
     ? Object.values(player.historical).map((val: any) => {
         return val;
       })
     : [];
+  const historical = [] as Player[];
+  while (historical.length < 5 && historical.length < fullHistorical.length) {
+    historical.push(fullHistorical.pop());
+  }
+  historical.reverse();
 
   return (
     <div className={graphBox}>
