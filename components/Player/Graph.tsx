@@ -82,7 +82,6 @@ type Props = {
 };
 
 const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
-  console.log(data);
   return (
     <div className={graphBox}>
       <SkeletonContext.Consumer>

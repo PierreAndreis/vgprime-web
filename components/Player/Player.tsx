@@ -104,19 +104,37 @@ const FindHistorical = (dt: Date, historical: Historical[]) => {
   return hist;
 };
 
+const extractDate = (date: string) => {
+  const arr = date.split("/");
+  return new Date(+arr[2], +arr[0], +arr[1]);
+};
+
 const generateHistorical = (historicalObject: any) => {
-  const fullHistorical = Object.values(historicalObject).map((val: any) => {
+  // const fullHistorical = Object.values(historicalObject).map((val: any) => {
+  //   return {
+  //     date: new Date(val.date).toLocaleDateString(),
+  //     rank: val.rank,
+  //     points: val.points,
+  //   } as Historical;
+  // });
+  const fullHistorical = Object.keys(historicalObject).map((key: string) => {
+    const value = historicalObject[key];
+    let hasDateInside = false;
+    if ("date" in value) hasDateInside = true;
+    const date = hasDateInside
+      ? new Date(value.date).toLocaleDateString()
+      : extractDate(key).toLocaleDateString();
     return {
-      date: new Date(val.date).toLocaleDateString(),
-      rank: val.rank,
-      points: val.points,
-    } as Historical;
+      date,
+      rank: value.rank,
+      points: value.points,
+    };
   });
   fullHistorical.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  while (fullHistorical.length > 5) {
+  while (fullHistorical.length > DAYS_AMMOUNT_ON_GRAPH) {
     fullHistorical.shift();
   }
-  console.log("fullHistorical: ", fullHistorical);
+  console.log(fullHistorical);
   const historical: Array<Historical> = [];
   const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
   for (const d of neededDates) {
