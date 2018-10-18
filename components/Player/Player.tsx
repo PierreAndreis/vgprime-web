@@ -65,6 +65,7 @@ export type Historical = {
 };
 
 const FindRank = (dt: Date, historical: any) => {
+  console.log("Finding rank for date: ", dt);
   let index = -1;
   for (let i = historical.length - 1; i >= 0; i--) {
     if (DaysBetween(dt, new Date(historical.date)) >= 0) {
@@ -81,7 +82,7 @@ const generateHistorical = (historicalObject: any) => {
   const fullHistorical = Object.values(historicalObject).map((val: any) => {
     return val as Historical;
   });
-  const historical = [] as Historical[];
+  const historical: Array<Historical> = [];
   const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
   for (const d of neededDates) {
     const hist = fullHistorical.find(h => IsSameDay(new Date(h.date), d));

@@ -51,12 +51,15 @@ const points = css`
   font-size: 15px;
   margin-left: auto;
   text-align: center;
+  background-color: #4a90e2;
+  border-radius: 15px;
+  color: #fff;
+  padding: 4px 8px 4px 8px;
   & > div {
     font-size: 21px;
   }
   & > span {
     font-size: 13px;
-    text-transform: uppercase;
   }
 `;
 
@@ -113,8 +116,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                   {player.name}
                   <span>{player.region === "sg" ? "sea" : player.region}</span>
                   <div className={points}>
-                    <div>{player.points}</div>
-                    <span>Points</span>
+                    <span>{player.points} Pts</span>
                   </div>
                 </div>
                 <div className={stats}>
@@ -129,7 +131,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                   <div>
                     <div
                       style={{
-                        color: winRate > 50 ? "#4A90E2" : "#D0021B"
+                        color: winRate > 50 ? "#4A90E2" : "#D0021B",
                       }}
                     >
                       {winRate}%
