@@ -71,7 +71,7 @@ const FindRank = (dt: Date, historical: Historical[]) => {
   if (!hist) {
     hist = historical.find(h => new Date(h.date) > startDt);
   }
-  console.log(`Finding rank for ${dt.toLocaleDateString}...`);
+  console.log(`Finding rank for ${dt.toLocaleDateString()}...`);
   if (hist) console.log("Rank found!", hist.rank);
   if (!hist) console.log("Rank not found!");
   if (hist) return hist.rank;

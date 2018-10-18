@@ -61,8 +61,6 @@ const CustomTooltip: React.SFC<TooltipProps> = ({ active, payload, title }) => {
   }
 
   const strDate = payload[0].payload.date;
-
-  console.log("payload", payload);
   return (
     <div className={`custom-tooltip ${tooltipBox}`}>
       {
