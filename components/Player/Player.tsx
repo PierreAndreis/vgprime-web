@@ -175,7 +175,7 @@ const generateHistorical = (historicalObject: any) => {
     } as Historical;
   });
   while (fullHistorical.length > 5) {
-    fullHistorical.shift();
+    fullHistorical.pop();
   }
   console.log("fullHistorical: ", fullHistorical);
   const historical: Array<Historical> = [];
