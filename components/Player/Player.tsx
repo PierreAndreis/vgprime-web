@@ -80,7 +80,7 @@ const FindHistorical = (dt: Date, historical: Historical[]) => {
     console.log(
       "Historical not found on list. We will search the nearest LESS date to get the RANK."
     );
-    for (let h of historical.slice().reverse()) {
+    for (let h of historical) {
       if (new Date(h.date) < new Date(strDt)) {
         hist = h;
         break;
@@ -90,7 +90,7 @@ const FindHistorical = (dt: Date, historical: Historical[]) => {
       console.log(
         "Less date historical not found, we will try to get the nearest MORE date to get the RANK."
       );
-      for (let h of historical) {
+      for (let h of historical.slice().reverse()) {
         if (new Date(h.date) > new Date(strDt)) {
           hist = h;
         }
