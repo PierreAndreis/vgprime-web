@@ -64,18 +64,28 @@ export type Historical = {
   points: number;
 };
 
-const FindRank = (dt: Date, historical: any) => {
-  console.log("Finding rank for date: ", dt);
-  let index = -1;
-  for (let i = historical.length - 1; i >= 0; i--) {
-    if (DaysBetween(dt, new Date(historical.date)) >= 0) {
-      index = i;
-      continue;
-    }
-    index = i;
-    break;
+const FindRank = (dt: Date, historical: Historical[]) => {
+  const startDt = new Date(dt.toLocaleDateString());
+  const reversedHistorical = historical.slice().reverse();
+  let hist = reversedHistorical.find(h => new Date(h.date) < startDt);
+  if (!hist) {
+    hist = historical.find(h => new Date(h.date) > startDt);
   }
-  return index > -1 ? historical[index].rank : -1;
+  console.log(`Finding rank for ${dt.toLocaleDateString}...`);
+  if (hist) console.log("Rank found!", hist.rank);
+  if (!hist) console.log("Rank not found!");
+  if (hist) return hist.rank;
+  return -1;
+  // let index = -1;
+  // for (let i = historical.length - 1; i >= 0; i--) {
+  //   if (DaysBetween(dt, new Date(historical.date)) >= 0) {
+  //     index = i;
+  //     continue;
+  //   }
+  //   index = i;
+  //   break;
+  // }
+  // return index > -1 ? historical[index].rank : -1;
 };
 
 const generateHistorical = (historicalObject: any) => {
