@@ -67,35 +67,78 @@ export type Historical = {
 const FindHistorical = (dt: Date, historical: Historical[]) => {
   const strDt = dt.toLocaleDateString();
   console.log(`Searching for ${strDt} on historical...`);
-  let hist = historical.slice().find(h => h.date === strDt);
-  if (!hist && historical.length > 0) {
+  console.log("Historical: ", historical);
+  let hist: Historical | undefined;
+  for (let h of historical) {
+    console.log(h);
+    if (h.date === strDt) {
+      hist = h;
+      break;
+    }
+  }
+  if (!hist) {
     console.log(
-      "Not found! Now we will search the nearest hist with less date than the searching one to get the rank"
+      "Historical not found on list. We will search the nearest LESS date to get the RANK."
     );
-    hist = historical
-      .slice()
-      .reverse()
-      .find(h => new Date(h.date) < new Date(strDt));
+    for (let h of historical.slice().reverse()) {
+      if (new Date(h.date) < new Date(strDt)) {
+        hist = h;
+        break;
+      }
+    }
     if (!hist) {
       console.log(
-        "Not found! Now we weill search the nearest hist with more date than the searching one to get the rank"
+        "Less date historical not found, we will try to get the nearest MORE date to get the RANK."
       );
-      hist = historical.slice().find(h => new Date(h.date) > new Date(strDt));
+      for (let h of historical) {
+        if (new Date(h.date) > new Date(strDt)) {
+          hist = h;
+        }
+      }
     }
     if (hist) {
-      console.log("Found! Setting points to zero!");
+      hist = JSON.parse(JSON.stringify(hist)) as Historical;
       hist.date = strDt;
       hist.points = 0;
     }
   }
+
   if (!hist) {
-    console.log("Not found! Setting default object (rank -1, points 0)...");
     hist = {
       date: strDt,
-      rank: -1,
       points: 0,
-    };
+      rank: -1,
+    } as Historical;
   }
+  // console.log("Historical: ", historical);
+  // if (!hist && historical.length > 0) {
+  //   console.log(
+  //     "Not found! Now we will search the nearest hist with LESS date than the searching one to get the rank"
+  //   );
+  //   hist = historical
+  //     .slice()
+  //     .reverse()
+  //     .find(h => new Date(h.date) < new Date(strDt));
+  //   if (!hist) {
+  //     console.log(
+  //       "Not found! Now we we will search the nearest hist with MORE date than the searching one to get the rank"
+  //     );
+  //     hist = historical.slice().find(h => new Date(h.date) > new Date(strDt));
+  //   }
+  //   if (hist) {
+  //     console.log("Found! Setting points to zero!");
+  //     hist.date = strDt;
+  //     hist.points = 0;
+  //   }
+  // }
+  // if (!hist) {
+  //   console.log("Not found! Setting default object (rank -1, points 0)...");
+  //   hist = {
+  //     date: strDt,
+  //     rank: -1,
+  //     points: 0,
+  //   };
+  // }
   return hist;
 };
 
@@ -125,11 +168,16 @@ const FindRank = (dt: Date, historical: Historical[]) => {
 
 const generateHistorical = (historicalObject: any) => {
   const fullHistorical = Object.values(historicalObject).map((val: any) => {
-    return val as Historical;
+    return {
+      date: new Date(val.date).toLocaleDateString(),
+      rank: val.rank,
+      points: val.points,
+    } as Historical;
   });
   while (fullHistorical.length > 5) {
     fullHistorical.shift();
   }
+  console.log("fullHistorical: ", fullHistorical);
   const historical: Array<Historical> = [];
   const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
   for (const d of neededDates) {
@@ -141,6 +189,7 @@ const generateHistorical = (historicalObject: any) => {
     // historical.push({ date: d.toLocaleDateString(), rank: -1, points: 0 });
     historical.push(FindHistorical(d, fullHistorical));
   }
+  console.log("fullHistorical: ", fullHistorical);
   // for (let i = 0; i < historical.length; i++) {
   //   if (historical[i].rank > 0) continue;
   //   historical[i].rank = FindRank(new Date(historical[i].date), fullHistorical);
