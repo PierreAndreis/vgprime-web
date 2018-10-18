@@ -31,29 +31,54 @@ const container = css`
   grid-template-columns: 50% 1fr;
   grid-gap: 15px;
   animation: ${fadeIn} 0.5s ease;
-  & > div {
+  /*& > div {
     height: 100%;
     display: flex;
     flex-direction: column;
     & > div {
       flex-grow: 1;
     }
+    */
+  }
+
+  @media screen and (max-width: 1300px) {
+    grid-template:
+      "info stats"
+      "graph1 graph1" auto
+      "graph2 graph2" auto
+      / 360px 1fr;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 380px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
 const info = css`
   grid-area: info;
+  margin: 0;
+  width: 100%;
 `;
 
 const stats = css`
   grid-area: stats;
+  margin: 0;
+  width: 100%;
 `;
 
 const graph1 = css`
   grid-area: graph1;
+  margin: 0;
+  width: 100%;
 `;
 const graph2 = css`
   grid-area: graph2;
+  margin: 0;
+  width: 100%;
 `;
 
 const DAYS_AMMOUNT_ON_GRAPH = 5;
@@ -134,11 +159,12 @@ const generateHistorical = (historicalObject: any) => {
   while (fullHistorical.length > DAYS_AMMOUNT_ON_GRAPH) {
     fullHistorical.shift();
   }
-  console.log(fullHistorical);
   const historical: Array<Historical> = [];
-  const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
-  for (const d of neededDates) {
-    historical.push(FindHistorical(d, fullHistorical));
+  if (fullHistorical.length >= 1) {
+    const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
+    for (const d of neededDates) {
+      historical.push(FindHistorical(d, fullHistorical));
+    }
   }
   return historical;
 };
