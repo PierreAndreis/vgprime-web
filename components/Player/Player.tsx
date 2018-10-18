@@ -66,21 +66,30 @@ export type Historical = {
 
 const FindHistorical = (dt: Date, historical: Historical[]) => {
   const strDt = dt.toLocaleDateString();
+  console.log(`Searching for ${strDt} on historical...`);
   let hist = historical.slice().find(h => h.date === strDt);
   if (!hist && historical.length > 0) {
+    console.log(
+      "Not found! Now we will search the nearest hist with less date than the searching one to get the rank"
+    );
     hist = historical
       .slice()
       .reverse()
       .find(h => new Date(h.date) < new Date(strDt));
     if (!hist) {
+      console.log(
+        "Not found! Now we weill search the nearest hist with more date than the searching one to get the rank"
+      );
       hist = historical.slice().find(h => new Date(h.date) > new Date(strDt));
     }
     if (hist) {
+      console.log("Found! Setting points to zero!");
       hist.date = strDt;
       hist.points = 0;
     }
   }
   if (!hist) {
+    console.log("Not found! Setting default object (rank -1, points 0)...");
     hist = {
       date: strDt,
       rank: -1,
