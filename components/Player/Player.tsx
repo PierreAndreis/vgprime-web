@@ -64,6 +64,32 @@ export type Historical = {
   points: number;
 };
 
+const FindHistorical = (dt: Date, historical: Historical[]) => {
+  const strDt = dt.toLocaleDateString();
+  let hist = historical.slice().find(h => h.date === strDt);
+  if (!hist && historical.length > 0) {
+    hist = historical
+      .slice()
+      .reverse()
+      .find(h => new Date(h.date) < new Date(strDt));
+    if (!hist) {
+      hist = historical.slice().find(h => new Date(h.date) > new Date(strDt));
+    }
+    if (hist) {
+      hist.date = strDt;
+      hist.points = 0;
+    }
+  }
+  if (!hist) {
+    hist = {
+      date: strDt,
+      rank: -1,
+      points: 0,
+    };
+  }
+  return hist;
+};
+
 const FindRank = (dt: Date, historical: Historical[]) => {
   const startDt = new Date(dt.toLocaleDateString());
   const reversedHistorical = historical.slice().reverse();
@@ -92,20 +118,24 @@ const generateHistorical = (historicalObject: any) => {
   const fullHistorical = Object.values(historicalObject).map((val: any) => {
     return val as Historical;
   });
+  while (fullHistorical.length > 5) {
+    fullHistorical.shift();
+  }
   const historical: Array<Historical> = [];
   const neededDates = ListDatesFromToday(DAYS_AMMOUNT_ON_GRAPH);
   for (const d of neededDates) {
-    const hist = fullHistorical.find(h => IsSameDay(new Date(h.date), d));
-    if (hist) {
-      historical.push({ ...hist, date: new Date(hist.date).toLocaleDateString() });
-      continue;
-    }
-    historical.push({ date: d.toLocaleDateString(), rank: -1, points: 0 });
+    // const hist = fullHistorical.find(h => IsSameDay(new Date(h.date), d));
+    // if (hist) {
+    //   historical.push({ ...hist, date: new Date(hist.date).toLocaleDateString() });
+    //   continue;
+    // }
+    // historical.push({ date: d.toLocaleDateString(), rank: -1, points: 0 });
+    historical.push(FindHistorical(d, fullHistorical));
   }
-  for (let i = 0; i < historical.length; i++) {
-    if (historical[i].rank > 0) continue;
-    historical[i].rank = FindRank(new Date(historical[i].date), fullHistorical);
-  }
+  // for (let i = 0; i < historical.length; i++) {
+  //   if (historical[i].rank > 0) continue;
+  //   historical[i].rank = FindRank(new Date(historical[i].date), fullHistorical);
+  // }
   return historical;
 };
 
