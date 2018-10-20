@@ -8,7 +8,7 @@ import { Record } from "../../graphql/record";
 import Box from "./../common/Box";
 
 const container = css`
-  padding: 10px 10px 0;
+  padding: 10px 8px 0;
   margin-bottom: 10px;
   border-top: 1px solid rgba(75, 75, 75, 0.1);
   &:first-of-type {
