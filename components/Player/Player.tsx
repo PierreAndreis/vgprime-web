@@ -27,7 +27,7 @@ const container = css`
   grid-template-areas:
     "info stats"
     "graph1 graph2";
-  grid-template-rows: 100px 200px;
+  grid-template-rows: auto 200px;
   grid-template-columns: 50% 1fr;
   grid-gap: 15px;
   animation: ${fadeIn} 0.5s ease;

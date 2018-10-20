@@ -55,12 +55,6 @@ const tooltipBox = css`
   }
 `;
 
-const tickStyle = css`
-  font-size: 12px;
-  color: #fff;
-  font-weight: 400px;
-`;
-
 interface CustomTooltipPayload extends TooltipPayload {
   payload: Historical;
 }
