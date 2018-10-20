@@ -72,9 +72,9 @@ const heroes = css`
   }
 `;
 const heroeImageSize = "35px";
-const emptyHeroe = css`
-  background-color: #dcdcdc;
-`;
+// const emptyHeroe = css`
+//   background-color: #dcdcdc;
+// `;
 const heroe = (heroName: string) => css`
   ${!heroName || heroName === ""
     ? "background-color: #dcdcdc"

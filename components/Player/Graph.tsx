@@ -1,6 +1,6 @@
 import * as React from "react";
 import { css } from "emotion";
-import { Player } from "./../../graphql/leaderboard";
+// import { Player } from "./../../graphql/leaderboard";
 import Box from "./../common/Box";
 import {
   ResponsiveContainer,
@@ -10,9 +10,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
+  // Legend,
   TooltipPayload,
-  TickFormatterFunction,
+  // TickFormatterFunction,
 } from "recharts";
 import { FadeLoader as LoadingIcon } from "react-spinners";
 import { SkeletonContext } from "../common/Skeleton";

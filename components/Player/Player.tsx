@@ -4,7 +4,7 @@ import { Player as PlayerType } from "../../graphql/leaderboard";
 import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
-import { ListDatesFromToday, IsSameDay, DaysBetween } from "../../lib/date-management";
+import { ListDatesFromToday } from "../../lib/date-management";
 
 // layout:
 // info   stats
