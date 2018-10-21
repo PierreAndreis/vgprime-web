@@ -57,7 +57,7 @@ class PlayerPage extends React.Component<Props> {
       } else if (typeof document !== "undefined") {
         Router.push("/");
       }
-      return null;
+      return {};
     };
     const playerName = query.name as string;
 
