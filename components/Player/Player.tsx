@@ -5,6 +5,7 @@ import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
 import { ListDatesFromToday } from "../../lib/date-management";
+import { HeroesStats } from "../../api/types";
 
 // layout:
 // info   stats
@@ -135,13 +136,6 @@ const extractDate = (date: string) => {
 };
 
 const generateHistorical = (historicalObject: any) => {
-  // const fullHistorical = Object.values(historicalObject).map((val: any) => {
-  //   return {
-  //     date: new Date(val.date).toLocaleDateString(),
-  //     rank: val.rank,
-  //     points: val.points,
-  //   } as Historical;
-  // });
   const fullHistorical = Object.keys(historicalObject).map((key: string) => {
     const value = historicalObject[key];
     let hasDateInside = false;
@@ -171,14 +165,15 @@ const generateHistorical = (historicalObject: any) => {
 
 type Props = {
   player?: PlayerType;
+  topHeroes: HeroesStats[];
 };
-const Player: React.SFC<Props> = ({ player }) => {
+const Player: React.SFC<Props> = ({ player, topHeroes }) => {
   const historical = player ? generateHistorical(player.historical) : [];
   return (
     <div className={container}>
       <div className={info}>
         <h4>Player Info</h4>
-        <PlayerInfo player={player} />
+        <PlayerInfo player={player} topHeroes={topHeroes} />
       </div>
       <div className={stats}>
         <h4>Player Stats</h4>

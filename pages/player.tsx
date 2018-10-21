@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Query } from "react-apollo";
+import { Query, WithApolloClient, withApollo, ApolloConsumer } from "react-apollo";
 import { NextContext } from "next";
 import { css } from "emotion";
 import Layout from "./../components/common/Layout";
@@ -10,9 +10,24 @@ import Search from "../components/Search";
 import PlayerInfo from "../components/Player/Player";
 
 // import Search from "components/Search";
-import { byPlayerName as qLeaderboard } from "./../graphql/leaderboard";
+import { byPlayerName as qLeaderboard, Player } from "./../graphql/leaderboard";
 import { PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
+import Router from "next/router";
+import { gql, ApolloClient, InMemoryCache, HttpLink } from "apollo-boost";
+import { getTopHeroesByPlayerName } from "../api/vgpro";
+import { HeroesStats } from "../api/types";
+
+const apiUrl = require("../next.config").publicRuntimeConfig.api;
+
+const GET_PLAYER = gql`
+  query getPlayer($name: String!) {
+    player(name: $name) {
+      id
+      name
+    }
+  }
+`;
 
 const playerInfo = css`
   grid-area: content;
@@ -29,18 +44,57 @@ const searchArea = css`
 `;
 
 type Props = {
-  playerName: string;
+  player: Player;
+  topHeroes: HeroesStats[];
 };
 
 class PlayerPage extends React.Component<Props> {
-  static async getInitialProps({ query }: NextContext) {
-    return { playerName: query.name };
+  static async getInitialProps({ query, req, res }: NextContext) {
+    const redirectToIndex = () => {
+      if (res) {
+        res.writeHead(302, { Location: "/" });
+        res.end();
+      } else if (typeof document !== "undefined") {
+        Router.push("/");
+      }
+      return null;
+    };
+    const playerName = query.name as string;
+
+    if (!playerName || playerName === "") {
+      return redirectToIndex();
+    }
+
+    const restLink = new HttpLink({
+      uri: apiUrl, // Server URL (must be absolute)
+      credentials: "same-origin",
+    });
+
+    const client = new ApolloClient({
+      link: restLink,
+      cache: new InMemoryCache(),
+    });
+    const { data } = await client.query({
+      query: GET_PLAYER,
+      variables: { name: playerName },
+    });
+
+    if (!data || !(data as any).player) {
+      return redirectToIndex();
+    }
+
+    const player = (data as any).player as Player;
+
+    const topHeroes = await getTopHeroesByPlayerName(playerName);
+
+    return { player, topHeroes };
   }
 
   render() {
+    const { player, topHeroes } = this.props;
     return (
       <Layout>
-        <Query query={qLeaderboard} variables={{ playerName: this.props.playerName }}>
+        <Query query={qLeaderboard} variables={{ playerName: player.name }}>
           {({ error, data, loading }) => {
             if (error) {
               console.log("error while fetching data", error);
@@ -48,28 +102,25 @@ class PlayerPage extends React.Component<Props> {
             }
 
             let players: PlayersList = [];
-            let playerName = this.props.playerName;
-
-            let player;
-
+            let playerFound: Player | undefined;
             if (data.leaderboard) {
               players = data.leaderboard;
-              player = (data.leaderboard as PlayersList).find(p => p.name === playerName);
+              playerFound = players.find(p => p.name === player.name);
             }
 
             return (
               <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
-                  <Leaderboard players={players} playerName={playerName} />
+                  <Leaderboard players={players} playerName={player.name} />
                 </Layout.Sidebar>
                 <Layout.Content>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
-                    <Search placeholder={playerName} />
+                    <Search />
                   </div>
                   <div className={playerInfo}>
-                    <PlayerInfo player={player} />
+                    <PlayerInfo player={playerFound} topHeroes={topHeroes} />
                   </div>
                 </Layout.Content>
               </SkeletonContext.Provider>

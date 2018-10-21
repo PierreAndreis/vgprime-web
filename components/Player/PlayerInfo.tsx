@@ -4,8 +4,9 @@ import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
 
 import boxCss from "./../common/Box";
-import { getTopHeroesByPlayerName } from "../../api/vgpro";
+
 import { buttonCss } from "../common/Button";
+import { HeroesStats } from "../../api/types";
 
 const container = css`
   ${boxCss};
@@ -28,8 +29,9 @@ const info = css`
   }
   & > span:nth-of-type(1) {
     margin-left: 10px;
-    color: #91dde9;
-    font-weight: 600;
+    color: #71bbc9;
+    font-family: "Roboto Condensed";
+    font-weight: 700;
   }
   & > span:nth-of-type(2) {
     margin-left: 10px;
@@ -89,11 +91,8 @@ const heroe = (heroName: string) => css`
 
 const moreButton = css`
   ${buttonCss};
-  background-image: linear-gradient(to right, #79affe, #74dfeb);
   position: absolute;
   bottom: -15px;
-  border: none;
-  border-radius: 30px;
   padding: 10px 25px;
   font-weight: 600;
   color: #fff;
@@ -103,39 +102,12 @@ const moreButton = css`
 
 export type PlayerInfoProps = {
   player?: Player;
-};
-export type PlayerInfoState = {
-  topHeroes: any[];
+  topHeroes: HeroesStats[];
 };
 
-class PlayerInfo extends React.Component<PlayerInfoProps, PlayerInfoState> {
-  defaultTopHeroes: any[];
-
+class PlayerInfo extends React.Component<PlayerInfoProps> {
   constructor(props: PlayerInfoProps) {
     super(props);
-    this.defaultTopHeroes = [
-      { name: "" },
-      { name: "" },
-      { name: "" },
-      { name: "" },
-      { name: "" },
-    ];
-    this.state = {
-      topHeroes: this.defaultTopHeroes,
-    };
-  }
-
-  componentWillReceiveProps() {
-    const player = this.props.player;
-    this.setState({ topHeroes: this.defaultTopHeroes });
-    if (player === undefined) return null;
-    getTopHeroesByPlayerName(player.name)
-      .then(heroes => {
-        this.setState({ topHeroes: heroes });
-      })
-      .catch(() => {
-        this.setState({ topHeroes: [] });
-      });
   }
 
   gotoVgPro = () => {
@@ -145,19 +117,11 @@ class PlayerInfo extends React.Component<PlayerInfoProps, PlayerInfoState> {
   };
 
   render() {
-    const player = this.props.player;
+    const { player, topHeroes } = this.props;
     if (player === undefined) return null;
-    console.log("topHeroes = ", this.state.topHeroes);
-    const topHeroes = this.state.topHeroes.map((h, k) => {
+    const topHeroesRenderer = topHeroes.map((h, k) => {
       return <div key={k} className={heroe(h.name)} title={h.name} />;
     });
-    if (this.state.topHeroes.length < 5) {
-      const remaining = [];
-      for (let i = this.state.topHeroes.length; i < 5; i++) {
-        remaining.push({ name: "" });
-      }
-      this.setState({ topHeroes: [...this.state.topHeroes, ...remaining] });
-    }
 
     return (
       <div className={container}>
@@ -171,14 +135,15 @@ class PlayerInfo extends React.Component<PlayerInfoProps, PlayerInfoState> {
               {() => (player.region === "sg" ? "sea" : player.region)}
             </SkeletonWrapper>
           </span>
-          <span>
-            <SkeletonWrapper>{() => player.points + " PTS"}</SkeletonWrapper>
-          </span>
+
+          <SkeletonWrapper height={30}>
+            {() => <span>{player.points + " PTS"}</span>}
+          </SkeletonWrapper>
         </div>
         <div className={separator} />
         <div className={heroes}>
           <span>TOP 5 HEROES</span>
-          {topHeroes}
+          {topHeroesRenderer}
         </div>
         <button className={moreButton} onClick={this.gotoVgPro}>
           More on VGPRO

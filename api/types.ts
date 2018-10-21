@@ -29,6 +29,7 @@ export type LeaderboardRanking = {
 
 export type HeroesStats = Readonly<{
   type: "hero";
+  name: string;
 }> &
   Stats;
 
