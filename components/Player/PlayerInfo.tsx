@@ -103,7 +103,7 @@ const moreButton = css`
 `;
 
 export type PlayerInfoProps = {
-  player?: Player;
+  player: Player;
 };
 
 class PlayerInfo extends React.Component<PlayerInfoProps> {
@@ -119,7 +119,6 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
 
   render() {
     const { player } = this.props;
-    if (player === undefined) return null;
     // const topHeroesRenderer = topHeroes.map((h, k) => {
     //   return <div key={k} className={heroe(h.name)} title={h.name} />;
     // });
@@ -127,7 +126,9 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
     return (
       <div className={container}>
         <div className={info}>
-          <i className={`vg-rank-${player.tier}`} />
+          <SkeletonWrapper>
+            {() => <i className={`vg-rank-${player.tier}`} />}
+          </SkeletonWrapper>
           <span>
             <SkeletonWrapper>{() => player.name}</SkeletonWrapper>
           </span>
@@ -151,7 +152,14 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
               while (topHeroes.length < heroesAmount) {
                 topHeroes.push({ name: "" } as HeroesStats);
               }
-              if (!error && loading === false && data && data.getHeroes.stats.Heroes) {
+              if (
+                !error &&
+                !loading &&
+                data &&
+                data.getHeroes &&
+                data.getHeroes.stats &&
+                data.getHeroes.stats.Heroes
+              ) {
                 const heroes = data.getHeroes.stats.Heroes.slice() as HeroesStats[];
                 heroes.sort((h1, h2) => h2.games - h1.games);
                 const topHeroesReceived =

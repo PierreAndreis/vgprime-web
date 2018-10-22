@@ -24,13 +24,14 @@ const container = css`
   display: grid;
   margin: 0;
   width: 100%;
-  box-sizing: box;
+  box-sizing: border-box;
   grid-template-areas:
     "info stats"
     "graph1 graph2";
   grid-template-rows: auto 200px;
   grid-template-columns: 50% 1fr;
   grid-gap: 15px;
+  grid-auto-rows: 1fr
   animation: ${fadeIn} 0.5s ease;
   /*& > div {
     height: 100%;
@@ -136,6 +137,7 @@ const extractDate = (date: string) => {
 };
 
 const generateHistorical = (historicalObject: any) => {
+  if (!historicalObject) return [];
   const fullHistorical = Object.keys(historicalObject).map((key: string) => {
     const value = historicalObject[key];
     let hasDateInside = false;
@@ -164,10 +166,11 @@ const generateHistorical = (historicalObject: any) => {
 };
 
 type Props = {
-  player?: PlayerType;
+  player: PlayerType;
 };
 const Player: React.SFC<Props> = ({ player }) => {
-  const historical = player ? generateHistorical(player.historical) : [];
+  const historical =
+    player && player.id !== "" ? generateHistorical(player.historical) : [];
   return (
     <div className={container}>
       <div className={info}>

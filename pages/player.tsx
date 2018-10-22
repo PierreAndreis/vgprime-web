@@ -101,12 +101,11 @@ class PlayerPage extends React.Component<Props> {
             }
 
             let players: PlayersList = [];
-            let playerFound: Player | undefined;
+            let player: Player = { name: "" } as Player;
             if (data.leaderboard) {
               players = data.leaderboard;
-              playerFound = players.find(p => p.name === playerName);
+              player = players.find(p => p.name === playerName) as Player;
             }
-
             return (
               <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
                 <Layout.Sidebar>
@@ -119,7 +118,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    <PlayerInfo player={playerFound} />
+                    <PlayerInfo player={player} />
                   </div>
                 </Layout.Content>
               </SkeletonContext.Provider>

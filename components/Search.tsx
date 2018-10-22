@@ -107,7 +107,6 @@ class Search extends React.Component<Props, State> {
       this.setState({ errored: true });
     } else {
       this.setState({ success: true });
-
       if (this.props.beforeSearch && this.props.timeout) {
         this.props.beforeSearch();
         setTimeout(this.pushRoute, this.props.timeout);
@@ -116,7 +115,7 @@ class Search extends React.Component<Props, State> {
       }
       const path = Router.pathname;
       if (path === "/player") {
-        this.setState({ success: false });
+        this.setState({ success: false, value: "" });
       }
     }
   };
@@ -133,7 +132,6 @@ class Search extends React.Component<Props, State> {
                   value={this.state.value}
                   onChange={this.changeInput}
                   placeholder={this.props.placeholder ? this.props.placeholder : ""}
-                  autoFocus
                 />
                 <button
                   title={

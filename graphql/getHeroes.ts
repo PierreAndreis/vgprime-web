@@ -5,7 +5,7 @@ export default gql`
     getHeroes(playerName: $playerName)
       @rest(type: "GetHeroes", path: "player/{args.playerName}/stats") {
       stats @type(name: "Stats") {
-        Heroes @type(name: "Heroe") {
+        Heroes @type(name: "Hero") {
           name
           games
         }

@@ -1,6 +1,9 @@
 import * as React from "react";
 import { css } from "emotion";
 import Prizes from "../Prizes";
+import Router from "next/router";
+import { buttonCss } from "./Button";
+import Rules from "../Rules";
 
 const container = css`
   width: auto;
@@ -76,9 +79,18 @@ const logo = css`
   font-weight: bold;
   font-size: 35px;
 
+  cursor: pointer;
+
   & > b {
     color: black;
   }
+`;
+
+const rulesButton = css`
+  ${buttonCss};
+  margin-left: auto;
+  margin-top: auto;
+  height: 40px;
 `;
 
 const sidebar = css`
@@ -98,7 +110,11 @@ const content = css`
   order: 3;
 `;
 
-class Layout extends React.Component<{}> {
+type State = {
+  rulesOpened: boolean;
+};
+
+class Layout extends React.Component<{}, State> {
   static Sidebar: React.SFC<{}> = ({ children }) => (
     <div className={sidebar}>{children}</div>
   );
@@ -106,17 +122,30 @@ class Layout extends React.Component<{}> {
     <div className={content}>{children}</div>
   );
 
+  constructor(props: {}) {
+    super(props);
+    this.state = { rulesOpened: false };
+  }
+
+  openRulesModal = () => this.setState({ rulesOpened: true });
+  closeRulesModal = () => this.setState({ rulesOpened: false });
+
+  gotoIndex = () => Router.push("/");
+
   render() {
     return (
       <div className={container}>
         <div className={header}>
-          <div className={logo} />
+          <div className={logo} onClick={this.gotoIndex} />
+          <button className={rulesButton} onClick={this.openRulesModal}>
+            Rules
+          </button>
         </div>
         <div className={prizes}>
           <h4>Prizes</h4>
           <Prizes />
         </div>
-
+        <Rules opened={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         {this.props.children}
       </div>
     );

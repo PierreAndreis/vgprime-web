@@ -10,7 +10,6 @@ const container = css`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 79%;
 `;
 
 const info = css`
