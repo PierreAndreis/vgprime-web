@@ -7,6 +7,8 @@ import boxCss from "./../common/Box";
 
 import { buttonCss } from "../common/Button";
 import { HeroesStats } from "../../api/types";
+import { Query } from "react-apollo";
+import getHeroes from "../../graphql/getHeroes";
 
 const container = css`
   ${boxCss};
@@ -102,7 +104,6 @@ const moreButton = css`
 
 export type PlayerInfoProps = {
   player?: Player;
-  topHeroes: HeroesStats[];
 };
 
 class PlayerInfo extends React.Component<PlayerInfoProps> {
@@ -117,11 +118,11 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
   };
 
   render() {
-    const { player, topHeroes } = this.props;
+    const { player } = this.props;
     if (player === undefined) return null;
-    const topHeroesRenderer = topHeroes.map((h, k) => {
-      return <div key={k} className={heroe(h.name)} title={h.name} />;
-    });
+    // const topHeroesRenderer = topHeroes.map((h, k) => {
+    //   return <div key={k} className={heroe(h.name)} title={h.name} />;
+    // });
 
     return (
       <div className={container}>
@@ -143,7 +144,27 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
         <div className={separator} />
         <div className={heroes}>
           <span>TOP 5 HEROES</span>
-          {topHeroesRenderer}
+          <Query query={getHeroes} variables={{ playerName: player.name }}>
+            {({ error, data, loading }) => {
+              const heroesAmount = 5;
+              const topHeroes = [] as HeroesStats[];
+              while (topHeroes.length < heroesAmount) {
+                topHeroes.push({ name: "" } as HeroesStats);
+              }
+              if (!error && loading === false && data && data.getHeroes.stats.Heroes) {
+                const heroes = data.getHeroes.stats.Heroes.slice() as HeroesStats[];
+                heroes.sort((h1, h2) => h2.games - h1.games);
+                const topHeroesReceived =
+                  heroes.length > heroesAmount ? heroes.slice(0, heroesAmount) : heroes;
+                for (let i = 0; i < topHeroes.length; i++) {
+                  topHeroes[i] = topHeroesReceived[i];
+                }
+              }
+              return topHeroes.map((h, k) => (
+                <div key={`topHeroe${k}`} className={heroe(h.name)} />
+              ));
+            }}
+          </Query>
         </div>
         <button className={moreButton} onClick={this.gotoVgPro}>
           More on VGPRO

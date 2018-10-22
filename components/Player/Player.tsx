@@ -165,15 +165,14 @@ const generateHistorical = (historicalObject: any) => {
 
 type Props = {
   player?: PlayerType;
-  topHeroes: HeroesStats[];
 };
-const Player: React.SFC<Props> = ({ player, topHeroes }) => {
+const Player: React.SFC<Props> = ({ player }) => {
   const historical = player ? generateHistorical(player.historical) : [];
   return (
     <div className={container}>
       <div className={info}>
         <h4>Player Info</h4>
-        <PlayerInfo player={player} topHeroes={topHeroes} />
+        <PlayerInfo player={player} />
       </div>
       <div className={stats}>
         <h4>Player Stats</h4>

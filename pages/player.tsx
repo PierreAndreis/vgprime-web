@@ -44,12 +44,11 @@ const searchArea = css`
 `;
 
 type Props = {
-  player: Player;
-  topHeroes: HeroesStats[];
+  playerName: string;
 };
 
 class PlayerPage extends React.Component<Props> {
-  static async getInitialProps({ query, req, res }: NextContext) {
+  static async getInitialProps({ query, res }: NextContext) {
     const redirectToIndex = () => {
       if (res) {
         res.writeHead(302, { Location: "/" });
@@ -64,7 +63,7 @@ class PlayerPage extends React.Component<Props> {
     if (!playerName || playerName === "") {
       return redirectToIndex();
     }
-
+    /*
     const restLink = new HttpLink({
       uri: apiUrl, // Server URL (must be absolute)
       credentials: "same-origin",
@@ -85,16 +84,16 @@ class PlayerPage extends React.Component<Props> {
 
     const player = (data as any).player as Player;
 
-    const topHeroes = await getTopHeroesByPlayerName(playerName);
+    const topHeroes = await getTopHeroesByPlayerName(playerName); */
 
-    return { player, topHeroes };
+    return { playerName };
   }
 
   render() {
-    const { player, topHeroes } = this.props;
+    const { playerName } = this.props;
     return (
       <Layout>
-        <Query query={qLeaderboard} variables={{ playerName: player.name }}>
+        <Query query={qLeaderboard} variables={{ playerName }}>
           {({ error, data, loading }) => {
             if (error) {
               console.log("error while fetching data", error);
@@ -105,14 +104,14 @@ class PlayerPage extends React.Component<Props> {
             let playerFound: Player | undefined;
             if (data.leaderboard) {
               players = data.leaderboard;
-              playerFound = players.find(p => p.name === player.name);
+              playerFound = players.find(p => p.name === playerName);
             }
 
             return (
               <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
-                  <Leaderboard players={players} playerName={player.name} />
+                  <Leaderboard players={players} playerName={playerName} />
                 </Layout.Sidebar>
                 <Layout.Content>
                   <div className={searchArea}>
@@ -120,7 +119,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    <PlayerInfo player={playerFound} topHeroes={topHeroes} />
+                    <PlayerInfo player={playerFound} />
                   </div>
                 </Layout.Content>
               </SkeletonContext.Provider>
