@@ -145,7 +145,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
         <div className={separator} />
         <div className={heroes}>
           <span>TOP 5 HEROES</span>
-          <Query query={getHeroes} variables={{ playerName: player.name }}>
+          <Query query={getHeroes} variables={{ playerName: player ? player.name : "" }}>
             {({ error, data, loading }) => {
               const heroesAmount = 5;
               const topHeroes = [] as HeroesStats[];

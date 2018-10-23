@@ -22,6 +22,30 @@ const fadeIn = keyframes`
 
 const container = css`
   display: grid;
+  width: 100%;
+  box-sizing: border-box;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  animation: ${fadeIn} 0.5s ease;
+
+  @media screen and (max-width: 1300px) {
+    .graph1,
+    .graph2 {
+      grid-column: 1 / 3;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+    .graph1,
+    .graph2 {
+      grid-column: 1;
+    }
+  }
+`;
+
+const containerOld = css`
+  display: grid;
   margin: 0;
   width: 100%;
   box-sizing: border-box;
@@ -31,7 +55,7 @@ const container = css`
   grid-template-rows: auto 200px;
   grid-template-columns: 50% 1fr;
   grid-gap: 15px;
-  grid-auto-rows: 1fr
+  grid-auto-rows: minmax(100px, auto);
   animation: ${fadeIn} 0.5s ease;
   /*& > div {
     height: 100%;
@@ -58,29 +82,6 @@ const container = css`
     flex-direction: column;
     align-items: center;
   }
-`;
-
-const info = css`
-  grid-area: info;
-  margin: 0;
-  width: 100%;
-`;
-
-const stats = css`
-  grid-area: stats;
-  margin: 0;
-  width: 100%;
-`;
-
-const graph1 = css`
-  grid-area: graph1;
-  margin: 0;
-  width: 100%;
-`;
-const graph2 = css`
-  grid-area: graph2;
-  margin: 0;
-  width: 100%;
 `;
 
 const DAYS_AMMOUNT_ON_GRAPH = 5;
@@ -173,19 +174,19 @@ const Player: React.SFC<Props> = ({ player }) => {
     player && player.id !== "" ? generateHistorical(player.historical) : [];
   return (
     <div className={container}>
-      <div className={info}>
+      <div className="info">
         <h4>Player Info</h4>
         <PlayerInfo player={player} />
       </div>
-      <div className={stats}>
+      <div className="stats">
         <h4>Player Stats</h4>
         <Stats player={player} />
       </div>
-      <div className={graph1}>
+      <div className="graph1">
         <h4>Points over time</h4>
         <Graph dataKey="points" title="Points" data={historical} />
       </div>
-      <div className={graph2}>
+      <div className="graph2">
         <h4>Rank over time</h4>
         <Graph dataKey="rank" title="Rank" data={historical} />
       </div>

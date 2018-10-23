@@ -87,10 +87,22 @@ const logo = css`
 `;
 
 const rulesButton = css`
-  ${buttonCss};
   margin-left: auto;
-  margin-top: auto;
+  align-self: center;
   height: 40px;
+  background: #fff;
+  justify-self: center;
+  border: 2px solid #7aaeff;
+  border-radius: 30px;
+  padding: 0px 15px;
+  color: #7aaeff;
+  text-transform: uppercase;
+  font-weight: 600;
+  &:hover {
+    cursor: pointer;
+    background: #7aaeff;
+    color: #fff;
+  }
 `;
 
 const sidebar = css`
