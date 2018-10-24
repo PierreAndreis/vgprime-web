@@ -2,8 +2,10 @@ import * as React from "react";
 import { css } from "emotion";
 import Prizes from "../Prizes";
 import Router from "next/router";
-import { buttonCss } from "./Button";
 import Rules from "../Rules";
+import Cookies from "js-cookie";
+
+const rulesModalValue = require("../../next.config").publicRuntimeConfig.rulesModalValue;
 
 const container = css`
   width: auto;
@@ -92,7 +94,7 @@ const rulesButton = css`
   height: 40px;
   background: #fff;
   justify-self: center;
-  border: 2px solid #7aaeff;
+  border: 1px solid #7aaeff;
   border-radius: 30px;
   padding: 0px 15px;
   color: #7aaeff;
@@ -139,8 +141,25 @@ class Layout extends React.Component<{}, State> {
     this.state = { rulesOpened: false };
   }
 
-  openRulesModal = () => this.setState({ rulesOpened: true });
-  closeRulesModal = () => this.setState({ rulesOpened: false });
+  componentDidMount() {
+    if (typeof document !== "undefined") {
+      const rulesDate = Cookies.get("rulesModal");
+      if (!rulesDate || rulesDate !== rulesModalValue) {
+        Cookies.set("rulesModal", rulesModalValue);
+        setTimeout(() => this.setState({ rulesOpened: true }), 1000);
+        return;
+      }
+    }
+  }
+
+  openRulesModal = () => {
+    document.body.style.overflow = "hidden";
+    this.setState({ rulesOpened: true });
+  };
+  closeRulesModal = () => {
+    document.body.style.overflow = "auto";
+    this.setState({ rulesOpened: false });
+  };
 
   gotoIndex = () => Router.push("/");
 
