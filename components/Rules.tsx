@@ -1,7 +1,7 @@
 import * as React from "react";
 import { css } from "react-emotion";
 import Box from "./common/Box";
-import { Transition } from "react-spring";
+import { Transition, animated } from "react-spring";
 
 const modal = css`
   display: flex;
@@ -106,6 +106,7 @@ class Rules extends React.Component<Props, State> {
     const { open } = this.props;
     return (
       <Transition
+        native
         items={open}
         from={{ opacity: 0, transform: "scale(0.95) translateY(-30px)" }}
         enter={{ opacity: 1, transform: "scale(1) translateY(0)" }}
@@ -118,12 +119,12 @@ class Rules extends React.Component<Props, State> {
         {open =>
           open
             ? styles => (
-                <div
+                <animated.div
                   className={modal}
                   style={{ opacity: styles.opacity }}
                   onClick={this.close}
                 >
-                  <div className={modalContent} style={styles}>
+                  <animated.div className={modalContent} style={styles}>
                     <header>
                       <div />
                       <h1>Rules</h1>
@@ -183,8 +184,8 @@ class Rules extends React.Component<Props, State> {
                         egestas sed. Sed pulvinar lectus id nunc placerat maximus.
                       </p>
                     </section>
-                  </div>
-                </div>
+                  </animated.div>
+                </animated.div>
               )
             : null
         }
