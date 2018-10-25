@@ -176,7 +176,7 @@ class Layout extends React.Component<{}, State> {
           <h4>Prizes</h4>
           <Prizes />
         </div>
-        <Rules opened={this.state.rulesOpened} closeAction={this.closeRulesModal} />
+        <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         {this.props.children}
       </div>
     );
