@@ -17,7 +17,6 @@ const navigationButtons = css`
   justify-content: space-around;
   margin-top: -15px;
   position: relative;
-  z-index: 2;
 `;
 
 export interface LeaderboardProps {
@@ -33,19 +32,17 @@ const Leaderboard = ({
   players,
   playerName,
   nextHandler,
-  previousHandler
+  previousHandler,
 }: LeaderboardProps) => (
   <div>
     <div className={container}>
-      {Array.from({ length: PLAYER_PER_PAGE }, (_, k) => k + 1).map(
-        (_, index) => (
-          <PlayerRow
-            payload={players[index]}
-            isActive={players[index] && players[index].name === playerName}
-            key={players[index] ? players[index].rank : index}
-          />
-        )
-      )}
+      {Array.from({ length: PLAYER_PER_PAGE }, (_, k) => k + 1).map((_, index) => (
+        <PlayerRow
+          payload={players[index]}
+          isActive={players[index] && players[index].name === playerName}
+          key={players[index] ? players[index].rank : index}
+        />
+      ))}
     </div>
     {nextHandler &&
       previousHandler && (
