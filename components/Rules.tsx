@@ -106,14 +106,14 @@ class Rules extends React.Component<Props, State> {
     const { opened } = this.props;
     return (
       <Transition
-        from={{ opacity: 0, transform: "scale(0)" }}
+        from={{ opacity: 0, transform: "scale(0.8)" }}
         enter={{ opacity: 1, transform: "scale(1)" }}
-        leave={{ opacity: 0, transform: "scale(0)" }}
+        leave={{ opacity: 0, transform: "scale(0.8)" }}
         config={{
           restDisplacementThreshold: 0.1,
-          restSpeedThreshold: 500,
-          duration: 500,
-          tension: 0.2,
+          restSpeedThreshold: 0.1,
+          duration: 300,
+          tension: 100,
         }}
       >
         {opened &&

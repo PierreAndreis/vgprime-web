@@ -126,7 +126,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
     return (
       <div className={container}>
         <div className={info}>
-          <SkeletonWrapper>
+          <SkeletonWrapper width={40} height={30}>
             {() => <i className={`vg-rank-${player.tier}`} />}
           </SkeletonWrapper>
           <span>
@@ -138,7 +138,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
             </SkeletonWrapper>
           </span>
 
-          <SkeletonWrapper height={30}>
+          <SkeletonWrapper height={35} width={120}>
             {() => <span>{player.points + " PTS"}</span>}
           </SkeletonWrapper>
         </div>
