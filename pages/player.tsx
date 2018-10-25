@@ -34,7 +34,7 @@ type Props = {
 
 class PlayerPage extends React.Component<Props> {
   static async getInitialProps({ query }: NextContext) {
-    const playerName = query.name as string | undefined;
+    const playerName = query.name;
     return { playerName };
   }
 
@@ -58,7 +58,7 @@ class PlayerPage extends React.Component<Props> {
             }
 
             let players: PlayersList = [];
-            let player: Player = { name: "" } as Player;
+            let player: Player | undefined;
             if (data.leaderboard) {
               players = data.leaderboard;
               player = players.find(p => p.name === playerName) as Player;
@@ -75,7 +75,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    {player.name && player.name !== "" ? (
+                    {player && player.name ? (
                       <PlayerInfo player={player} />
                     ) : (
                       <LoadingIcon loading={true} />
