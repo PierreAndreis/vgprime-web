@@ -34,6 +34,14 @@ const modalContent = css`
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
 `;
 
 type Props = {

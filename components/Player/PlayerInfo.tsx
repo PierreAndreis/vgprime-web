@@ -79,7 +79,7 @@ const heroeImageSize = "35px";
 // const emptyHeroe = css`
 //   background-color: #dcdcdc;
 // `;
-const heroe = (heroName: string) => css`
+const heroAvatar = (heroName: string) => css`
   ${!heroName || heroName === ""
     ? "background-color: #dcdcdc"
     : `background-image: 
@@ -169,7 +169,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
                 }
               }
               return topHeroes.map((h, k) => (
-                <div key={`topHeroe${k}`} className={heroe(h.name)} />
+                <div key={`topHero-${k}`} className={heroAvatar(h.name)} />
               ));
             }}
           </Query>

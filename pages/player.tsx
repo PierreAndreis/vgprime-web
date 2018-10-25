@@ -1,32 +1,18 @@
 import * as React from "react";
-import { Query, WithApolloClient, withApollo, ApolloConsumer } from "react-apollo";
+import { Query } from "react-apollo";
 import { NextContext } from "next";
 import { css } from "emotion";
+
 import Layout from "./../components/common/Layout";
 import Leaderboard from "./../components/Leaderboard/Leaderboard";
-
 import ErrorMessage from "./../components/common/ErrorMessage";
 import Search from "../components/Search";
 import PlayerInfo from "../components/Player/Player";
 
-// import Search from "components/Search";
 import { byPlayerName as qLeaderboard, Player } from "./../graphql/leaderboard";
 import { PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
-import Router from "next/router";
-import { gql, ApolloClient, InMemoryCache, HttpLink } from "apollo-boost";
-import { getTopHeroesByPlayerName } from "../api/vgpro";
-import { HeroesStats } from "../api/types";
 import { FadeLoader as LoadingIcon } from "react-spinners";
-
-const GET_PLAYER = gql`
-  query getPlayer($name: String!) {
-    player(name: $name) {
-      id
-      name
-    }
-  }
-`;
 
 const playerInfo = css`
   grid-area: content;
@@ -43,59 +29,31 @@ const searchArea = css`
 `;
 
 type Props = {
-  playerName: string;
+  playerName: string | null;
 };
 
 class PlayerPage extends React.Component<Props> {
-  static async getInitialProps({ query, res }: NextContext) {
-    const redirectToIndex = () => {
-      if (res) {
-        res.writeHead(302, { Location: "/" });
-        res.end();
-      } else if (typeof document !== "undefined") {
-        Router.push("/");
-      }
-      return {};
-    };
-    const playerName = query.name as string;
-
-    if (!playerName || playerName === "") {
-      return redirectToIndex();
-    }
-    /*
-    const restLink = new HttpLink({
-      uri: apiUrl, // Server URL (must be absolute)
-      credentials: "same-origin",
-    });
-
-    const client = new ApolloClient({
-      link: restLink,
-      cache: new InMemoryCache(),
-    });
-    const { data } = await client.query({
-      query: GET_PLAYER,
-      variables: { name: playerName },
-    });
-
-    if (!data || !(data as any).player) {
-      return redirectToIndex();
-    }
-
-    const player = (data as any).player as Player;
-
-    const topHeroes = await getTopHeroesByPlayerName(playerName); */
-
+  static async getInitialProps({ query }: NextContext) {
+    const playerName = query.name as string | undefined;
     return { playerName };
   }
 
   render() {
     const { playerName } = this.props;
+
+    if (!playerName) {
+      return (
+        <Layout>
+          <ErrorMessage message="No Player Found" />
+        </Layout>
+      );
+    }
+
     return (
       <Layout>
         <Query query={qLeaderboard} variables={{ playerName }}>
           {({ error, data, loading }) => {
             if (error) {
-              console.log("error while fetching data", error);
               return <ErrorMessage message={error.message} />;
             }
 
@@ -132,9 +90,5 @@ class PlayerPage extends React.Component<Props> {
     );
   }
 }
-
-// Player.propTypes = {
-//   playerName: PropTypes.string.isRequired
-// }
 
 export default PlayerPage;

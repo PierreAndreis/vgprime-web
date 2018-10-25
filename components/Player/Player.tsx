@@ -5,7 +5,6 @@ import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
 import { ListDatesFromToday } from "../../lib/date-management";
-import { HeroesStats } from "../../api/types";
 
 // layout:
 // info   stats
@@ -44,45 +43,45 @@ const container = css`
   }
 `;
 
-const containerOld = css`
-  display: grid;
-  margin: 0;
-  width: 100%;
-  box-sizing: border-box;
-  grid-template-areas:
-    "info stats"
-    "graph1 graph2";
-  grid-template-rows: auto 200px;
-  grid-template-columns: 50% 1fr;
-  grid-gap: 15px;
-  grid-auto-rows: minmax(100px, auto);
-  animation: ${fadeIn} 0.5s ease;
-  /*& > div {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    & > div {
-      flex-grow: 1;
-    }
-    */
-  }
+// const containerOld = css`
+//   display: grid;
+//   margin: 0;
+//   width: 100%;
+//   box-sizing: border-box;
+//   grid-template-areas:
+//     "info stats"
+//     "graph1 graph2";
+//   grid-template-rows: auto 200px;
+//   grid-template-columns: 50% 1fr;
+//   grid-gap: 15px;
+//   grid-auto-rows: minmax(100px, auto);
+//   animation: ${fadeIn} 0.5s ease;
+//   /*& > div {
+//     height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     & > div {
+//       flex-grow: 1;
+//     }
+//     */
+//   }
 
-  @media screen and (max-width: 1300px) {
-    grid-template:
-      "info stats"
-      "graph1 graph1" auto
-      "graph2 graph2" auto
-      / 360px 1fr;
-  }
+//   @media screen and (max-width: 1300px) {
+//     grid-template:
+//       "info stats"
+//       "graph1 graph1" auto
+//       "graph2 graph2" auto
+//       / 360px 1fr;
+//   }
 
-  @media screen and (max-width: 800px) {
-    width: 380px;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
+//   @media screen and (max-width: 800px) {
+//     width: 380px;
+//     padding: 0;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//   }
+// `;
 
 const DAYS_AMMOUNT_ON_GRAPH = 5;
 
