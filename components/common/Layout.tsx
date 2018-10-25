@@ -5,7 +5,11 @@ import Router from "next/router";
 import Rules from "../Rules";
 import Cookies from "js-cookie";
 
-const rulesModalValue = require("../../next.config").publicRuntimeConfig.rulesModalValue;
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
+
+const rulesModalValue = publicRuntimeConfig.rulesModalValue;
 
 const container = css`
   width: auto;
@@ -129,10 +133,10 @@ type State = {
 };
 
 class Layout extends React.Component<{}, State> {
-  static Sidebar: React.SFC<{}> = ({ children }) => (
+  static Sidebar: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
     <div className={sidebar}>{children}</div>
   );
-  static Content: React.SFC<{}> = ({ children }) => (
+  static Content: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
     <div className={content}>{children}</div>
   );
 
@@ -146,7 +150,7 @@ class Layout extends React.Component<{}, State> {
       const rulesDate = Cookies.get("rulesModal");
       if (!rulesDate || rulesDate !== rulesModalValue) {
         Cookies.set("rulesModal", rulesModalValue);
-        setTimeout(() => this.setState({ rulesOpened: true }), 1000);
+        this.setState({ rulesOpened: true });
         return;
       }
     }
