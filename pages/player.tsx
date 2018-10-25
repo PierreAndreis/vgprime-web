@@ -17,8 +17,7 @@ import Router from "next/router";
 import { gql, ApolloClient, InMemoryCache, HttpLink } from "apollo-boost";
 import { getTopHeroesByPlayerName } from "../api/vgpro";
 import { HeroesStats } from "../api/types";
-
-const apiUrl = require("../next.config").publicRuntimeConfig.api;
+import { FadeLoader as LoadingIcon } from "react-spinners";
 
 const GET_PLAYER = gql`
   query getPlayer($name: String!) {
@@ -118,7 +117,11 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    <PlayerInfo player={player} />
+                    {player.name && player.name !== "" ? (
+                      <PlayerInfo player={player} />
+                    ) : (
+                      <LoadingIcon loading={true} />
+                    )}
                   </div>
                 </Layout.Content>
               </SkeletonContext.Provider>

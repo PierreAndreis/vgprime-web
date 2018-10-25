@@ -1,7 +1,8 @@
 import * as React from "react";
 import { css, keyframes } from "react-emotion";
 import Box from "./common/Box";
-import { Transition, SpringConfig } from "react-spring";
+import { Transition, SpringConfig, Spring, animated } from "react-spring";
+import { HTMLAttributes } from "react";
 
 const modal = css`
   display: flex;
@@ -52,12 +53,15 @@ const modalContent = css`
     }
     & > .closeButton {
       font-size: 42px;
-      padding: 0;
+      //line-height: 23px;
+      //height: 23px;
+      padding: 10px 20px;
       margin: 0;
       position: absolute;
-      right: 10px;
+      right: 0px;
       top: 0px;
       cursor: pointer;
+      //background: red;
     }
   }
   & > section {
@@ -106,25 +110,24 @@ class Rules extends React.Component<Props, State> {
     const { opened } = this.props;
     return (
       <Transition
-        from={{ opacity: 0, transform: "scale(0.8)" }}
+        native
+        items={opened as any}
+        from={{ opacity: 0.6, transform: "scale(0.8)" }}
         enter={{ opacity: 1, transform: "scale(1)" }}
-        leave={{ opacity: 0, transform: "scale(0.8)" }}
-        config={{
-          restDisplacementThreshold: 0.1,
-          restSpeedThreshold: 0.1,
-          duration: 300,
-          tension: 100,
-        }}
+        leave={{ opacity: 0.6, transform: "scale(0.8)" }}
+        trail={0.5}
+        config={{ duration: 200 }}
       >
-        {opened &&
-          (styles => (
-            <div className={modal}>
-              <div className={modalContent} style={styles}>
+        {opened =>
+          opened &&
+          ((props: any) => (
+            <animated.div className={modal} style={{ opacity: props.opacity }}>
+              <animated.div className={modalContent} style={props}>
                 <header>
                   <div />
                   <h1>Rules</h1>
                   <span className="closeButton" onClick={this.close}>
-                    &times;
+                    &#x2716;
                   </span>
                 </header>
                 <section>
@@ -177,9 +180,10 @@ class Rules extends React.Component<Props, State> {
                     maximus.
                   </p>
                 </section>
-              </div>
-            </div>
-          ))}
+              </animated.div>
+            </animated.div>
+          ))
+        }
       </Transition>
     );
   }

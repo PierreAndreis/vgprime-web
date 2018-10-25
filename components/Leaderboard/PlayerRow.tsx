@@ -12,12 +12,7 @@ const enteringAnimation = keyframes`
 `;
 
 const playerActivebackground = css`
-  background-image: linear-gradient(
-    to right,
-    rgb(66, 134, 244, 0.3),
-    white,
-    white
-  );
+  background-image: linear-gradient(to right, rgb(66, 134, 244, 0.3), white, white);
   background-size: 150% 150%;
   animation: ${enteringAnimation} 0.4s ease forwards;
 `;
@@ -50,37 +45,77 @@ const playerWrap = css`
 `;
 
 const position = css`
-  width: 25px;
-  text-align: right;
-  padding-right: 25px;
-
+  width: 50px;
+  text-align: center;
+  //padding-right: 25px;
   font-size: 16px;
   font-weight: bold;
   color: #4a90e2;
   position: relative;
+  //background: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  // & > span:nth-child(1) {
+  //   grid-row: 2;
+  // }
+  & > span:nth-child(2) {
+    // flex-grow: 1;
+    // flex-shrink: 0;
+    flex-grow: 1;
+  }
 `;
 
 const positionChange = css`
-  position: absolute;
+  position: relative;
+  // flex-grow: 1;
+  // flex-shrink: 0;
+  height: 10px;
+  //flex-grow: 1;
   font-size: 9px;
-  right: 5px;
-  top: -7px;
   text-align: center;
-  width: 15px;
-  color: black;
-
-  & span {
-    display: block;
-    width: 10px;
-    height: 7px;
-    margin: 2px auto;
-  }
-
   &.up {
     color: #7ed321;
   }
   &.down {
-    color: #d0021b;
+    //color: #d0021b;
+    color: #ff3838;
+  }
+`;
+
+const positionChangeOld = css`
+  //background: green;
+  //position: relative;
+  text-align: center;
+  //width: calc(100%-25px);
+  font-size: 9px;
+  //right: 5px;
+  //top: -7px;
+  //text-align: center;
+  //width: 15px;
+  //color: black;
+  //left: 5px;
+  //margin-left: 5px;
+  //left: 10px;
+  //left: calc(100% / 2);
+  //transform: translateX(50%);
+  grid-row: 3;
+  & span {
+    display: block;
+    width: 10px;
+    //height: 7px;
+    //margin: 0px auto;
+  }
+
+  &.up {
+    //top: -18px;
+    color: #7ed321;
+    grid-row: 1;
+  }
+  &.down {
+    //color: #d0021b;
+    color: #ff3838;
   }
 `;
 
@@ -175,43 +210,36 @@ export type PlayerRowProps = {
   isActive: boolean;
 };
 
-const PlayerRow: React.SFC<PlayerRowProps> = ({
-  payload,
-  isActive = false
-}) => {
+const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => {
   let winPercent: number = 0;
 
   if (payload) {
     winPercent = (payload.wins / payload.games) * 100;
   }
 
-  let psChange: React.ReactNode;
-  if (payload && payload.positionChange !== 0) {
-    psChange = (
-      <div
-        className={cx(
-          positionChange,
-          payload.positionChange > 0 ? "up" : "down"
-        )}
-      >
-        <span>{payload.positionChange > 0 && "▲"}</span>
-        <div>{payload.positionChange}</div>
-        <span>{payload.positionChange < 0 && "▼"}</span>
-      </div>
-    );
-  }
+  let psChangeUp: React.ReactNode;
+  let psChangeDown: React.ReactNode;
+  psChangeUp = payload && payload.positionChange > 0 && <>{payload.positionChange}▲</>;
+  psChangeDown = payload && payload.positionChange < 0 && <>{payload.positionChange}▼</>;
+  // if (payload && payload.positionChange !== 0) {
+  //   psChangeUp = (
+  //     <div className={cx(positionChange, payload.positionChange > 0 ? "up" : "down")}>
+  //       <span>{payload.positionChange > 0 && "▲"}</span>
+  //       <div>{payload.positionChange}</div>
+  //       <span>{payload.positionChange < 0 && "▼"}</span>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div
-      className={
-        isActive ? `${playerWrap} ${playerActivebackground}` : playerWrap
-      }
-    >
+    <div className={isActive ? `${playerWrap} ${playerActivebackground}` : playerWrap}>
       <div className={position}>
         <SkeletonWrapper width={30}>
           {() => (
             <>
-              {payload.rank} {psChange}
+              <span className={cx(positionChange, "up")}>{psChangeUp}</span>
+              <span>{payload.rank}</span>
+              <span className={cx(positionChange, "down")}>{psChangeDown}</span>
             </>
           )}
         </SkeletonWrapper>
@@ -225,7 +253,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({
               <span key="region">
                 {payload.region === "sg" ? "sea" : payload.region}
               </span>,
-              payload.name
+              payload.name,
             ]}
           </SkeletonWrapper>
         </div>
