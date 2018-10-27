@@ -16,7 +16,7 @@ import {
 } from "recharts";
 import { FadeLoader as LoadingIcon } from "react-spinners";
 import { SkeletonContext } from "../common/Skeleton";
-import { Historical } from "./Player";
+import { Historical } from "../../lib/historical";
 
 const loaderStyle = css``;
 
@@ -71,7 +71,7 @@ const CustomTooltip: React.SFC<TooltipProps> = ({ active, payload, title }) => {
     return null;
   }
 
-  const strDate = payload[0].payload.date;
+  const strDate = payload[0].payload.date.toLocaleDateString();
   return (
     <div className={`custom-tooltip ${tooltipBox}`}>
       {
@@ -90,6 +90,10 @@ type Props = {
   data?: Historical[];
   dataKey: string;
   title: string;
+};
+
+const formatXAxis = (tickItem: any): string => {
+  return new Date(tickItem).toLocaleDateString();
 };
 
 const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
@@ -177,7 +181,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   dot={true}
                 />
                 <XAxis
-                  dataKey="date"
+                  dataKey="time"
                   stroke="#fff"
                   padding={{ left: 30, right: 30 }}
                   height={20}
@@ -185,6 +189,8 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   interval={0}
                   allowDecimals={false}
                   tickLine={false}
+                  type="number"
+                  tickFormatter={formatXAxis}
                 />
                 <YAxis
                   reversed={dataKey === "rank"}
