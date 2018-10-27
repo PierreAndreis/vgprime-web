@@ -190,7 +190,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   allowDecimals={false}
                   tickLine={false}
                   type="number"
-                  tickFormatter={formatXAxis}
+                  //tickFormatter={formatXAxis}
                 />
                 <YAxis
                   reversed={dataKey === "rank"}

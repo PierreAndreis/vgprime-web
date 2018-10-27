@@ -68,8 +68,8 @@ const GetHistoricalByDate = (dt: Date, historical: Array<Historical>): Historica
 
 /*
   * Will convert the received Historical from database to an Array of Historical
-  * Will try to find the dates on the "date" property inside the object VALUE,
-  *  and if it is empty, will get the date from the object KEY.
+  * Will try to find the dates on the "date" property inside the object's VALUE,
+  *  and if it is empty, will get the date from the object's KEY.
   ! It will filter out all the objects with empty keys.
 */
 const DbHistoricalToHistoricalArray = (dbHistorical: DbHistorical): Array<Historical> => {
