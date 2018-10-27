@@ -101,11 +101,16 @@ export default class Home extends React.Component<{}, State> {
                       tension: 0.1,
                     }}
                   >
-                    {exiting => (props: any) => (
-                      <animated.div className={records} style={props}>
-                        {exiting ? <LoadingIcon /> : <Records />}
-                      </animated.div>
-                    )}
+                    {exiting => (props: any) =>
+                      exiting ? (
+                        <animated.div className={records} style={props}>
+                          <LoadingIcon />
+                        </animated.div>
+                      ) : (
+                        <animated.div className={records} style={props}>
+                          <Records />
+                        </animated.div>
+                      )}
                   </Transition>
                 </Layout.Content>
               </SkeletonContext.Provider>
