@@ -33,31 +33,37 @@ const Leaderboard = ({
   playerName,
   nextHandler,
   previousHandler,
-}: LeaderboardProps) => (
-  <div>
-    <div className={container}>
-      {Array.from({ length: PLAYER_PER_PAGE }, (_, k) => k + 1).map((_, index) => (
-        <PlayerRow
-          payload={players[index]}
-          isActive={players[index] && players[index].name === playerName}
-          key={players[index] ? players[index].rank : index}
-        />
-      ))}
+}: LeaderboardProps) => {
+  // If not data fetched
+  if (!players || players.length === 0) {
+    return null;
+  }
+  return (
+    <div>
+      <div className={container}>
+        {Array.from({ length: PLAYER_PER_PAGE }, (_, k) => k + 1).map((_, index) => (
+          <PlayerRow
+            payload={players[index]}
+            isActive={players[index] && players[index].name === playerName}
+            key={players[index] ? players[index].rank : index}
+          />
+        ))}
+      </div>
+      {nextHandler &&
+        previousHandler && (
+          <div className={cx(navigationButtons)}>
+            <Button
+              onClick={previousHandler}
+              disabled={players.length === 0 || players[0].rank === 1}
+            >
+              Previous
+            </Button>
+            <Button onClick={nextHandler} disabled={!nextHandler}>
+              Next
+            </Button>
+          </div>
+        )}
     </div>
-    {nextHandler &&
-      previousHandler && (
-        <div className={cx(navigationButtons)}>
-          <Button
-            onClick={previousHandler}
-            disabled={players.length === 0 || players[0].rank === 1}
-          >
-            Previous
-          </Button>
-          <Button onClick={nextHandler} disabled={!nextHandler}>
-            Next
-          </Button>
-        </div>
-      )}
-  </div>
-);
+  );
+};
 export default Leaderboard;

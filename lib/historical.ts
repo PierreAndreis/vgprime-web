@@ -26,7 +26,6 @@ const extractDateFromDbHistoricalKey = (date: string): Date => {
   TODO:  simple check on the historical length will be enough to determinate the most part of conditions
 */
 const GetHistoricalByDate = (dt: Date, historical: Array<Historical>): Historical => {
-  // ! remove -- const strDt = dt.toLocaleDateString();
   // Search for the same date on historical
   let hist = historical.find(h => IsSameDay(h.date, dt));
   if (hist) return hist;
@@ -83,6 +82,7 @@ const DbHistoricalToHistoricalArray = (dbHistorical: DbHistorical): Array<Histor
       const date: Date = hasDateInside
         ? new Date(value.date)
         : extractDateFromDbHistoricalKey(key);
+      date.setHours(0, 0, 0, 0);
       return {
         date,
         rank: value.rank,
@@ -105,9 +105,6 @@ export const CreateFilledHistorical = (
 
   // Ordering by date
   fullHistorical.sort((a, b) => {
-    // const aDate = Date.parse(a.date);
-    // const bDate = Date.parse(b.date);
-    // console.log("aDate: ", aDate, "bDate: ", bDate);
     return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
 
@@ -116,7 +113,6 @@ export const CreateFilledHistorical = (
   while (fullHistorical.length > days) {
     fullHistorical.shift();
   }
-  console.log("fullHistorical", fullHistorical);
 
   const historical = [];
   if (fullHistorical.length >= 1) {

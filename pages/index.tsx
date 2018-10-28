@@ -30,11 +30,6 @@ const records = css`
 
 const transitionTimeMs = 300;
 
-const recordsExiting = css`
-  ${records};
-  animation: ${fadeOut} ${transitionTimeMs / 1000}s ease forwards;
-`;
-
 const searchArea = css`
   width: 330px;
   box-sizing: border-box;
@@ -63,8 +58,10 @@ export default class Home extends React.Component<{}, State> {
       <Layout>
         <Query query={qLeaderboard} variables={{ page: this.state.page }}>
           {({ error, data, loading }) => {
-            if (error) return <ErrorMessage message={error.message} />;
-            if (!data.leaderboard) {
+            // If errored
+            if (!loading && error) return <ErrorMessage message={error.message} />;
+            // If empty data
+            if (!data.leaderboard || data.leaderboard.length === 0) {
               return <ErrorMessage message="No data fetched" />;
             }
             const players = data.leaderboard as PlayersList;

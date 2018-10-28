@@ -5,10 +5,7 @@ import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
 import { CreateFilledHistorical } from "../../lib/historical";
-
-// layout:
-// info   stats
-// graph1 graph2
+import { FadeLoader as LoadingIcon } from "react-spinners";
 
 const fadeIn = keyframes`
   from {
@@ -46,13 +43,19 @@ const container = css`
 const DAYS_AMMOUNT_ON_GRAPH = 5;
 
 type Props = {
-  player: PlayerType;
+  player?: PlayerType;
 };
 const Player: React.SFC<Props> = ({ player }) => {
-  const historical =
-    player && player.id !== ""
-      ? CreateFilledHistorical(player.historical, DAYS_AMMOUNT_ON_GRAPH)
-      : [];
+  if (!player) {
+    return (
+      <div className="container">
+        return <LoadingIcon />
+      </div>
+    );
+  }
+  const historical = player
+    ? CreateFilledHistorical(player.historical, DAYS_AMMOUNT_ON_GRAPH)
+    : [];
   return (
     <div className={container}>
       <div className="info">

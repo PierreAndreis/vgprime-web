@@ -11,6 +11,7 @@ const ListDatesFromToday = (days: number) => {
   while (dates.length < days) {
     let newDate = new Date(today);
     newDate.setDate(newDate.getDate() - dates.length);
+    newDate.setHours(0, 0, 0, 0);
     dates.unshift(newDate);
   }
   return dates;

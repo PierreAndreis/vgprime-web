@@ -97,8 +97,6 @@ const formatXAxis = (tickItem: any): string => {
 };
 
 const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
-  console.log(data);
-  console.log(dataKey);
   return (
     <div className={graphBox}>
       <SkeletonContext.Consumer>
@@ -190,7 +188,10 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   allowDecimals={false}
                   tickLine={false}
                   type="number"
-                  //tickFormatter={formatXAxis}
+                  domain={["dataMin", "dataMax"]}
+                  scale="time"
+                  tickFormatter={formatXAxis}
+                  tickCount={10}
                 />
                 <YAxis
                   reversed={dataKey === "rank"}
@@ -201,6 +202,9 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   allowDecimals={false}
                   tick={{ fontSize: "12px" }}
                   tickLine={false}
+                  domain={["dataMin", "dataMax"]}
+                  interval={0}
+                  tickCount={10}
                 />
                 <Tooltip content={<CustomTooltip title={title} />} />
               </LineChart>

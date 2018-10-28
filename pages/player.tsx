@@ -2,13 +2,11 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import { NextContext } from "next";
 import { css } from "emotion";
-
 import Layout from "./../components/common/Layout";
 import Leaderboard from "./../components/Leaderboard/Leaderboard";
 import ErrorMessage from "./../components/common/ErrorMessage";
 import Search from "../components/Search";
 import PlayerInfo from "../components/Player/Player";
-
 import { byPlayerName as qLeaderboard, Player } from "./../graphql/leaderboard";
 import { PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
@@ -40,7 +38,6 @@ class PlayerPage extends React.Component<Props> {
 
   render() {
     const { playerName } = this.props;
-
     if (!playerName) {
       return (
         <Layout>
@@ -63,6 +60,9 @@ class PlayerPage extends React.Component<Props> {
               players = data.leaderboard;
               player = players.find(p => p.name === playerName) as Player;
             }
+            if (!player) {
+              return null;
+            }
             return (
               <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
                 <Layout.Sidebar>
@@ -75,7 +75,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    {player && player.name ? (
+                    {player && player ? (
                       <PlayerInfo player={player} />
                     ) : (
                       <LoadingIcon loading={true} />

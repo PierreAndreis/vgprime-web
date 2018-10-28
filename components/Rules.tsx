@@ -55,7 +55,6 @@ class Rules extends React.Component<Props, State> {
 
   componentWillReceiveProps() {
     if (this.props.open === true) {
-      console.log("closing: false");
       this.setState({ closing: false });
     }
   }
