@@ -1,6 +1,7 @@
 import React from "react";
 import { css } from "emotion";
 import { Query } from "react-apollo";
+import Link from "next/link";
 
 import qRecord from "../../graphql/record";
 import { Record } from "../../graphql/record";
@@ -8,6 +9,8 @@ import { Record } from "../../graphql/record";
 import Box from "./../common/Box";
 
 const container = css`
+  display: block;
+  color: inherit;
   padding: 10px 8px 0;
   margin-bottom: 10px;
   border-top: 1px solid rgba(75, 75, 75, 0.1);
@@ -110,44 +113,46 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
           return players.map(player => {
             let winRate = Math.floor((player.wins / player.games) * 100);
             return (
-              <div className={container} key={player.id}>
-                <div className={name}>
-                  <i className={`vg-rank-${player.tier}`} />
-                  {player.name}
-                  <span>{player.region === "sg" ? "sea" : player.region}</span>
-                  <div className={points}>
-                    <span>{player.points} Pts</span>
-                  </div>
-                </div>
-                <div className={stats}>
-                  <div>
-                    <div>{player.wins}</div>
-                    <span>Wins</span>
-                  </div>
-                  <div>
-                    <div>{player.games - player.wins}</div>
-                    <span>Losses</span>
-                  </div>
-                  <div>
-                    <div
-                      style={{
-                        color: winRate > 50 ? "#4A90E2" : "#D0021B",
-                      }}
-                    >
-                      {winRate}%
+              <Link href={`/player?name=${player.name}`} prefetch key={player.id}>
+                <a className={container}>
+                  <div className={name}>
+                    <i className={`vg-rank-${player.tier}`} />
+                    {player.name}
+                    <span>{player.region === "sg" ? "sea" : player.region}</span>
+                    <div className={points}>
+                      <span>{player.points} Pts</span>
                     </div>
-                    <span>Win Rate</span>
                   </div>
-                  <div>
-                    <div>{player.games}</div>
-                    <span>Games</span>
+                  <div className={stats}>
+                    <div>
+                      <div>{player.wins}</div>
+                      <span>Wins</span>
+                    </div>
+                    <div>
+                      <div>{player.games - player.wins}</div>
+                      <span>Losses</span>
+                    </div>
+                    <div>
+                      <div
+                        style={{
+                          color: winRate > 50 ? "#4A90E2" : "#D0021B",
+                        }}
+                      >
+                        {winRate}%
+                      </div>
+                      <span>Win Rate</span>
+                    </div>
+                    <div>
+                      <div>{player.games}</div>
+                      <span>Games</span>
+                    </div>
+                    <div>
+                      <div>{player.mvp}</div>
+                      <span>MVPs</span>
+                    </div>
                   </div>
-                  <div>
-                    <div>{player.mvp}</div>
-                    <span>MVPs</span>
-                  </div>
-                </div>
-              </div>
+                </a>
+              </Link>
             );
           });
         }}

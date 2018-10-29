@@ -18,12 +18,14 @@ import { FadeLoader as LoadingIcon } from "react-spinners";
 import { SkeletonContext } from "../common/Skeleton";
 import { Historical } from "../../lib/historical";
 
-const loaderStyle = css``;
+const loaderStyle = css`
+  opacity: 0.4;
+`;
 
 const graphBox = css`
   ${Box};
   padding: 20px;
-  min-height: 250px;
+  height: 130px;
   width: 100%;
   align-items: center;
   justify-content: center;
@@ -40,8 +42,8 @@ const errorMessage = css`
 
 const tooltipBox = css`
   ${Box};
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 20px;
+  padding: 10px;
+  font-size: 13px;
   color: #000;
   .label {
     padding-bottom: 10px;
@@ -74,11 +76,7 @@ const CustomTooltip: React.SFC<TooltipProps> = ({ active, payload, title }) => {
   const strDate = payload[0].payload.date.toLocaleDateString();
   return (
     <div className={`custom-tooltip ${tooltipBox}`}>
-      {
-        <p className="label">
-          <b>Date:</b> {strDate}
-        </p>
-      }
+      <p className="label">{strDate}</p>
       <p className="intro">
         <b>{title}:</b> {payload[0].value}
       </p>
@@ -107,11 +105,11 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
             return (
               <div className={errorMessage}>
                 <div>We don't have enough data to build this chart.</div>
-                <div>Please play more</div>
+                <div>Please try again later.</div>
               </div>
             );
           return (
-            <ResponsiveContainer minHeight="230px" width="100%">
+            <ResponsiveContainer height={100} width="100%">
               <LineChart data={data} syncId="date">
                 <defs>
                   <linearGradient
@@ -158,23 +156,16 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                     <stop offset="5%" stopColor="#FF5D6B" stopOpacity={1} />
                     <stop offset="95%" stopColor="#B1041E" stopOpacity={1} />
                   </linearGradient>
-                  <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
-                    <feOffset result="offOut" in="SourceGraphic" dx="0" dy="0" />
-                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="1.5" />
-                    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-                  </filter>
                 </defs>
                 <CartesianGrid
                   fill="none"
-                  //stroke="rgba(104, 104, 104, 0.2)"
                   stroke="rgba(255, 255, 255, 0.2)"
                   strokeDasharray="5 5"
                 />
                 <Line
                   type="monotone"
                   dataKey={dataKey}
-                  strokeWidth={3}
-                  //filter={"url(#blur)"}
+                  strokeWidth={2}
                   stroke="#fff"
                   dot={true}
                 />
@@ -182,11 +173,10 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   dataKey="time"
                   stroke="#fff"
                   padding={{ left: 30, right: 30 }}
-                  height={20}
-                  tick={{ fontSize: "10px" }}
+                  height={10}
+                  tick={{ fontSize: "9px" }}
                   interval={0}
-                  allowDecimals={false}
-                  tickLine={false}
+                  allowDecimals={true}
                   type="number"
                   domain={["dataMin", "dataMax"]}
                   scale="time"
@@ -197,14 +187,10 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   reversed={dataKey === "rank"}
                   stroke="#fff"
                   padding={{ top: 0, bottom: 0 }}
-                  scale="auto"
-                  width={40}
+                  width={25}
                   allowDecimals={false}
                   tick={{ fontSize: "12px" }}
                   tickLine={false}
-                  domain={["dataMin", "dataMax"]}
-                  interval={0}
-                  tickCount={10}
                 />
                 <Tooltip content={<CustomTooltip title={title} />} />
               </LineChart>

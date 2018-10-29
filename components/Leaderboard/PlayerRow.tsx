@@ -1,6 +1,7 @@
 import { css, keyframes, cx } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
+import Link from "next/link";
 
 const enteringAnimation = keyframes`
   0% {
@@ -11,7 +12,7 @@ const enteringAnimation = keyframes`
   }
 `;
 
-const playerActivebackground = css`
+const playerActiveBackground = css`
   background-image: linear-gradient(to right, rgb(66, 134, 244, 0.3), white, white);
   background-size: 150% 150%;
   animation: ${enteringAnimation} 0.4s ease forwards;
@@ -47,74 +48,28 @@ const playerWrap = css`
 const position = css`
   width: 50px;
   text-align: center;
-  //padding-right: 25px;
   font-size: 16px;
   font-weight: bold;
   color: #4a90e2;
   position: relative;
-  //background: red;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  // & > span:nth-child(1) {
-  //   grid-row: 2;
-  // }
   & > span:nth-child(2) {
-    // flex-grow: 1;
-    // flex-shrink: 0;
     flex-grow: 1;
   }
 `;
 
 const positionChange = css`
   position: relative;
-  // flex-grow: 1;
-  // flex-shrink: 0;
   height: 10px;
-  //flex-grow: 1;
   font-size: 9px;
   text-align: center;
   &.up {
-    color: #7ed321;
+    color: green;
   }
   &.down {
-    //color: #d0021b;
-    color: #ff3838;
-  }
-`;
-
-const positionChangeOld = css`
-  //background: green;
-  //position: relative;
-  text-align: center;
-  //width: calc(100%-25px);
-  font-size: 9px;
-  //right: 5px;
-  //top: -7px;
-  //text-align: center;
-  //width: 15px;
-  //color: black;
-  //left: 5px;
-  //margin-left: 5px;
-  //left: 10px;
-  //left: calc(100% / 2);
-  //transform: translateX(50%);
-  grid-row: 3;
-  & span {
-    display: block;
-    width: 10px;
-    //height: 7px;
-    //margin: 0px auto;
-  }
-
-  &.up {
-    //top: -18px;
-    color: #7ed321;
-    grid-row: 1;
-  }
-  &.down {
-    //color: #d0021b;
     color: #ff3838;
   }
 `;
@@ -217,78 +172,71 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
     winPercent = (payload.wins / payload.games) * 100;
   }
 
-  let psChangeUp: React.ReactNode;
-  let psChangeDown: React.ReactNode;
-  psChangeUp = payload && payload.positionChange > 0 && <>{payload.positionChange}▲</>;
-  psChangeDown = payload && payload.positionChange < 0 && <>{payload.positionChange}▼</>;
-  // if (payload && payload.positionChange !== 0) {
-  //   psChangeUp = (
-  //     <div className={cx(positionChange, payload.positionChange > 0 ? "up" : "down")}>
-  //       <span>{payload.positionChange > 0 && "▲"}</span>
-  //       <div>{payload.positionChange}</div>
-  //       <span>{payload.positionChange < 0 && "▼"}</span>
-  //     </div>
-  //   );
-  // }
+  let psChangeUp = payload &&
+    payload.positionChange > 0 && <>{payload.positionChange}▲</>;
+  let psChangeDown = payload &&
+    payload.positionChange < 0 && <>{payload.positionChange}▼</>;
 
   return (
-    <div className={isActive ? `${playerWrap} ${playerActivebackground}` : playerWrap}>
-      <div className={position}>
-        <SkeletonWrapper width={30}>
-          {() => (
-            <>
-              <span className={cx(positionChange, "up")}>{psChangeUp}</span>
-              <span>{payload.rank}</span>
-              <span className={cx(positionChange, "down")}>{psChangeDown}</span>
-            </>
-          )}
-        </SkeletonWrapper>
-      </div>
-
-      <div className={info}>
-        <div>
-          <SkeletonWrapper width={100}>
-            {() => [
-              <i key="tier" className={`vg-rank-${payload.tier}`} />,
-              <span key="region">
-                {payload.region === "sg" ? "sea" : payload.region}
-              </span>,
-              payload.name,
-            ]}
-          </SkeletonWrapper>
-        </div>
-        <div style={{ padding: "1px" }}>
-          <SkeletonWrapper width={50} height={8}>
+    <Link href={payload ? `/player?name=${payload.name}` : "/"} prefetch>
+      <a className={cx(playerWrap, { [playerActiveBackground]: isActive })}>
+        <div className={position}>
+          <SkeletonWrapper width={30}>
             {() => (
-              <div className={winRateBar}>
-                <div style={{ width: `${winPercent}%` }} />
-              </div>
+              <>
+                <span className={cx(positionChange, "up")}>{psChangeUp}</span>
+                <span>{payload.rank}</span>
+                <span className={cx(positionChange, "down")}>{psChangeDown}</span>
+              </>
             )}
           </SkeletonWrapper>
+        </div>
 
-          <div className={winRateLabel}>{Math.floor(winPercent) || 0}% W/R</div>
-        </div>
-      </div>
-      <div className={games}>
-        <div>
-          <SkeletonWrapper width={30}>{() => payload.mvp}</SkeletonWrapper>
-        </div>
-        <span>MVPs</span>
-      </div>
-      <div className={games}>
-        <div>
-          <SkeletonWrapper width={30}>{() => payload.games}</SkeletonWrapper>
-        </div>
-        <span>GAMES</span>
-      </div>
+        <div className={info}>
+          <div>
+            <SkeletonWrapper width={100}>
+              {() => [
+                <i key="tier" className={`vg-rank-${payload.tier}`} />,
+                <span key="region">
+                  {payload.region === "sg" ? "sea" : payload.region}
+                </span>,
+                payload.name,
+              ]}
+            </SkeletonWrapper>
+          </div>
+          <div style={{ padding: "1px" }}>
+            <SkeletonWrapper width={50} height={8}>
+              {() => (
+                <div className={winRateBar}>
+                  <div style={{ width: `${winPercent}%` }} />
+                </div>
+              )}
+            </SkeletonWrapper>
 
-      <div className={points}>
-        <div>
-          <SkeletonWrapper width={30}>{() => payload.points}</SkeletonWrapper>
+            <div className={winRateLabel}>{Math.floor(winPercent) || 0}% W/R</div>
+          </div>
         </div>
-        <span>POINTS</span>
-      </div>
-    </div>
+        <div className={games}>
+          <div>
+            <SkeletonWrapper width={30}>{() => payload.mvp}</SkeletonWrapper>
+          </div>
+          <span>MVPs</span>
+        </div>
+        <div className={games}>
+          <div>
+            <SkeletonWrapper width={30}>{() => payload.games}</SkeletonWrapper>
+          </div>
+          <span>GAMES</span>
+        </div>
+
+        <div className={points}>
+          <div>
+            <SkeletonWrapper width={30}>{() => payload.points}</SkeletonWrapper>
+          </div>
+          <span>POINTS</span>
+        </div>
+      </a>
+    </Link>
   );
 };
 

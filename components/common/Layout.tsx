@@ -1,7 +1,8 @@
 import * as React from "react";
 import { css } from "emotion";
 import Prizes from "../Prizes";
-import Router from "next/router";
+
+import Link from "next/link";
 import Rules from "../Rules";
 import Cookies from "js-cookie";
 
@@ -140,10 +141,9 @@ class Layout extends React.Component<{}, State> {
     <div className={content}>{children}</div>
   );
 
-  constructor(props: {}) {
-    super(props);
-    this.state = { rulesOpened: false };
-  }
+  state = {
+    rulesOpened: false,
+  };
 
   componentDidMount() {
     if (typeof document !== "undefined") {
@@ -165,13 +165,15 @@ class Layout extends React.Component<{}, State> {
     this.setState({ rulesOpened: false });
   };
 
-  gotoIndex = () => Router.push("/");
-
   render() {
     return (
       <div className={container}>
         <div className={header}>
-          <div className={logo} onClick={this.gotoIndex} />
+          <Link href="/" prefetch>
+            <a>
+              <div className={logo} />
+            </a>
+          </Link>
           <button className={rulesButton} onClick={this.openRulesModal}>
             Rules
           </button>

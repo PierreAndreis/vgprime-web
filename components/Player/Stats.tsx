@@ -4,6 +4,9 @@ import { css } from "emotion";
 import boxCss from "./../common/Box";
 import { SkeletonWrapper } from "../common/Skeleton";
 
+import { buttonCss } from "../common/Button";
+import Link from "next/link";
+
 const container = css`
   ${boxCss};
   margin: 0;
@@ -35,6 +38,19 @@ const description = css`
   font-size: 14px;
   font-weight: 300;
   text-transform: uppercase;
+`;
+
+const moreButton = css`
+  ${buttonCss};
+  position: absolute;
+  bottom: -15px;
+  padding: 10px 25px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 14px;
+  text-transform: none;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 type Props = {
@@ -79,6 +95,12 @@ const Stats: React.SFC<Props> = ({ player }) => {
         </span>
         <span className={description}>Games</span>
       </div>
+      <a
+        href={player ? `https://vgpro.gg/player/${player.name}` : `https://vgpro.gg`}
+        target="_blank"
+      >
+        <button className={moreButton}>More on VGPRO.gg</button>
+      </a>
     </div>
   );
 };

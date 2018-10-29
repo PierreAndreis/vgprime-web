@@ -97,6 +97,7 @@ class Search extends React.Component<Props, State> {
       errored: false,
       success: false,
     });
+    // Plz remove this force update :/
     this.forceUpdate();
     const { data } = (await client.query({
       query: GET_PLAYER,
@@ -155,5 +156,4 @@ class Search extends React.Component<Props, State> {
   }
 }
 
-// @ts-ignore Argument of type 'typeof Search' is not assignable to parameter of type 'ComponentType<Props & WithRouterProps<Record<string, string | string[] | undefined>>>'.
 export default Search;
