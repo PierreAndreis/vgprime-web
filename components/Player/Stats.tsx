@@ -5,7 +5,6 @@ import boxCss from "./../common/Box";
 import { SkeletonWrapper } from "../common/Skeleton";
 
 import { buttonCss } from "../common/Button";
-import Link from "next/link";
 
 const container = css`
   ${boxCss};
