@@ -97,7 +97,6 @@ class Search extends React.Component<Props, State> {
       errored: false,
       success: false,
     });
-    this.forceUpdate();
     const { data } = (await client.query({
       query: GET_PLAYER,
       variables: { name: this.state.value },

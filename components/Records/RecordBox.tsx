@@ -6,6 +6,7 @@ import qRecord from "../../graphql/record";
 import { Record } from "../../graphql/record";
 
 import Box from "./../common/Box";
+import { SkeletonContext, SkeletonWrapper } from "../common/Skeleton";
 
 const container = css`
   padding: 10px 8px 0;
@@ -90,9 +91,16 @@ const stats = css`
   }
 `;
 
+const RECORD_PLAYERS_COUNT = 3;
+
 type Props = {
   type: string;
   title: string;
+};
+
+type RecordItem = {
+  available: boolean;
+  player: Record;
 };
 
 const RecordBox: React.SFC<Props> = ({ type, title }) => (
@@ -100,54 +108,96 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
     <h4>{title}</h4>
     <div className={records}>
       <Query query={qRecord} variables={{ type, limit: 3 }}>
-        {({ loading, data }) => {
-          if (loading) return null;
+        {({ loading, data, error }) => {
+          let players: Array<RecordItem> = [];
 
-          const key = Object.keys(data)[0];
+          console.log("daaata", data);
+          if (!loading && !error && data.record) {
+            for (let p of data.record) {
+              players.push({ player: p, available: true });
+            }
+          }
 
-          const players = data[key] as Record[];
+          while (players.length < RECORD_PLAYERS_COUNT) {
+            players.push({ player: {} as Record, available: false });
+          }
 
-          return players.map(player => {
+          console.log(players);
+
+          return players.map(({ player, available }, k) => {
             let winRate = Math.floor((player.wins / player.games) * 100);
             return (
-              <div className={container} key={player.id}>
-                <div className={name}>
-                  <i className={`vg-rank-${player.tier}`} />
-                  {player.name}
-                  <span>{player.region === "sg" ? "sea" : player.region}</span>
-                  <div className={points}>
-                    <span>{player.points} Pts</span>
-                  </div>
-                </div>
-                <div className={stats}>
-                  <div>
-                    <div>{player.wins}</div>
-                    <span>Wins</span>
-                  </div>
-                  <div>
-                    <div>{player.games - player.wins}</div>
-                    <span>Losses</span>
-                  </div>
-                  <div>
-                    <div
-                      style={{
-                        color: winRate > 50 ? "#4A90E2" : "#D0021B",
-                      }}
-                    >
-                      {winRate}%
+              <SkeletonContext.Provider
+                key={`${title}player${k}`}
+                value={loading || error || !available ? "loading" : "loaded"}
+              >
+                <div className={container}>
+                  <div className={name}>
+                    <SkeletonWrapper width={20} height={23}>
+                      {() => <i className={`vg-rank-${player.tier}`} />}
+                    </SkeletonWrapper>
+                    <SkeletonWrapper>{() => player.name}</SkeletonWrapper>
+                    <span>
+                      <SkeletonWrapper width={20} height={15}>
+                        {() => (player.region === "sg" ? "sea" : player.region)}
+                      </SkeletonWrapper>
+                    </span>
+                    <div className={points}>
+                      <span>
+                        <SkeletonWrapper width={40} height={10}>
+                          {() => `${player.points} Pts`}
+                        </SkeletonWrapper>
+                      </span>
                     </div>
-                    <span>Win Rate</span>
                   </div>
-                  <div>
-                    <div>{player.games}</div>
-                    <span>Games</span>
-                  </div>
-                  <div>
-                    <div>{player.mvp}</div>
-                    <span>MVPs</span>
+                  <div className={stats}>
+                    <div>
+                      <div>
+                        <SkeletonWrapper width={22} height={18}>
+                          {() => player.wins}
+                        </SkeletonWrapper>
+                      </div>
+                      <span>Wins</span>
+                    </div>
+                    <div>
+                      <div>
+                        <SkeletonWrapper width={32} height={18}>
+                          {() => player.games - player.wins}
+                        </SkeletonWrapper>
+                      </div>
+                      <span>Losses</span>
+                    </div>
+                    <div>
+                      <div
+                        style={{
+                          color: winRate > 50 ? "#4A90E2" : "#D0021B",
+                        }}
+                      >
+                        <SkeletonWrapper width={40} height={18}>
+                          {() => `${winRate}%`}
+                        </SkeletonWrapper>
+                      </div>
+                      <span>Win Rate</span>
+                    </div>
+                    <div>
+                      <div>
+                        <SkeletonWrapper width={30} height={18}>
+                          {() => player.games}
+                        </SkeletonWrapper>
+                      </div>
+                      <span>Games</span>
+                    </div>
+                    <div>
+                      <div>
+                        <SkeletonWrapper width={25} height={18}>
+                          {() => player.mvp}
+                        </SkeletonWrapper>
+                      </div>
+                      <span>MVPs</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </SkeletonContext.Provider>
             );
           });
         }}

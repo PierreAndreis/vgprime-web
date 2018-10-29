@@ -41,7 +41,7 @@ class PlayerPage extends React.Component<Props> {
     if (!playerName) {
       return (
         <Layout>
-          <ErrorMessage message="No Player Found" />
+          <ErrorMessage message="You need to provide a player name" />
         </Layout>
       );
     }
@@ -53,7 +53,6 @@ class PlayerPage extends React.Component<Props> {
             if (error) {
               return <ErrorMessage message={error.message} />;
             }
-
             let players: PlayersList = [];
             let player: Player | undefined;
             if (data.leaderboard) {
@@ -75,7 +74,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    {player && player ? (
+                    {player ? (
                       <PlayerInfo player={player} />
                     ) : (
                       <LoadingIcon loading={true} />
