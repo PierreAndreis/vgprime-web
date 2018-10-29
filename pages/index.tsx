@@ -11,6 +11,7 @@ import { SkeletonContext } from "../components/common/Skeleton";
 import { FadeLoader as LoadingIcon } from "react-spinners";
 import { Transition, animated } from "react-spring";
 
+// @ts-ignore
 const fadeOut = keyframes`
   from {
     opacity: 1;

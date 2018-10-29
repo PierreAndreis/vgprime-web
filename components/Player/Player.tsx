@@ -24,6 +24,10 @@ const container = css`
   grid-gap: 15px;
   animation: ${fadeIn} 0.5s ease;
 
+  & > div {
+    position: relative;
+  }
+
   @media screen and (max-width: 1300px) {
     .graph1,
     .graph2 {
@@ -59,16 +63,16 @@ const Player: React.SFC<Props> = ({ player }) => {
   return (
     <div className={container}>
       <div className="info">
-        <h4>Player Info</h4>
+        <h4>Info</h4>
         <PlayerInfo player={player} />
-      </div>
-      <div className="stats">
-        <h4>Player Stats</h4>
-        <Stats player={player} />
       </div>
       <div className="graph1">
         <h4>Points over time</h4>
         <Graph dataKey="points" title="Points" data={historical} />
+      </div>
+      <div className="stats">
+        <h4>Stats</h4>
+        <Stats player={player} />
       </div>
       <div className="graph2">
         <h4>Rank over time</h4>

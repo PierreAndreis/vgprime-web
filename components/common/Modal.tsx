@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { css } from "react-emotion";
 import { Transition, animated } from "react-spring";
 
@@ -47,7 +47,6 @@ const modalContent = css`
 type Props = {
   onClose: () => void;
   open: boolean;
-  children: ReactNode;
 };
 
 class Modal extends React.Component<Props> {
@@ -62,9 +61,24 @@ class Modal extends React.Component<Props> {
           native
           // @ts-ignore
           items={this.props.open}
-          from={{ opacity: 0, transform: "scale(0.95) translateY(-30px)" }}
-          enter={{ opacity: 1, transform: "scale(1) translateY(0)" }}
-          leave={{ opacity: 0, transform: "scale(0.95) translateY(-30px)" }}
+          from={{
+            backdropOpacity: 0,
+            opacity: 0,
+            transform: "scale(0.95) translateY(-30px)",
+          }}
+          enter={[
+            { backdropOpacity: 0.8 },
+            { backdropOpacity: 1, opacity: 1, transform: "scale(1) translateY(0)" },
+          ]}
+          leave={[
+            {
+              opacity: 0,
+              transform: "scale(0.95) translateY(-30px)",
+            },
+            {
+              backdropOpacity: 0,
+            },
+          ]}
           config={{
             duration: 200,
             tension: 0.1,
@@ -72,11 +86,15 @@ class Modal extends React.Component<Props> {
         >
           {open =>
             open &&
-            ((styles: any) => (
+            ((styles: {
+              backdropOpacity: number;
+              opacity: number;
+              transform: string;
+            }) => (
               <div className={modal}>
                 <animated.div
                   className={backdrop}
-                  style={{ opacity: styles.opacity }}
+                  style={{ opacity: styles.backdropOpacity }}
                   onClick={this.onClose}
                 />
                 <animated.div className={modalContent} style={styles}>

@@ -1,6 +1,7 @@
 import React from "react";
 import { css } from "emotion";
 import { Query } from "react-apollo";
+import Link from "next/link";
 
 import qRecord from "../../graphql/record";
 import { Record } from "../../graphql/record";
@@ -9,6 +10,8 @@ import Box from "./../common/Box";
 import { SkeletonContext, SkeletonWrapper } from "../common/Skeleton";
 
 const container = css`
+  display: block;
+  color: inherit;
   padding: 10px 8px 0;
   margin-bottom: 10px;
   border-top: 1px solid rgba(75, 75, 75, 0.1);
@@ -131,72 +134,74 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                 key={`${title}player${k}`}
                 value={loading || error || !available ? "loading" : "loaded"}
               >
-                <div className={container}>
-                  <div className={name}>
-                    <SkeletonWrapper width={20} height={23}>
-                      {() => <i className={`vg-rank-${player.tier}`} />}
-                    </SkeletonWrapper>
-                    <SkeletonWrapper>{() => player.name}</SkeletonWrapper>
-                    <span>
-                      <SkeletonWrapper width={20} height={15}>
-                        {() => (player.region === "sg" ? "sea" : player.region)}
+                <Link href={`/player?name=${player.name}`} prefetch key={player.id}>
+                  <div className={container}>
+                    <div className={name}>
+                      <SkeletonWrapper width={20} height={23}>
+                        {() => <i className={`vg-rank-${player.tier}`} />}
                       </SkeletonWrapper>
-                    </span>
-                    <div className={points}>
+                      <SkeletonWrapper>{() => player.name}</SkeletonWrapper>
                       <span>
-                        <SkeletonWrapper width={40} height={10}>
-                          {() => `${player.points} Pts`}
+                        <SkeletonWrapper width={20} height={15}>
+                          {() => (player.region === "sg" ? "sea" : player.region)}
                         </SkeletonWrapper>
                       </span>
+                      <div className={points}>
+                        <span>
+                          <SkeletonWrapper width={40} height={10}>
+                            {() => `${player.points} Pts`}
+                          </SkeletonWrapper>
+                        </span>
+                      </div>
+                    </div>
+                    <div className={stats}>
+                      <div>
+                        <div>
+                          <SkeletonWrapper width={22} height={18}>
+                            {() => player.wins}
+                          </SkeletonWrapper>
+                        </div>
+                        <span>Wins</span>
+                      </div>
+                      <div>
+                        <div>
+                          <SkeletonWrapper width={32} height={18}>
+                            {() => player.games - player.wins}
+                          </SkeletonWrapper>
+                        </div>
+                        <span>Losses</span>
+                      </div>
+                      <div>
+                        <div
+                          style={{
+                            color: winRate > 50 ? "#4A90E2" : "#D0021B",
+                          }}
+                        >
+                          <SkeletonWrapper width={40} height={18}>
+                            {() => `${winRate}%`}
+                          </SkeletonWrapper>
+                        </div>
+                        <span>Win Rate</span>
+                      </div>
+                      <div>
+                        <div>
+                          <SkeletonWrapper width={30} height={18}>
+                            {() => player.games}
+                          </SkeletonWrapper>
+                        </div>
+                        <span>Games</span>
+                      </div>
+                      <div>
+                        <div>
+                          <SkeletonWrapper width={25} height={18}>
+                            {() => player.mvp}
+                          </SkeletonWrapper>
+                        </div>
+                        <span>MVPs</span>
+                      </div>
                     </div>
                   </div>
-                  <div className={stats}>
-                    <div>
-                      <div>
-                        <SkeletonWrapper width={22} height={18}>
-                          {() => player.wins}
-                        </SkeletonWrapper>
-                      </div>
-                      <span>Wins</span>
-                    </div>
-                    <div>
-                      <div>
-                        <SkeletonWrapper width={32} height={18}>
-                          {() => player.games - player.wins}
-                        </SkeletonWrapper>
-                      </div>
-                      <span>Losses</span>
-                    </div>
-                    <div>
-                      <div
-                        style={{
-                          color: winRate > 50 ? "#4A90E2" : "#D0021B",
-                        }}
-                      >
-                        <SkeletonWrapper width={40} height={18}>
-                          {() => `${winRate}%`}
-                        </SkeletonWrapper>
-                      </div>
-                      <span>Win Rate</span>
-                    </div>
-                    <div>
-                      <div>
-                        <SkeletonWrapper width={30} height={18}>
-                          {() => player.games}
-                        </SkeletonWrapper>
-                      </div>
-                      <span>Games</span>
-                    </div>
-                    <div>
-                      <div>
-                        <SkeletonWrapper width={25} height={18}>
-                          {() => player.mvp}
-                        </SkeletonWrapper>
-                      </div>
-                      <span>MVPs</span>
-                    </div>
-                  </div>
-                </div>
+                </Link>
               </SkeletonContext.Provider>
             );
           });

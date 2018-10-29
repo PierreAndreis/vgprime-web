@@ -5,17 +5,20 @@ import { Player } from "../../graphql/leaderboard";
 
 import boxCss from "./../common/Box";
 
-import { buttonCss } from "../common/Button";
-import { HeroesStats } from "../../api/types";
+import { PlayerStats } from "../../api/types";
 import { Query } from "react-apollo";
-import getHeroes from "../../graphql/getHeroes";
+import qPlayerStats from "../../graphql/playerStats";
+
+const heroImage = (heroName: string): string =>
+  `https://vgproassets.nyc3.cdn.digitaloceanspaces.com/heroes/${heroName.toLowerCase()}.png`;
 
 const container = css`
   ${boxCss};
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px 20px;
+  box-sizing: border-box;
+  padding: 11px 30px;
 `;
 
 const info = css`
@@ -23,34 +26,34 @@ const info = css`
   flex-direction: row;
   align-items: center;
   margin: 10px 0px;
-  width: calc(100% - 30px);
+  width: 100%;
   box-sizing: border-box;
   & i {
     color: #eaa900;
-    font-size: 32px;
+    font-size: 20px;
+    margin-bottom: -3;
   }
-  & > span:nth-of-type(1) {
+  & .name {
     margin-left: 10px;
-    color: #71bbc9;
+    font-size: 17px;
     font-family: "Roboto Condensed";
     font-weight: 700;
   }
-  & > span:nth-of-type(2) {
-    margin-left: 10px;
-    padding-top: 1px;
-    font-size: 14px;
-    color: rgba(20, 20, 20, 0.7);
+
+  & .region {
+    margin-left: 3px;
+    font-size: 12px;
+    color: rgba(100, 100, 100, 0.5);
     text-transform: uppercase;
     font-weight: bold;
-    margin-right: 20px;
   }
-  & > span:nth-of-type(3) {
-    padding: 10px 20px 10px 20px;
+  & .points {
+    padding: 6px 20px 6px 20px;
     background-color: #dcdcdc;
     border-radius: 15px;
     margin-left: auto;
     justify-self: flex-end;
-    font-size: 14px;
+    font-size: 13px;
     color: rgba(20, 20, 20, 0.7);
     text-transform: uppercase;
     font-weight: 500;
@@ -60,7 +63,7 @@ const info = css`
 const separator = css`
   height: 1px;
   width: 100%;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const heroes = css`
@@ -68,22 +71,16 @@ const heroes = css`
   flex-direction: row;
   align-items: center;
   margin: 10px 0px;
-  margin-bottom: 30px;
   & > span {
     margin-right: 10px;
     font-size: 14px;
     font-weight: 600;
   }
 `;
-const heroeImageSize = "35px";
-// const emptyHeroe = css`
-//   background-color: #dcdcdc;
-// `;
-const heroAvatar = (heroName: string) => css`
-  ${!heroName || heroName === ""
-    ? "background-color: #dcdcdc"
-    : `background-image: 
-    url("https://vgproassets.nyc3.cdn.digitaloceanspaces.com/heroes/${heroName.toLowerCase()}.png")`};
+const heroeImageSize = "40px";
+
+const heroAvatar = css`
+  background-color: #dcdcdc;
   background-size: ${heroeImageSize} ${heroeImageSize};
   width: ${heroeImageSize};
   height: ${heroeImageSize};
@@ -91,92 +88,73 @@ const heroAvatar = (heroName: string) => css`
   margin-right: 5px;
 `;
 
-const moreButton = css`
-  ${buttonCss};
-  position: absolute;
-  bottom: -15px;
-  padding: 10px 25px;
-  font-weight: 600;
-  color: #fff;
-  font-size: 14px;
-  text-transform: none;
-`;
-
 export type PlayerInfoProps = {
   player: Player;
 };
 
 class PlayerInfo extends React.Component<PlayerInfoProps> {
-  constructor(props: PlayerInfoProps) {
-    super(props);
-  }
-
-  gotoVgPro = () => {
-    if (this.props.player) {
-      window.open(`https://vgpro.gg/players/${this.props.player.name}`);
-    }
-  };
-
   render() {
     const { player } = this.props;
-    // const topHeroesRenderer = topHeroes.map((h, k) => {
-    //   return <div key={k} className={heroe(h.name)} title={h.name} />;
-    // });
 
     return (
       <div className={container}>
         <div className={info}>
-          <SkeletonWrapper width={40} height={30}>
+          <SkeletonWrapper width={20} height={20}>
             {() => <i className={`vg-rank-${player.tier}`} />}
           </SkeletonWrapper>
-          <span>
-            <SkeletonWrapper>{() => player.name}</SkeletonWrapper>
-          </span>
-          <span>
-            <SkeletonWrapper>
+
+          <div className="name">
+            <SkeletonWrapper height={15} width={100}>
+              {() => player.name}
+            </SkeletonWrapper>
+          </div>
+          <div className="region">
+            <SkeletonWrapper height={15} width={20}>
               {() => (player.region === "sg" ? "sea" : player.region)}
             </SkeletonWrapper>
-          </span>
+          </div>
 
-          <SkeletonWrapper height={35} width={120}>
-            {() => <span>{player.points + " PTS"}</span>}
-          </SkeletonWrapper>
+          <div className="points">
+            <SkeletonWrapper height={10} width={50}>
+              {() => player.points + " PTS"}
+            </SkeletonWrapper>
+          </div>
         </div>
         <div className={separator} />
         <div className={heroes}>
           <span>TOP 5 HEROES</span>
-          <Query query={getHeroes} variables={{ playerName: player ? player.name : "" }}>
+          <Query
+            query={qPlayerStats}
+            variables={{ playerName: player ? player.name : "" }}
+          >
             {({ error, data, loading }) => {
-              const heroesAmount = 5;
-              const topHeroes = [] as HeroesStats[];
-              while (topHeroes.length < heroesAmount) {
-                topHeroes.push({ name: "" } as HeroesStats);
+              let heroes: ReadonlyArray<string> = [];
+
+              if (!loading && !error) {
+                const player = data.playerStats as PlayerStats;
+                heroes = [...player.stats.Heroes]
+                  .sort((a, b) => (a.games > b.games ? -1 : 1))
+                  .map(hero => hero.name);
               }
-              if (
-                !error &&
-                !loading &&
-                data &&
-                data.getHeroes &&
-                data.getHeroes.stats &&
-                data.getHeroes.stats.Heroes
-              ) {
-                const heroes = data.getHeroes.stats.Heroes.slice() as HeroesStats[];
-                heroes.sort((h1, h2) => h2.games - h1.games);
-                const topHeroesReceived =
-                  heroes.length > heroesAmount ? heroes.slice(0, heroesAmount) : heroes;
-                for (let i = 0; i < topHeroes.length; i++) {
-                  topHeroes[i] = topHeroesReceived[i];
+
+              const res: React.ReactNode[] = [];
+
+              for (let i = 0; i < 5; i++) {
+                let style;
+                if (heroes[i]) {
+                  style = {
+                    backgroundImage: `url(${heroImage(heroes[i])}`,
+                  };
                 }
+
+                res.push(
+                  <div key={`topHero-${i}`} className={heroAvatar} style={style} />
+                );
               }
-              return topHeroes.map((h, k) => (
-                <div key={`topHero-${k}`} className={heroAvatar(h.name)} />
-              ));
+              return res;
             }}
           </Query>
         </div>
-        <button className={moreButton} onClick={this.gotoVgPro}>
-          More on VGPRO
-        </button>
       </div>
     );
   }

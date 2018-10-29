@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
 export default gql`
-  query GetHeroes($playerName: String!) {
-    getHeroes(playerName: $playerName)
+  query playerStats($playerName: String!) {
+    playerStats(playerName: $playerName)
       @rest(type: "GetHeroes", path: "player/{args.playerName}/stats") {
       stats @type(name: "Stats") {
         Heroes @type(name: "Hero") {
