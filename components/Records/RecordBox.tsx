@@ -114,7 +114,6 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
         {({ loading, data, error }) => {
           let players: Array<RecordItem> = [];
 
-          console.log("daaata", data);
           if (!loading && !error && data.record) {
             for (let p of data.record) {
               players.push({ player: p, available: true });
@@ -125,8 +124,6 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
             players.push({ player: {} as Record, available: false });
           }
 
-          console.log(players);
-
           return players.map(({ player, available }, k) => {
             let winRate = Math.floor((player.wins / player.games) * 100);
             return (
@@ -134,8 +131,8 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                 key={`${title}player${k}`}
                 value={loading || error || !available ? "loading" : "loaded"}
               >
-                <Link href={`/player?name=${player.name}`} prefetch key={player.id}>
-                  <div className={container}>
+                <Link href={available ? `/player?name=${player.name}` : "#"} prefetch>
+                  <a className={container}>
                     <div className={name}>
                       <SkeletonWrapper width={20} height={23}>
                         {() => <i className={`vg-rank-${player.tier}`} />}
@@ -200,7 +197,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                         <span>MVPs</span>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </Link>
               </SkeletonContext.Provider>
             );
