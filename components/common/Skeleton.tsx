@@ -31,15 +31,11 @@ type SkeletonProps = {
   borderRadius?: string;
 };
 
-const Skeleton: React.SFC<SkeletonProps> = ({
-  width,
-  height,
-  borderRadius
-}) => {
+const Skeleton: React.SFC<SkeletonProps> = ({ width, height, borderRadius }) => {
   const style = {
     width,
     height,
-    borderRadius
+    borderRadius,
   };
 
   return (
@@ -47,7 +43,8 @@ const Skeleton: React.SFC<SkeletonProps> = ({
       className={StyletonCSS}
       style={{
         ...style,
-        animationDelay: `${Math.floor(Math.random() * 3) + 1}s`
+        //animationDelay: `${Math.floor(Math.random() * 3) + 1}s`
+        animationDelay: "2s",
       }}
     />
   );
@@ -56,7 +53,7 @@ const Skeleton: React.SFC<SkeletonProps> = ({
 Skeleton.defaultProps = {
   width: 100,
   height: 20,
-  borderRadius: "5px"
+  borderRadius: "5px",
 };
 
 type SkeletonStatus = "loading" | "loaded" | "error";
@@ -64,10 +61,7 @@ type SkeletonStatus = "loading" | "loaded" | "error";
 type SkeletonWrapperProps = {
   children(): React.ReactNode;
   status?: SkeletonStatus;
-  render?(
-    status: SkeletonStatus,
-    Skeleton: React.SFC<SkeletonProps>
-  ): JSX.Element;
+  render?(status: SkeletonStatus, Skeleton: React.SFC<SkeletonProps>): JSX.Element;
 } & SkeletonProps;
 
 class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {

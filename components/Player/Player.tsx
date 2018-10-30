@@ -50,13 +50,13 @@ type Props = {
   player?: PlayerType;
 };
 const Player: React.SFC<Props> = ({ player }) => {
-  if (!player) {
-    return (
-      <div className="container">
-        return <LoadingIcon />
-      </div>
-    );
-  }
+  // if (!player) {
+  //   return (
+  //     <div className="container">
+  //       <LoadingIcon />
+  //     </div>
+  //   );
+  // }
   const historical = player
     ? CreateFilledHistorical(player.historical, DAYS_AMMOUNT_ON_GRAPH)
     : [];

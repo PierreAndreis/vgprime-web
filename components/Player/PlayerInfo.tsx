@@ -89,7 +89,7 @@ const heroAvatar = css`
 `;
 
 export type PlayerInfoProps = {
-  player: Player;
+  player?: Player;
 };
 
 class PlayerInfo extends React.Component<PlayerInfoProps> {
@@ -100,23 +100,23 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
       <div className={container}>
         <div className={info}>
           <SkeletonWrapper width={20} height={20}>
-            {() => <i className={`vg-rank-${player.tier}`} />}
+            {() => <i className={`vg-rank-${player ? player.tier : ""}`} />}
           </SkeletonWrapper>
 
           <div className="name">
             <SkeletonWrapper height={15} width={100}>
-              {() => player.name}
+              {() => (player ? player.name : "")}
             </SkeletonWrapper>
           </div>
           <div className="region">
             <SkeletonWrapper height={15} width={20}>
-              {() => (player.region === "sg" ? "sea" : player.region)}
+              {() => (player ? (player.region === "sg" ? "sea" : player.region) : "")}
             </SkeletonWrapper>
           </div>
 
           <div className="points">
             <SkeletonWrapper height={10} width={50}>
-              {() => player.points + " PTS"}
+              {() => (player ? player.points + " PTS" : "")}
             </SkeletonWrapper>
           </div>
         </div>
@@ -130,7 +130,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
             {({ error, data, loading }) => {
               let heroes: ReadonlyArray<string> = [];
 
-              if (!loading && !error) {
+              if (!loading && !error && data.playerStats && data.playerStats.stats) {
                 const player = data.playerStats as PlayerStats;
                 heroes = [...player.stats.Heroes]
                   .sort((a, b) => (a.games > b.games ? -1 : 1))
@@ -142,6 +142,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
               for (let i = 0; i < 5; i++) {
                 let style;
                 if (heroes[i]) {
+                  console.log(heroes[i]);
                   style = {
                     backgroundImage: `url(${heroImage(heroes[i])}`,
                   };

@@ -73,7 +73,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    {!player ? <PlayerInfo player={player} /> : <LoadingIcon />}
+                    <PlayerInfo player={player} />
                   </div>
                 </Layout.Content>
               </SkeletonContext.Provider>

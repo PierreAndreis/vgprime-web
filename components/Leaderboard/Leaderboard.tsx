@@ -35,9 +35,9 @@ const Leaderboard = ({
   previousHandler,
 }: LeaderboardProps) => {
   // If not data fetched
-  if (!players || players.length === 0) {
-    return null;
-  }
+  // if (!players || players.length === 0) {
+  //   return null;
+  // }
   return (
     <div>
       <div className={container}>
