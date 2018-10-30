@@ -38,6 +38,7 @@ const container = css`
   }
 
   @media screen and (max-width: 1300px) {
+    display: grid;
     grid-template:
       "header header" auto
       "sidebar prizes" auto
@@ -51,15 +52,6 @@ const container = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
   }
 `;
 
@@ -115,7 +107,6 @@ const rulesButton = css`
 const sidebar = css`
   grid-area: sidebar;
   order: 2;
-  animation: fadeIn 1s ease;
 `;
 
 const prizes = css`

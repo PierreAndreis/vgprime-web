@@ -125,12 +125,18 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
           <span>TOP 5 HEROES</span>
           <Query
             query={qPlayerStats}
-            variables={{ playerName: player ? player.name : "" }}
+            variables={{ playerName: player ? player.name : "IDontExist" }}
           >
             {({ error, data, loading }) => {
               let heroes: ReadonlyArray<string> = [];
 
-              if (!loading && !error && data.playerStats && data.playerStats.stats) {
+              if (
+                !loading &&
+                !error &&
+                data.playerStats &&
+                data.playerStats.stats &&
+                data.playerStats.stats.Heroes
+              ) {
                 const player = data.playerStats as PlayerStats;
                 heroes = [...player.stats.Heroes]
                   .sort((a, b) => (a.games > b.games ? -1 : 1))

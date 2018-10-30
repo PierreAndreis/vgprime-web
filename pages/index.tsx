@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { css, keyframes } from "emotion";
+import { css } from "emotion";
 import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import ErrorMessage from "../components/common/ErrorMessage";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
@@ -9,16 +9,6 @@ import Search from "../components/Search";
 import Layout from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
 
-// @ts-ignore
-const fadeOut = keyframes`
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-`;
-
 const records = css`
   grid-area: content;
   order: 3;
@@ -26,8 +16,6 @@ const records = css`
   flex-wrap: wrap;
   justify-content: center;
 `;
-
-const transitionTimeMs = 300;
 
 const searchArea = css`
   width: 330px;
@@ -77,13 +65,7 @@ export default class Home extends React.Component<{}, State> {
                 <Layout.Content>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
-                    <Search
-                      beforeSearch={() => {
-                        this.state.exiting = true;
-                        this.forceUpdate();
-                      }}
-                      timeout={transitionTimeMs / 2}
-                    />
+                    <Search />
                   </div>
                   <div className={records}>
                     <Records />

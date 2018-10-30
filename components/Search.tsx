@@ -51,8 +51,6 @@ const GET_PLAYER = gql`
 
 type Props = {
   defaultValue?: string;
-  beforeSearch?: () => void;
-  timeout?: number;
   placeholder?: string;
 };
 
@@ -105,13 +103,9 @@ class Search extends React.Component<Props, State> {
         variables: { name: this.state.value },
       })) as any;
       if (data.player === null) {
-        console.log("data.player is null");
         this.setState({ errored: true, loading: false });
       } else {
         this.setState({ success: true });
-        if (this.props.beforeSearch && this.props.timeout) {
-          this.props.beforeSearch();
-        }
         const path = Router.pathname;
         this.pushRoute();
         if (path === "/player") {
@@ -119,7 +113,7 @@ class Search extends React.Component<Props, State> {
         }
       }
     } catch {
-      this.setState({ errored: true });
+      this.setState({ errored: true, success: false });
     } finally {
       this.setState({ loading: false });
     }

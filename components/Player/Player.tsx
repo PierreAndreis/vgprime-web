@@ -1,20 +1,10 @@
 import * as React from "react";
-import { css, keyframes } from "emotion";
+import { css } from "emotion";
 import { Player as PlayerType } from "../../graphql/leaderboard";
 import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
 import { CreateFilledHistorical } from "../../lib/historical";
-import { FadeLoader as LoadingIcon } from "react-spinners";
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 
 const container = css`
   display: grid;
@@ -22,24 +12,22 @@ const container = css`
   box-sizing: border-box;
   grid-template-columns: 1fr 1fr;
   grid-gap: 15px;
-  animation: ${fadeIn} 0.5s ease;
 
   & > div {
+    grid-column: auto auto;
     position: relative;
   }
 
   @media screen and (max-width: 1300px) {
-    .graph1,
-    .graph2 {
+    & > div {
       grid-column: 1 / 3;
     }
   }
 
   @media screen and (max-width: 800px) {
     grid-template-columns: 1fr;
-    .graph1,
-    .graph2 {
-      grid-column: 1;
+    & > div {
+      grid-column: auto auto;
     }
   }
 `;
