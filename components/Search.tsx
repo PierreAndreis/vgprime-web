@@ -80,6 +80,8 @@ class Search extends React.Component<Props, State> {
 
     this.setState({
       value,
+      loading: false,
+      errored: false,
     });
   };
 
@@ -97,25 +99,29 @@ class Search extends React.Component<Props, State> {
       errored: false,
       success: false,
     });
-    const { data } = (await client.query({
-      query: GET_PLAYER,
-      variables: { name: this.state.value },
-    })) as any;
-    this.setState({ loading: false });
-    if (data.player === null) {
-      this.setState({ errored: true });
-    } else {
-      this.setState({ success: true });
-      if (this.props.beforeSearch && this.props.timeout) {
-        this.props.beforeSearch();
-        setTimeout(this.pushRoute, this.props.timeout);
+    try {
+      const { data } = (await client.query({
+        query: GET_PLAYER,
+        variables: { name: this.state.value },
+      })) as any;
+      if (data.player === null) {
+        console.log("data.player is null");
+        this.setState({ errored: true, loading: false });
       } else {
+        this.setState({ success: true });
+        if (this.props.beforeSearch && this.props.timeout) {
+          this.props.beforeSearch();
+        }
+        const path = Router.pathname;
         this.pushRoute();
+        if (path === "/player") {
+          this.setState({ success: false, value: "" });
+        }
       }
-      const path = Router.pathname;
-      if (path === "/player") {
-        this.setState({ success: false, value: "" });
-      }
+    } catch {
+      this.setState({ errored: true });
+    } finally {
+      this.setState({ loading: false });
     }
   };
 

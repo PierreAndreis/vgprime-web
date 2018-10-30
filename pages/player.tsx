@@ -50,20 +50,19 @@ class PlayerPage extends React.Component<Props> {
       <Layout>
         <Query query={qLeaderboard} variables={{ playerName }}>
           {({ error, data, loading }) => {
-            if (error) {
-              return <ErrorMessage message={error.message} />;
-            }
+            // if (error) {
+            //   return <ErrorMessage message={error.message} />;
+            // }
             let players: PlayersList = [];
             let player: Player | undefined;
-            if (data.leaderboard) {
+            if (data && data.leaderboard) {
               players = data.leaderboard;
               player = players.find(p => p.name === playerName) as Player;
             }
-            if (!player) {
-              return null;
-            }
             return (
-              <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
+              <SkeletonContext.Provider
+                value={loading || error || !player ? "loading" : "loaded"}
+              >
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard players={players} playerName={playerName} />
@@ -74,11 +73,7 @@ class PlayerPage extends React.Component<Props> {
                     <Search />
                   </div>
                   <div className={playerInfo}>
-                    {player ? (
-                      <PlayerInfo player={player} />
-                    ) : (
-                      <LoadingIcon loading={true} />
-                    )}
+                    {!player ? <PlayerInfo player={player} /> : <LoadingIcon />}
                   </div>
                 </Layout.Content>
               </SkeletonContext.Provider>
