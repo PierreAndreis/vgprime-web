@@ -8,8 +8,6 @@ import Records from "../components/Records";
 import Search from "../components/Search";
 import Layout from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
-import { FadeLoader as LoadingIcon } from "react-spinners";
-import { Transition, animated } from "react-spring";
 
 // @ts-ignore
 const fadeOut = keyframes`
@@ -87,29 +85,9 @@ export default class Home extends React.Component<{}, State> {
                       timeout={transitionTimeMs / 2}
                     />
                   </div>
-                  <Transition
-                    native
-                    // @ts-ignore
-                    items={this.state.exiting}
-                    from={{ opacity: 0 }}
-                    enter={{ opacity: 1 }}
-                    leave={{ opacity: 0 }}
-                    config={{
-                      duration: 200,
-                      tension: 0.1,
-                    }}
-                  >
-                    {exiting => (props: any) =>
-                      exiting ? (
-                        <animated.div className={records} style={props}>
-                          <LoadingIcon />
-                        </animated.div>
-                      ) : (
-                        <animated.div className={records} style={props}>
-                          <Records />
-                        </animated.div>
-                      )}
-                  </Transition>
+                  <div className={records}>
+                    <Records />
+                  </div>
                 </Layout.Content>
               </SkeletonContext.Provider>
             );
