@@ -1,6 +1,6 @@
 import * as React from "react";
 import { css } from "emotion";
-import Prizes from "../Prizes";
+import Articles from "../Articles/Articles";
 
 import Link from "next/link";
 import Rules from "../Rules";
@@ -22,7 +22,7 @@ const container = css`
   display: grid;
   grid-template:
     "header header" auto
-    "prizes sidebar" auto
+    "articles sidebar" auto
     "content sidebar" 1fr
     / 1fr 360px;
   grid-column-gap: 10px;
@@ -41,7 +41,7 @@ const container = css`
     display: grid;
     grid-template:
       "header header" auto
-      "sidebar prizes" auto
+      "sidebar articles" auto
       "sidebar content" auto
       / 360px 1fr;
   }
@@ -109,8 +109,8 @@ const sidebar = css`
   order: 2;
 `;
 
-const prizes = css`
-  grid-area: prizes;
+const articles = css`
+  grid-area: articles;
   position: relative;
   order: 1;
 `;
@@ -169,9 +169,9 @@ class Layout extends React.Component<{}, State> {
             Rules
           </button>
         </div>
-        <div className={prizes}>
-          <h4>Prizes</h4>
-          <Prizes />
+        <div className={articles}>
+          <h4>Articles</h4>
+          <Articles />
         </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         {this.props.children}

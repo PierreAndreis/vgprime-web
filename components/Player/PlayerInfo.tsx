@@ -148,7 +148,6 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
               for (let i = 0; i < 5; i++) {
                 let style;
                 if (heroes[i]) {
-                  console.log(heroes[i]);
                   style = {
                     backgroundImage: `url(${heroImage(heroes[i])}`,
                   };
