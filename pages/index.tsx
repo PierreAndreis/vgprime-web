@@ -46,14 +46,19 @@ export default class Home extends React.Component<{}, State> {
         <Query query={qLeaderboard} variables={{ page: this.state.page }}>
           {({ error, data, loading }) => {
             // If errored
-            if (!loading && error) return <ErrorMessage message={error.message} />;
+            //if (!loading && error) return <ErrorMessage message={error.message} />;
             // If empty data
-            if (!data.leaderboard || data.leaderboard.length === 0) {
-              return <ErrorMessage message="No data fetched" />;
-            }
-            const players = data.leaderboard as PlayersList;
+
+            let players: PlayersList =
+              data && data.leaderboard && data.leaderboard.length > 0
+                ? data.leaderboard
+                : [];
+            // if (!data.leaderboard || data.leaderboard.length === 0) {
+            //   return <ErrorMessage message="No data fetched" />;
+            // }
+            //const players = data.leaderboard as PlayersList;
             return (
-              <SkeletonContext.Provider value={loading ? "loading" : "loaded"}>
+              <SkeletonContext.Provider value={loading || error ? "loading" : "loaded"}>
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard
