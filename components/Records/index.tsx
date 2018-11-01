@@ -1,5 +1,4 @@
 import React from "react";
-import { css } from "emotion";
 import RecordBox from "./RecordBox";
 
 export default () => (

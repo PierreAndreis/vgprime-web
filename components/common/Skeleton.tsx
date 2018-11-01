@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { css } from "emotion";
 import { keyframes } from "react-emotion";
 
@@ -20,16 +20,22 @@ const StyletonCSS = css`
     rgba(184, 193, 197, 0.4),
     rgba(186, 194, 197, 0.2)
   );
-  animation: ${cardLoading} 2s ease infinite;
+  animation: ${cardLoading} 2s ease infinite
   background-size: 600% 600%;
   margin-bottom: 1px;
 `;
 
-const Skeleton = ({ width, height, borderRadius }) => {
+type SkeletonProps = {
+  width?: number;
+  height?: number;
+  borderRadius?: string;
+};
+
+const Skeleton: React.SFC<SkeletonProps> = ({ width, height, borderRadius }) => {
   const style = {
     width,
     height,
-    borderRadius
+    borderRadius,
   };
 
   return (
@@ -37,7 +43,8 @@ const Skeleton = ({ width, height, borderRadius }) => {
       className={StyletonCSS}
       style={{
         ...style,
-        animationDelay: `${Math.floor(Math.random() * 3) + 1}s;`
+        //animationDelay: `${Math.floor(Math.random() * 3) + 1}s`
+        animationDelay: "2s",
       }}
     />
   );
@@ -46,10 +53,18 @@ const Skeleton = ({ width, height, borderRadius }) => {
 Skeleton.defaultProps = {
   width: 100,
   height: 20,
-  borderRadius: "5px"
+  borderRadius: "5px",
 };
 
-class SkeletonWrapper extends React.PureComponent {
+type SkeletonStatus = "loading" | "loaded" | "error";
+
+type SkeletonWrapperProps = {
+  children(): React.ReactNode;
+  status?: SkeletonStatus;
+  render?(status: SkeletonStatus, Skeleton: React.SFC<SkeletonProps>): JSX.Element;
+} & SkeletonProps;
+
+class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {
   render() {
     const { children, status, render, ...props } = this.props;
 
@@ -73,12 +88,6 @@ class SkeletonWrapper extends React.PureComponent {
   }
 }
 
-const SkeletonContext = new React.createContext();
+const SkeletonContext = React.createContext<SkeletonStatus>("loading");
 
-export {
-  Skeleton,
-  SkeletonWrapper,
-  SkeletonContainer,
-  SkeletonPayload,
-  SkeletonContext
-};
+export { Skeleton, SkeletonWrapper, SkeletonContext };
