@@ -2780,19 +2780,6 @@ create-emotion@^9.2.12:
     stylis "^3.5.0"
     stylis-rule-sheet "^0.0.10"
 
-create-emotion@^9.2.6:
-  version "9.2.6"
-  resolved "https://registry.yarnpkg.com/create-emotion/-/create-emotion-9.2.6.tgz#f64cf1c64cf82fe7d22725d1d77498ddd2d39edb"
-  integrity sha512-4g46va26lw6DPfKF7HeWY3OI/qoaNSwpvO+li8dMydZfC6f6+ZffwlYHeIyAhGR8Z8C8c0H9J1pJbQRtb9LScw==
-  dependencies:
-    "@emotion/hash" "^0.6.2"
-    "@emotion/memoize" "^0.6.1"
-    "@emotion/stylis" "^0.6.10"
-    "@emotion/unitless" "^0.6.2"
-    csstype "^2.5.2"
-    stylis "^3.5.0"
-    stylis-rule-sheet "^0.0.10"
-
 create-hash@^1.1.0, create-hash@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/create-hash/-/create-hash-1.2.0.tgz#889078af11a63756bcfb59bd221996be3a9ef196"
@@ -3196,21 +3183,13 @@ emotion-server@^9.2.6:
   dependencies:
     create-emotion-server "^9.2.6"
 
-emotion@^9.1.1:
+emotion@^9.1.1, emotion@^9.2.12:
   version "9.2.12"
   resolved "https://registry.yarnpkg.com/emotion/-/emotion-9.2.12.tgz#53925aaa005614e65c6e43db8243c843574d1ea9"
   integrity sha512-hcx7jppaI8VoXxIWEhxpDW7I+B4kq9RNzQLmsrF6LY8BGKqe2N+gFAQr0EfuFucFlPs2A9HM4+xNj4NeqEWIOQ==
   dependencies:
     babel-plugin-emotion "^9.2.11"
     create-emotion "^9.2.12"
-
-emotion@^9.2.6:
-  version "9.2.6"
-  resolved "https://registry.yarnpkg.com/emotion/-/emotion-9.2.6.tgz#48517515e769bca6d8f7ff18425a7f133b010f22"
-  integrity sha512-95/EiWkADklxyy1y1qlJeX5Cepa7WfpJBJSBgbLkDCBzOnP4maluvz52xcV5UaObBTfVnEBq77Go6/bgF7+xaA==
-  dependencies:
-    babel-plugin-emotion "^9.2.6"
-    create-emotion "^9.2.6"
 
 enabled@1.0.x:
   version "1.0.2"
