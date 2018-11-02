@@ -28,7 +28,7 @@
     "qs": "^6.5.2",
     "react": "^16.6.0",
     "react-apollo": "2.1.0",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.6.0",
     "react-emotion": "^9.2.6",
     "react-markdown": "^4.0.3",
     "react-spinners": "^0.4.7",
