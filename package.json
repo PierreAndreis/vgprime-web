@@ -16,7 +16,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "emotion": "^9.2.6",
-    "emotion-server": "^9.2.6",
+    "emotion-server": "^9.2.12",
     "fetch-headers": "^2.0.0",
     "front-matter": "^3.0.0",
     "graphql": "^0.13.2",
