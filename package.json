@@ -12,7 +12,7 @@
     "apollo-client": "^2.4.5",
     "apollo-link": "^1.2.3",
     "apollo-link-rest": "^0.6.0",
-    "babel-plugin-emotion": "^9.2.6",
+    "babel-plugin-emotion": "^9.2.11",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "emotion": "^9.2.6",
