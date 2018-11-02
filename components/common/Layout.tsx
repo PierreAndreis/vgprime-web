@@ -109,11 +109,11 @@ const sidebar = css`
   order: 2;
 `;
 
-const articles = css`
-  grid-area: articles;
-  position: relative;
-  order: 1;
-`;
+// const articles = css`
+//   grid-area: articles;
+//   position: relative;
+//   order: 1;
+// `;
 
 const content = css`
   grid-area: content;
@@ -168,10 +168,6 @@ class Layout extends React.Component<{}, State> {
           <button className={rulesButton} onClick={this.openRulesModal}>
             Rules
           </button>
-        </div>
-        <div className={articles}>
-          <h4>Articles</h4>
-          <Articles />
         </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         {this.props.children}

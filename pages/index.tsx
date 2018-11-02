@@ -2,12 +2,16 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import { css } from "emotion";
 import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
-import ErrorMessage from "../components/common/ErrorMessage";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Records from "../components/Records";
 import Search from "../components/Search";
 import Layout from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
+import FullArticle from "../components/Articles/FullArticle";
+import { NextContext } from "next";
+import Modal from "../components/common/Modal";
+import Articles from "../components/Articles/Articles";
+import Router from "next/router";
 
 const records = css`
   grid-area: content;
@@ -17,21 +21,29 @@ const records = css`
   justify-content: center;
 `;
 
+const articles = css``;
+
 const searchArea = css`
   width: 330px;
   box-sizing: border-box;
   margin: 15px auto 30px;
 `;
 
-type State = {
-  page: number;
-  exiting: boolean;
+type Props = {
+  query: Record<string, string | string[] | undefined>;
 };
 
-export default class Home extends React.Component<{}, State> {
+type State = {
+  page: number;
+};
+
+export default class Home extends React.Component<Props, State> {
+  static async getInitialProps({ query }: NextContext) {
+    return { query };
+  }
+
   state = {
     page: 0,
-    exiting: false,
   };
 
   next = () => {
@@ -41,22 +53,15 @@ export default class Home extends React.Component<{}, State> {
     this.setState(state => ({ page: state.page - 1 }));
   };
   render() {
+    const { query } = this.props;
     return (
       <Layout>
         <Query query={qLeaderboard} variables={{ page: this.state.page }}>
           {({ error, data, loading }) => {
-            // If errored
-            //if (!loading && error) return <ErrorMessage message={error.message} />;
-            // If empty data
-
             let players: PlayersList =
               data && data.leaderboard && data.leaderboard.length > 0
                 ? data.leaderboard
                 : [];
-            // if (!data.leaderboard || data.leaderboard.length === 0) {
-            //   return <ErrorMessage message="No data fetched" />;
-            // }
-            //const players = data.leaderboard as PlayersList;
             return (
               <SkeletonContext.Provider value={loading || error ? "loading" : "loaded"}>
                 <Layout.Sidebar>
@@ -68,6 +73,10 @@ export default class Home extends React.Component<{}, State> {
                   />
                 </Layout.Sidebar>
                 <Layout.Content>
+                  <div className={articles}>
+                    <h4>Articles</h4>
+                    <Articles />
+                  </div>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
                     <Search />
@@ -80,6 +89,11 @@ export default class Home extends React.Component<{}, State> {
             );
           }}
         </Query>
+        {query.articlePath && (
+          <Modal open={true} onClose={() => Router.push("/")}>
+            <FullArticle articlePath={query.articlePath as string} />
+          </Modal>
+        )}
       </Layout>
     );
   }

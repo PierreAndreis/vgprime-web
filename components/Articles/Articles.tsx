@@ -4,27 +4,29 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Box from "../common/Box";
 import ArticleItem, { Article } from "./Article";
+import { buttonCss } from "../common/Button";
 
 const container = css`
-  //background-color: #7777ff;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 5px;
-  @media screen and (max-width: 1200px) {
-    grid-template-columns: repeat(2, 1fr);
+  & > .articles {
+    display: flex;
+    & > .empty {
+      ${Box};
+      min-height: 250px;
+    }
   }
-  @media screen and (max-width: 800px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  & > .empty {
-    ${Box};
-    min-height: 250px;
+  & > .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    button {
+      ${buttonCss};
+    }
   }
 `;
 
 const GET_ARTICLES = gql`
-  {
-    articles {
+  query Articles($page: Int!, $limit: Int!) {
+    articles(page: $page, limit: $limit) {
+      path
       title
       date
       image
@@ -33,29 +35,53 @@ const GET_ARTICLES = gql`
   }
 `;
 
-const Articles: React.SFC = () => (
-  <div className={container}>
-    <Query query={GET_ARTICLES}>
-      {({ data, loading, error }) => {
-        // if (loading) return <div>Loading...</div>;
-        // if (error) return <div>Error: {error.message}</div>;
-        const articles: Array<Article> = data && data.articles ? data.articles : [];
-        if (articles.length > 0) {
-          return articles.map(article => (
-            <ArticleItem key={article.title + article.date} article={article} />
-          ));
-        }
-        return (
-          <>
-            <div className="empty" />
-            <div className="empty" />
-            <div className="empty" />
-            <div className="empty" />
-          </>
-        );
-      }}
-    </Query>
-  </div>
-);
+type Props = {};
+
+type State = {
+  page: number;
+};
+
+class Articles extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      page: 0,
+    };
+  }
+
+  incPage = () => {
+    this.setState(({ page }) => ({ page: page + 1 }));
+  };
+
+  decPage = () => {
+    this.setState(({ page }) => ({ page: page - 1 }));
+  };
+
+  render() {
+    const { page } = this.state;
+    return (
+      <div className={container}>
+        <Query query={GET_ARTICLES} variables={{ page, limit: 4 }}>
+          {({ data }) => {
+            const articles: Array<Article> = data && data.articles ? data.articles : [];
+            return (
+              <div className="articles">
+                {articles.map(article => (
+                  <ArticleItem key={article.title + article.date} article={article} />
+                ))}
+              </div>
+            );
+          }}
+        </Query>
+        <div className="nav-buttons">
+          <button onClick={this.decPage} disabled={page === 0}>
+            Newer
+          </button>
+          <button onClick={this.incPage}>Older</button>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Articles;

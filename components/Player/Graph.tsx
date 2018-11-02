@@ -187,7 +187,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   reversed={dataKey === "rank"}
                   stroke="#fff"
                   padding={{ top: 0, bottom: 0 }}
-                  width={25}
+                  //width={40}
                   allowDecimals={false}
                   tick={{ fontSize: "12px" }}
                   tickLine={false}

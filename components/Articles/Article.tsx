@@ -2,6 +2,8 @@ import React from "react";
 import { css } from "emotion";
 import boxCss from "../common/Box";
 import ReactMarkdown from "react-markdown";
+import FullArticle from "./FullArticle";
+import Router from "next/router";
 
 const container = css`
   ${boxCss};
@@ -40,6 +42,7 @@ const container = css`
 `;
 
 export type Article = {
+  path: string;
   title: string;
   date: string;
   image: string;
@@ -50,16 +53,35 @@ type Props = {
   article: Article;
 };
 
-class ArticleItem extends React.Component<Props> {
+type State = {
+  articleOpen: boolean;
+};
+
+class ArticleItem extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = {
+      articleOpen: false,
+    };
   }
 
-  render() {
-    const { title, image, date, body } = this.props.article;
+  openArticle = (path: string) => {
+    //this.setState({ articleOpen: true });
+    Router.push(`/?articlePath=${path}`, `/article?path=${path}`);
+  };
 
+  closeArticle = () => {
+    console.log("Close called");
+    this.setState({ articleOpen: false }, () =>
+      console.log("State changed! New value of articleOpen:", this.state.articleOpen)
+    );
+  };
+
+  render() {
+    const { path, title, image, date, body } = this.props.article;
+    console.log("article statis: ", this.state.articleOpen);
     return (
-      <div className={container}>
+      <div className={container} onClick={() => this.openArticle(path)}>
         <div className="image">{image && <img src={image} />}</div>
         <div className="title">{title && <h1>{title}</h1>}</div>
         <div className="date">{date && <h3>{date}</h3>}</div>
