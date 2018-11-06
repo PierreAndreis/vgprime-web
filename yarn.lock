@@ -1722,7 +1722,7 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-emotion@^9.2.11, babel-plugin-emotion@^9.2.6:
+babel-plugin-emotion@^9.2.11:
   version "9.2.11"
   resolved "https://registry.yarnpkg.com/babel-plugin-emotion/-/babel-plugin-emotion-9.2.11.tgz#319c005a9ee1d15bb447f59fe504c35fd5807728"
   integrity sha512-dgCImifnOPPSeXod2znAmgc64NhaaOjGEHROR/M+lmStb3841yK1sgaDYAYMnlvWNz8GnpwIPN0VmNpbWYZ+VQ==
@@ -2711,13 +2711,6 @@ create-emotion-server@^9.2.12:
     html-tokenize "^2.0.0"
     multipipe "^1.0.2"
     through "^2.3.8"
-
-create-emotion-styled@^9.2.6:
-  version "9.2.6"
-  resolved "https://registry.yarnpkg.com/create-emotion-styled/-/create-emotion-styled-9.2.6.tgz#25be44a298e6e49d833ecf2247836284dc9c2042"
-  integrity sha512-Kk6qWuEiHY9iptLsxzoJztHM237yedoY2Zhmc79HwkRkC+wZ7W8IFt5gP6AAGx6eN44hc3Zwc+WA5N7ku3QJfg==
-  dependencies:
-    "@emotion/is-prop-valid" "^0.6.1"
 
 create-emotion-styled@^9.2.8:
   version "9.2.8"
@@ -5513,21 +5506,13 @@ react-dom@^16.6.0:
     prop-types "^15.6.2"
     scheduler "^0.10.0"
 
-react-emotion@^9.1.1:
+react-emotion@^9.1.1, react-emotion@^9.2.12:
   version "9.2.12"
   resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-9.2.12.tgz#74d1494f89e22d0b9442e92a33ca052461955c83"
   integrity sha512-qt7XbxnEKX5sZ73rERJ92JMbEOoyOwG3BuCRFRkXrsJhEe+rFBRTljRw7yOLHZUCQC4GBObZhjXIduQ8S0ZpYw==
   dependencies:
     babel-plugin-emotion "^9.2.11"
     create-emotion-styled "^9.2.8"
-
-react-emotion@^9.2.6:
-  version "9.2.6"
-  resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-9.2.6.tgz#3941f78779f9a8ad8300042ddfa9b2cb111442c2"
-  integrity sha512-3GwLQ0Vib/X0G7KWY7N1F/7NmfoBLkkg3g9Jd8t6By5QUH0PyCSUVdDmfFBbgVKsAcpkjA0vcsMbiWeZusaRrA==
-  dependencies:
-    babel-plugin-emotion "^9.2.6"
-    create-emotion-styled "^9.2.6"
 
 react-error-overlay@4.0.0:
   version "4.0.0"
