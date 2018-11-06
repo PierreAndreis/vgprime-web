@@ -18,7 +18,7 @@
     "emotion": "^9.2.6",
     "emotion-server": "^9.2.12",
     "fetch-headers": "^2.0.0",
-    "front-matter": "^3.0.0",
+    "front-matter": "^3.0.1",
     "graphql": "^14.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "js-cookie": "^2.2.0",
