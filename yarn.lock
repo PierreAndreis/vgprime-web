@@ -7108,10 +7108,10 @@ which@^1.2.9:
   dependencies:
     isexe "^2.0.0"
 
-why-did-you-update@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/why-did-you-update/-/why-did-you-update-0.2.0.tgz#df6d48911ef4169c532bc295d05a9eb1b41760e9"
-  integrity sha512-Mrs/o04sEB0oes3wpgUukkjjTOrhpq0oTNEaUP6DrzPyIY92L9MQkln47HSd+66zN6O9Oi4fdF5tXdAuh9VqlA==
+why-did-you-update@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/why-did-you-update/-/why-did-you-update-1.0.1.tgz#2fa863b19a53f1379b629ebe2abd67a26828cde4"
+  integrity sha512-Cbx67kIo7iXBIHmOH+ZZl3nM2CK5GbsEjiHlIpQlyaUkT1uiDfQvSDvWdWEdlBcP+NAYwuisl2aqY27sITnyhQ==
   dependencies:
     lodash "^4.0.0"
 
