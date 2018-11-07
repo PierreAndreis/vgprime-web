@@ -9,10 +9,8 @@ import { buttonCss } from "../common/Button";
 const container = css`
   & > .articles {
     display: flex;
-    background-color: green;
     justify-content: center;
     & > * {
-      background: red;
       width: 100%;
       flex-grow: 0;
       flex-basis: 1;
