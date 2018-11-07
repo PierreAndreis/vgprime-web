@@ -5572,10 +5572,10 @@ react-spinners@^0.4.7:
     react-emotion "^9.1.1"
     recompose "0.27.1"
 
-react-spring@^6.1.6:
-  version "6.1.6"
-  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-6.1.6.tgz#032671c051c0ec90408fcb8c8e7dc7934dd2e7fc"
-  integrity sha512-h5gKG5PWj6mk66XUMdEUt26TOCTF3ILdkrqL6InAxGYdD6IJ9mg+KYJygBzheZxzRfkOu/b+tCX1w69eNZu1aw==
+react-spring@^6.1.7:
+  version "6.1.7"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-6.1.7.tgz#e4efb4f8c3b26d701029606f7fa2dc72143d7ae2"
+  integrity sha512-C8UJx/s/18j8wLFELmMNUK0x60SL9P2GuLOWnwipt9KZu2NG0EpcZGlX+XGTCqGbHUOGqPJaGwCgHz8X40Eltg==
   dependencies:
     "@babel/runtime" "^7.1.2"
 
@@ -6020,14 +6020,6 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-
-scheduler@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.10.0.tgz#7988de90fe7edccc774ea175a783e69c40c521e1"
-  integrity sha512-+TSTVTCBAA3h8Anei3haDc1IRwMeDmtI/y/o3iBe3Mjl2vwYF9DtPDt929HyRmV/e7au7CLu8sc4C4W0VOs29w==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 scheduler@^0.11.0:
   version "0.11.0"
