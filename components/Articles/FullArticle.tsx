@@ -16,7 +16,32 @@ const GET_ARTICLE = gql`
   }
 `;
 
-const container = css``;
+const container = css`
+  padding: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+  & > .image > img {
+    width: 100%;
+    object-fit: cover;
+    object-position: 100% 0;
+    @media screen and (max-width: 1200px) {
+      height: 200px;
+    }
+    @media screen and (max-width: 800px) {
+      height: 300px;
+    }
+  }
+  & > .title > h1 {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    margin: 10px 0px;
+  }
+  & > .body {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
 
 type Props = {
   articlePath: string;

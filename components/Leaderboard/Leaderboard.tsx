@@ -54,7 +54,7 @@ const Leaderboard = ({
           <div className={cx(navigationButtons)}>
             <Button
               onClick={previousHandler}
-              disabled={players.length === 0 || players[0].rank === 1}
+              disabled={players.length === 0 || (players[0] && players[0].rank === 1)}
             >
               Previous
             </Button>

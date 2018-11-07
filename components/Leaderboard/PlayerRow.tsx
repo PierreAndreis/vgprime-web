@@ -185,7 +185,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
             {() => (
               <>
                 <span className={cx(positionChange, "up")}>{psChangeUp}</span>
-                <span>{payload.rank}</span>
+                <span>{payload ? payload.rank : ""}</span>
                 <span className={cx(positionChange, "down")}>{psChangeDown}</span>
               </>
             )}

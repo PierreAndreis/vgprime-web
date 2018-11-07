@@ -62,8 +62,11 @@ export default class Home extends React.Component<Props, State> {
               data && data.leaderboard && data.leaderboard.length > 0
                 ? data.leaderboard
                 : [];
+
             return (
-              <SkeletonContext.Provider value={loading || error ? "loading" : "loaded"}>
+              <SkeletonContext.Provider
+                value={loading || error || players.length === 0 ? "loading" : "loaded"}
+              >
                 <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard
