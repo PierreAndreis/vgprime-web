@@ -3316,7 +3316,12 @@ fast-safe-stringify@^2.0.4:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.6.tgz#04b26106cc56681f51a044cfc0d76cf0008ac2c2"
   integrity sha512-q8BZ89jjc+mz08rSxROs8VsrBBcn1SIw1kq9NjolL509tkABRk9io01RAjSaEv1Xb2uFLt8VtRiZbGp5H8iDtg==
 
-fbjs@^0.8.1, fbjs@^0.8.16:
+fbjs-css-vars@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/fbjs-css-vars/-/fbjs-css-vars-1.0.1.tgz#836d876e887d702f45610f5ebd2fbeef649527fc"
+  integrity sha512-IM+v/C40MNZWqsLErc32e0TyIk/NhkkQZL0QmjBh6zi1eXv0/GeVKmKmueQX7nn9SXQBQbTUcB8zuexIF3/88w==
+
+fbjs@^0.8.1:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   integrity sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
@@ -4657,7 +4662,7 @@ next-routes@^1.4.2:
   dependencies:
     path-to-regexp "^2.1.0"
 
-next@>=7.0.2:
+next@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/next/-/next-7.0.2.tgz#5ff6b3f0e6cf03ce539d5779a55dc1f8fb1759d7"
   integrity sha512-DOPKKk+2rAEvXS/JMaZL5+jd2WUJI5BEv8xXiR4ijqIuvAL0dI/cT8H6bhFCqbYIgFNuefp+NSVh2kvxpELyeg==
@@ -5417,10 +5422,10 @@ react-spinners@^0.4.7:
     react-emotion "^9.1.1"
     recompose "0.27.1"
 
-react-spring@^6.1.6:
-  version "6.1.6"
-  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-6.1.6.tgz#032671c051c0ec90408fcb8c8e7dc7934dd2e7fc"
-  integrity sha512-h5gKG5PWj6mk66XUMdEUt26TOCTF3ILdkrqL6InAxGYdD6IJ9mg+KYJygBzheZxzRfkOu/b+tCX1w69eNZu1aw==
+react-spring@^6.1.8:
+  version "6.1.8"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-6.1.8.tgz#ce20f0fb07722f977510ea865801df3fdc37d819"
+  integrity sha512-dnyMyRYI9SBt/kEhGb/BHn+in8x4emZ6otukdhokCZAo4N6pcw2tyIQpcoXN8+BvZzaGZyErB4SVfWtlhOoPEw==
   dependencies:
     "@babel/runtime" "^7.1.2"
 
@@ -5797,14 +5802,6 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-
-scheduler@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.10.0.tgz#7988de90fe7edccc774ea175a783e69c40c521e1"
-  integrity sha512-+TSTVTCBAA3h8Anei3haDc1IRwMeDmtI/y/o3iBe3Mjl2vwYF9DtPDt929HyRmV/e7au7CLu8sc4C4W0VOs29w==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 scheduler@^0.11.0:
   version "0.11.0"
@@ -6854,10 +6851,10 @@ which@^1.2.9:
   dependencies:
     isexe "^2.0.0"
 
-why-did-you-update@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/why-did-you-update/-/why-did-you-update-1.0.2.tgz#7aebb39eb95d6cbd5e676a629720df67e841edf4"
-  integrity sha512-PFobV4eHFz4OR8YsWb8/BTkxgPesPaiqfYP7vpfJv7VK61SmZpPkzR/QwrDfK/VT4v1yWfY580g1E4LLlzV2vw==
+why-did-you-update@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/why-did-you-update/-/why-did-you-update-0.2.0.tgz#df6d48911ef4169c532bc295d05a9eb1b41760e9"
+  integrity sha512-Mrs/o04sEB0oes3wpgUukkjjTOrhpq0oTNEaUP6DrzPyIY92L9MQkln47HSd+66zN6O9Oi4fdF5tXdAuh9VqlA==
   dependencies:
     lodash "^4.0.0"
 
