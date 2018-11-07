@@ -55,7 +55,7 @@ type Props = {
 };
 
 const openArticle = (path: string) => {
-  Router.push(`/?articlePath=${path}`, `/article?path=${path}`);
+  Router.push(`/article?path=${path}`);
 };
 
 const ArticleComponent: React.SFC<Props> = ({

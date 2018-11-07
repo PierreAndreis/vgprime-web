@@ -67,7 +67,7 @@ class Articles extends React.Component<Props, State> {
     const { page } = this.state;
     return (
       <div className={container}>
-        <Query query={GET_ARTICLES} variables={{ page, limit: 4 }}>
+        <Query query={GET_ARTICLES} variables={{ page, limit: 3 }}>
           {({ data }) => {
             const articles: Array<Article> = data && data.articles ? data.articles : [];
             return (
@@ -79,12 +79,6 @@ class Articles extends React.Component<Props, State> {
             );
           }}
         </Query>
-        <div className="nav-buttons">
-          <button onClick={this.decPage} disabled={page === 0}>
-            Newer
-          </button>
-          <button onClick={this.incPage}>Older</button>
-        </div>
       </div>
     );
   }

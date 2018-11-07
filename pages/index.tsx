@@ -7,11 +7,8 @@ import Records from "../components/Records";
 import Search from "../components/Search";
 import Layout from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
-import FullArticle from "../components/Articles/FullArticle";
 import { NextContext } from "next";
-import Modal from "../components/common/Modal";
 import Articles from "../components/Articles/Articles";
-import Router from "next/router";
 
 const records = css`
   grid-area: content;
@@ -38,10 +35,6 @@ type State = {
 };
 
 export default class Home extends React.Component<Props, State> {
-  static async getInitialProps({ query }: NextContext) {
-    return { query };
-  }
-
   state = {
     page: 0,
   };
@@ -53,7 +46,6 @@ export default class Home extends React.Component<Props, State> {
     this.setState(state => ({ page: state.page - 1 }));
   };
   render() {
-    const { query } = this.props;
     return (
       <Layout>
         <Query query={qLeaderboard} variables={{ page: this.state.page }}>
@@ -92,11 +84,6 @@ export default class Home extends React.Component<Props, State> {
             );
           }}
         </Query>
-        {query.articlePath && (
-          <Modal open={true} onClose={() => Router.push("/")}>
-            <FullArticle articlePath={query.articlePath as string} />
-          </Modal>
-        )}
       </Layout>
     );
   }
