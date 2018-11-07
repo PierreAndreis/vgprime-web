@@ -46,7 +46,7 @@
     "@types/next": "^7.0.3",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
-    "@types/recharts": "^1.1.0",
+    "@types/recharts": "^1.1.1",
     "@types/styled-jsx": "^2.2.7",
     "file-loader": "^2.0.0",
     "raw-loader": "^0.5.1",
