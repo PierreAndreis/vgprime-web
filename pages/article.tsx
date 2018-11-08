@@ -61,10 +61,6 @@ class ArticlePage extends React.Component<Props, State> {
                   />
                 </Layout.Sidebar>
                 <Layout.Content>
-                  <div>
-                    <h4>Articles</h4>
-                    <Articles />
-                  </div>
                   <FullArticle articlePath={articlePath} />
                 </Layout.Content>
               </SkeletonContext.Provider>

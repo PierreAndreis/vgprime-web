@@ -7,7 +7,6 @@ import Records from "../components/Records";
 import Search from "../components/Search";
 import Layout from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
-import { NextContext } from "next";
 import Articles from "../components/Articles/Articles";
 
 const records = css`

@@ -2,29 +2,16 @@ import * as React from "react";
 import { css } from "emotion";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Box from "../common/Box";
 import ArticleItem, { Article } from "./Article";
-import { buttonCss } from "../common/Button";
 
 const container = css`
   & > .articles {
     display: flex;
     justify-content: center;
-    & > * {
-      width: 100%;
-      flex-grow: 0;
-      flex-basis: 1;
-    }
-    & > .empty {
-      ${Box};
-      min-height: 250px;
-    }
-  }
-  & > .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    button {
-      ${buttonCss};
+    flex-flow: row wrap;
+    & > div {
+      box-sizing: border-box;
+      width: calc(100% / 3 - 20px);
     }
   }
 `;

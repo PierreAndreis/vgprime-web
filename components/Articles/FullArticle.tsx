@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { css } from "emotion";
 import ReactMarkdown from "react-markdown";
 import { withRouter } from "next/router";
+import contentStyle from "./ContentStyle";
 
 const GET_ARTICLE = gql`
   query Article($path: String!) {
@@ -17,6 +18,7 @@ const GET_ARTICLE = gql`
 `;
 
 const container = css`
+  ${contentStyle};
   padding: 10px;
   max-width: 800px;
   margin: 0 auto;
@@ -32,7 +34,7 @@ const container = css`
     }
   }
   & > .title > h1 {
-    font-size: 16px;
+    font-size: 26px;
     font-weight: 600;
     text-align: center;
     margin: 10px 0px;
@@ -70,10 +72,10 @@ class ArticlePage extends React.Component<Props> {
               <div className="image">{image && <img src={image} />}</div>
               <div className="title">{title && <h1>{title}</h1>}</div>
               <div className="date">{date && <h3>{date}</h3>}</div>
-              <div className="body">
+              <article className="body">
                 <ReactMarkdown source={body} />
                 <div className="placeUp" />
-              </div>
+              </article>
             </div>
           );
         }}
