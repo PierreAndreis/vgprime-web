@@ -33,7 +33,7 @@
     "react-spinners": "^0.4.7",
     "react-spring": "^6.1.8",
     "recharts": "^1.3.5",
-    "why-did-you-update": "^0.2.0"
+    "why-did-you-update": "^1.0.3"
   },
   "author": "",
   "license": "ISC",
