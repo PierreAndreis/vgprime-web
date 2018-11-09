@@ -12,6 +12,12 @@ const container = css`
     & > div {
       box-sizing: border-box;
       width: calc(100% / 3 - 20px);
+      @media screen and (max-width: 1300px) {
+        width: calc(100% / 2 - 20px);
+      }
+      @media screen and (max-width: 1000px) {
+        width: 100%;
+      }
     }
   }
 `;

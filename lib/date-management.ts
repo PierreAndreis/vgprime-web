@@ -25,4 +25,45 @@ const IsSameDay = (date1: Date, date2: Date) => {
   );
 };
 
-export { DaysBetween, ListDatesFromToday, IsSameDay };
+const getOrdinal = (n: number): string => {
+  const numberStr = n.toString();
+  const last = numberStr[numberStr.length - 1];
+  switch (last) {
+    case "1":
+      return n + "st";
+    case "2":
+      return n + "nd";
+    case "3":
+      return n + "rd";
+    default:
+      return n + "th";
+  }
+};
+
+const monthShortNames = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const PrettyDate = (dt: Date, withYear: boolean = false): string => {
+  try {
+    return (
+      `${monthShortNames[dt.getMonth()]} ${getOrdinal(dt.getDate())}` +
+      (withYear ? ` ${dt.getFullYear()}` : "")
+    );
+  } catch {
+    return "";
+  }
+};
+
+export { DaysBetween, ListDatesFromToday, IsSameDay, PrettyDate };

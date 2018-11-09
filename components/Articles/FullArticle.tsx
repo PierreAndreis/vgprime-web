@@ -5,6 +5,7 @@ import { css } from "emotion";
 import ReactMarkdown from "react-markdown";
 import { withRouter } from "next/router";
 import contentStyle from "./ContentStyle";
+import { PrettyDate } from "../../lib/date-management";
 
 const GET_ARTICLE = gql`
   query Article($path: String!) {
@@ -39,7 +40,11 @@ const container = css`
     text-align: center;
     margin: 10px 0px;
   }
+  & > .date {
+    text-align: center;
+  }
   & > .body {
+    margin-top: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -67,14 +72,14 @@ class ArticlePage extends React.Component<Props> {
             return null;
           }
           const { title, date, image, body } = data.article;
+          const prettyDate = PrettyDate(new Date(date));
           return (
             <div className={container}>
               <div className="image">{image && <img src={image} />}</div>
               <div className="title">{title && <h1>{title}</h1>}</div>
-              <div className="date">{date && <h3>{date}</h3>}</div>
+              <div className="date">{date && <>Published on {prettyDate}</>}</div>
               <article className="body">
                 <ReactMarkdown source={body} />
-                <div className="placeUp" />
               </article>
             </div>
           );
