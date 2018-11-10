@@ -26,6 +26,11 @@ const container = css`
     box-sizing: border-box;
     bottom: 0;
   }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 450;
+  }
 `;
 
 export type Article = {
@@ -40,16 +45,14 @@ type Props = {
   article: Article;
 };
 
-const ArticleComponent: React.SFC<Props> = ({
-  article: { path, title, image, date },
-}) => {
-  const prettyDate = new Date(date).toLocaleDateString();
+const ArticleComponent: React.SFC<Props> = ({ article: { path, title, image } }) => {
+  // const prettyDate = new Date(date).toLocaleDateString();
   return (
     <Link href={`/article?path=${path}`}>
       <a className={container} style={{ backgroundImage: `url(${image})` }}>
         <div>
-          <h4>{title}</h4>
-          <div className="date">{prettyDate}</div>
+          {/* <div className="date">{prettyDate}</div> */}
+          <h3>{title}</h3>
         </div>
       </a>
     </Link>
