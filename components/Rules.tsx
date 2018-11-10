@@ -41,35 +41,19 @@ type Props = {
   open: boolean;
   closeAction: () => void;
 };
-type State = {
-  closing: boolean;
-};
-class Rules extends React.Component<Props, State> {
-  state = {
-    closing: false,
-  };
-
+class Rules extends React.Component<Props> {
   close = () => {
     this.props.closeAction();
   };
-
-  componentWillReceiveProps() {
-    if (this.props.open === true) {
-      this.setState({ closing: false });
-    }
-  }
 
   render() {
     const { open } = this.props;
     return (
       <Modal open={open} onClose={this.close}>
         <div className={content}>
-          <header>
+          <header style={{ position: "sticky" }}>
             <div />
             <h1>Rules</h1>
-            <span className="closeButton" onClick={this.close}>
-              &times;
-            </span>
           </header>
           <section>
             <p>

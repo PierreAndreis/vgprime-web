@@ -67,13 +67,12 @@ export default class Home extends React.Component<Props, State> {
                   />
                 </Layout.Sidebar>
                 <Layout.Content>
-                  <div className={articles}>
-                    <h4>Articles</h4>
-                    <Articles />
-                  </div>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
                     <Search />
+                  </div>
+                  <div className={articles}>
+                    <Articles />
                   </div>
                   <div className={records}>
                     <Records />

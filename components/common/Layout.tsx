@@ -1,6 +1,5 @@
 import * as React from "react";
 import { css } from "emotion";
-import Articles from "../Articles/Articles";
 
 import Link from "next/link";
 import Rules from "../Rules";
@@ -109,12 +108,6 @@ const sidebar = css`
   order: 2;
 `;
 
-// const articles = css`
-//   grid-area: articles;
-//   position: relative;
-//   order: 1;
-// `;
-
 const content = css`
   grid-area: content;
   order: 3;
@@ -148,11 +141,9 @@ class Layout extends React.Component<{}, State> {
   }
 
   openRulesModal = () => {
-    document.body.style.overflow = "hidden";
     this.setState({ rulesOpened: true });
   };
   closeRulesModal = () => {
-    document.body.style.overflow = "auto";
     this.setState({ rulesOpened: false });
   };
 

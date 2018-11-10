@@ -5,9 +5,9 @@ import { css } from "emotion";
 import ReactMarkdown from "react-markdown";
 import { withRouter } from "next/router";
 import contentStyle from "./ContentStyle";
-import { PrettyDate } from "../../lib/date-management";
 import { FadeLoader } from "react-spinners";
 
+// plz move this elsewhere
 const GET_ARTICLE = gql`
   query Article($path: String!) {
     article(path: $path) {
@@ -35,9 +35,8 @@ const container = css`
       height: 300px;
     }
   }
-  & > .title > h1 {
-    font-size: 26px;
-    font-weight: 600;
+  & h1.title {
+    font-size: 2.5rem;
     text-align: center;
     margin: 10px 0px;
   }
@@ -79,13 +78,13 @@ class ArticlePage extends React.Component<Props> {
             router.push("/");
             return null;
           }
-          const { title, date, image, body } = data.article;
-          const prettyDate = PrettyDate(new Date(date));
+          const { title, date, body } = data.article;
           return (
             <div className={container}>
-              <div className="image">{image && <img src={image} />}</div>
-              <div className="title">{title && <h1>{title}</h1>}</div>
-              <div className="date">{date && <>Published on {prettyDate}</>}</div>
+              <h1 className="title">{title}</h1>
+              <div className="date">
+                Published on {new Date(date).toLocaleDateString()}
+              </div>
               <article className="body">
                 <ReactMarkdown source={body} />
               </article>
