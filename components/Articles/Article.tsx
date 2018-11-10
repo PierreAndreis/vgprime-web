@@ -5,6 +5,7 @@ import Router from "next/router";
 import { PrettyDate } from "../../lib/date-management";
 
 const container = css`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   padding: 10px;

@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import { withRouter } from "next/router";
 import contentStyle from "./ContentStyle";
 import { PrettyDate } from "../../lib/date-management";
+import { FadeLoader } from "react-spinners";
 
 const GET_ARTICLE = gql`
   query Article($path: String!) {
@@ -50,6 +51,12 @@ const container = css`
   }
 `;
 
+const loadingContainer = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 type Props = {
   articlePath: string;
   router: any;
@@ -61,13 +68,14 @@ class ArticlePage extends React.Component<Props> {
     return (
       <Query query={GET_ARTICLE} variables={{ path: articlePath }}>
         {({ error, loading, data }) => {
-          if (error) {
-            return <div>Big failure: {error.message}</div>;
-          }
           if (loading) {
-            return <div>Searching for the requested article...</div>;
+            return (
+              <div className={loadingContainer}>
+                <FadeLoader />
+              </div>
+            );
           }
-          if (!data || !data.article) {
+          if (error || !data || !data.article) {
             router.push("/");
             return null;
           }
