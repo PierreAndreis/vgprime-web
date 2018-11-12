@@ -27,13 +27,13 @@ const container = css`
   grid-column-gap: 10px;
 
   & h4 {
-    font-size: 17px;
+    font-size: 16px;
     text-transform: uppercase;
-    font-family: "Roboto Condensed";
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-family: "Antonio";
+    font-weight: 800;
     margin-left: 5px;
     margin-bottom: 15px;
+    margin-top: 15px;
   }
 
   @media screen and (max-width: 1300px) {
@@ -68,7 +68,7 @@ const header = css`
 
 const logo = css`
   width: 180px;
-  height: 60px;
+  height: 50px;
 
   background: url("/static/images/logo.png") no-repeat;
   background-size: contain;

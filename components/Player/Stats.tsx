@@ -41,9 +41,10 @@ const description = css`
 
 const moreButton = css`
   ${buttonCss};
+  width: 180px;
   position: absolute;
   bottom: -15px;
-  padding: 10px 25px;
+  padding: 10px 10px;
   font-weight: 600;
   color: #fff;
   font-size: 14px;

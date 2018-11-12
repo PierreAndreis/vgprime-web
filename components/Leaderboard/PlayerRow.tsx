@@ -19,36 +19,36 @@ const playerActiveBackground = css`
 `;
 
 const playerWrap = css`
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 2px 5px;
-  height: 50px;
+border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+padding: 2px 5px;
+height: 54.5px;
 
-  display: flex;
-  align-items: center;
-  color: rgb(231, 231, 231);
-  color: #4a4a4a;
+display: flex;
+align-items: center;
+color: rgb(231, 231, 231);
+color: #4a4a4a;
 
-  border-sizing: border-box;
-  transition: all 300ms;
+border-sizing: border-box;
+transition: all 300ms;
 
-  &:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
+&:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-  & > div {
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
+& > div {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
 
-  &:last-of-type {
-    border: 0;
-  }
+&:last-of-type {
+  border: 0;
+}
 `;
 
 const position = css`
-  width: 50px;
+width: 50px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #4a90e2;
   position: relative;
@@ -62,8 +62,8 @@ const position = css`
 `;
 
 const positionChange = css`
-  position: relative;
-  height: 10px;
+   position: relative;
+  height: 12px;
   font-size: 9px;
   text-align: center;
   &.up {
@@ -84,7 +84,7 @@ const info = css`
   flex-direction: column;
   justify-content: center;
   & i {
-    font-size: 18px;
+    font-size: 16px;
     color: #eaa900;
   }
   & > div {
@@ -109,13 +109,15 @@ const games = css`
   display: flex;
   flex-direction: column;
   & > div {
-    font-size: 15px;
+    font-size: 16px;
     font-family: "Roboto Condensed";
     font-weight: bold;
   }
   & > span {
     margin-top: 5px;
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: bold;
+    color:#adadad;
   }
 `;
 
@@ -126,13 +128,16 @@ const points = css`
   display: flex;
   flex-direction: column;
   & > div {
-    font-size: 18px;
+    font-size: 16px;
     font-family: "Roboto Condensed";
     font-weight: bold;
+    color: #4a90e2;
   }
   & > span {
     margin-top: 5px;
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #adadad;
   }
 `;
 
@@ -141,14 +146,14 @@ const winRateBar = css`
   height: 8px;
   background: rgba(0, 0, 0, 0.1);
   margin-top: 5px;
-  border-radius: 5px;
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
-  margin-left: 5px;
 
   & > div {
     background-image: linear-gradient(-45deg, #7aaeff 0%, #74e1eb 100%);
     height: 100%;
+    border-radius: 200px;
   }
 `;
 
@@ -156,7 +161,7 @@ const winRateLabel = css`
   font-size: 11px;
   display: flex;
   align-items: center;
-  margin-left: 6px;
+  margin-left: 10px;
   padding-top: 3px;
 `;
 
