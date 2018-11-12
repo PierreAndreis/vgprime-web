@@ -29,7 +29,7 @@ const container = css`
   & h4 {
     font-size: 16px;
     text-transform: uppercase;
-    font-family: "Antonio";
+    font-family: "Roboto Condensed";
     font-weight: 800;
     margin-left: 5px;
     margin-bottom: 15px;
