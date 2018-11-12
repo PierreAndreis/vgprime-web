@@ -153,11 +153,9 @@ class Layout extends React.Component<{}, State> {
   }
 
   openRulesModal = () => {
-    document.body.style.overflow = "hidden";
     this.setState({ rulesOpened: true });
   };
   closeRulesModal = () => {
-    document.body.style.overflow = "auto";
     this.setState({ rulesOpened: false });
   };
 

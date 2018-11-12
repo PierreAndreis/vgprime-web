@@ -1,8 +1,12 @@
 import { css } from "emotion";
+import Box from "../common/Box";
 
 export default css`
+  ${Box};
+  padding: 20px;
   article {
     display: block;
+    line-height: 1.2rem;
     p,
     blockquote,
     ul,
@@ -12,6 +16,15 @@ export default css`
     pre {
       margin-top: 0;
       margin-bottom: 16px;
+    }
+
+    a {
+      color: inherit;
+      position: relative;
+      border-bottom: 1px solid rgba(121, 184, 251, 0.6);
+    }
+    a:hover {
+      background: rgba(121, 184, 251, 0.6);
     }
 
     hr {
@@ -177,7 +190,7 @@ export default css`
       padding: 0.2em 0.4em;
       margin: 0;
       font-size: 85%;
-      background-color: rgba(27, 31, 35, 0.05);
+      background-color: rgba(27, 31, 35, 0.07);
       border-radius: 3px;
     }
 

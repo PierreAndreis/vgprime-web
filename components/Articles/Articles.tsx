@@ -5,20 +5,10 @@ import { Query } from "react-apollo";
 import ArticleItem, { Article } from "./Article";
 
 const container = css`
-  & > .articles {
+  & .articles {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    flex-flow: row wrap;
-    & > div {
-      box-sizing: border-box;
-      width: calc(100% / 3 - 20px);
-      @media screen and (max-width: 1300px) {
-        width: calc(100% / 2 - 20px);
-      }
-      @media screen and (max-width: 1000px) {
-        width: 100%;
-      }
-    }
   }
 `;
 

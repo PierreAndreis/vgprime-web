@@ -34,6 +34,7 @@ const modalContent = css`
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
+  overflow-x: auto;
 
   @media screen and (max-width: 500px) {
     width: 100%;
@@ -41,6 +42,23 @@ const modalContent = css`
     height: 100%;
     max-height: 100%;
     border-radius: 0;
+  }
+`;
+
+const modalClose = css`
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+
+  :hover,
+  :focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
   }
 `;
 
@@ -54,26 +72,43 @@ class Modal extends React.Component<Props> {
     this.props.onClose();
   };
 
+  modalRef = React.createRef<HTMLDivElement>();
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.open && !prevProps.open) {
+      document.body.style.overflow = "hidden";
+    }
+
+    if (!this.props.open && prevProps.open) {
+      document.body.style.overflow = "auto";
+    }
+  }
+
+  focusIfVisible = () => {
+    this.modalRef.current && this.modalRef.current.focus();
+  };
+
   render() {
     return (
       <Portal>
+        {/* 
+      // @ts-ignore */}
         <Transition
           native
-          // @ts-ignore
           items={this.props.open}
           from={{
             backdropOpacity: 0,
             opacity: 0,
-            transform: "scale(0.95) translateY(-30px)",
+            transform: "translateY(30px)",
           }}
           enter={[
             { backdropOpacity: 0.8 },
-            { backdropOpacity: 1, opacity: 1, transform: "scale(1) translateY(0)" },
+            { backdropOpacity: 1, opacity: 1, transform: "translateY(0)" },
           ]}
           leave={[
             {
               opacity: 0,
-              transform: "scale(0.95) translateY(-30px)",
+              transform: "translateY(-30px)",
             },
             {
               backdropOpacity: 0,
@@ -83,24 +118,26 @@ class Modal extends React.Component<Props> {
             duration: 200,
             tension: 0.1,
           }}
+          onRest={this.focusIfVisible}
         >
           {open =>
             open &&
-            ((styles: {
-              backdropOpacity: number;
-              opacity: number;
-              transform: string;
-            }) => (
-              <div className={modal}>
+            (styles => (
+              <animated.div className={modal}>
                 <animated.div
                   className={backdrop}
                   style={{ opacity: styles.backdropOpacity }}
                   onClick={this.onClose}
                 />
+                <span className={modalClose} onClick={this.onClose}>
+                  &times;
+                </span>
                 <animated.div className={modalContent} style={styles}>
-                  {this.props.children}
+                  <div ref={this.modalRef} tabIndex={-1}>
+                    {this.props.children}
+                  </div>
                 </animated.div>
-              </div>
+              </animated.div>
             ))
           }
         </Transition>
