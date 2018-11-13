@@ -48,8 +48,8 @@ const info = css`
     font-weight: bold;
   }
   & .points {
-    padding: 6px 20px 6px 20px;
-    background-color: #dcdcdc;
+    padding: 8px 20px 8px 20px;
+    background-color: #4a90e2;
     border-radius: 15px;
     margin-left: auto;
     justify-self: flex-end;
@@ -57,6 +57,7 @@ const info = css`
     color: rgba(20, 20, 20, 0.7);
     text-transform: uppercase;
     font-weight: 500;
+    color:white;
   }
 `;
 

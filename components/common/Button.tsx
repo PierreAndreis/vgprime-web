@@ -28,7 +28,7 @@ transition: all 300ms;
 }
 
 &:disabled {
-  background: white;
+  background: #f3f3f3;
   border: 1.5px solid #adadad;
   box-shadow: none;
   cursor: no-drop;

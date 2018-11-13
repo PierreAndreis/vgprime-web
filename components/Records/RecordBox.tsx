@@ -176,7 +176,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                       <div>
                         <div
                           style={{
-                            color: winRate > 50 ? "#4A90E2" : "#D0021B",
+                            color: winRate > 50 ? "#4A90E2" : "#fd223c",
                           }}
                         >
                           <SkeletonWrapper width={40} height={18}>
