@@ -41,7 +41,7 @@ export default class extends React.Component<{}> {
               border: "3px solid white",
               marginLeft: "10px",
               flexShrink: 0,
-              flexGrow: 0
+              flexGrow: 0,
             }}
           />
         ))}
