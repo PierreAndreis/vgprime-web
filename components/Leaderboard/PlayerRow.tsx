@@ -84,8 +84,9 @@ const info = css`
   flex-direction: column;
   justify-content: center;
   & i {
-    font-size: 16px;
+    font-size: 20px;
     color: #eaa900;
+    margin-right: 5px;
   }
   & > div {
     display: flex;
@@ -95,8 +96,8 @@ const info = css`
     & > span {
       margin: 0 5px;
       padding-top: 2px;
-      font-size: 10px;
-      color: grey;
+      font-size: 12px;
+      color: rgba(100, 100, 100, 0.5);
       text-transform: uppercase;
     }
   }
@@ -202,10 +203,10 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
             <SkeletonWrapper width={100}>
               {() => [
                 <i key="tier" className={`vg-rank-${payload.tier}`} />,
+                payload.name,
                 <span key="region">
                   {payload.region === "sg" ? "sea" : payload.region}
                 </span>,
-                payload.name,
               ]}
             </SkeletonWrapper>
           </div>
