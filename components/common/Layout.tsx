@@ -13,7 +13,6 @@ const { publicRuntimeConfig } = getConfig();
 const rulesModalValue = publicRuntimeConfig.rulesModalValue;
 
 const container = (currentPage: Page) => css`
-  width: auto;
   max-width: 1300px;
   margin: 0 auto;
   padding: 15px;
@@ -38,18 +37,20 @@ const container = (currentPage: Page) => css`
   }
 
   & > .sidebar {
+    box-sizing: border-box;
     grid-area: sidebar;
     order: 2;
     @media screen and (max-width: 550px) {
-      ${currentPage !== "Leaderboard" ? "display: none;" : ""}
+      ${currentPage !== "Leaderboard" ? "display: none;" : "display: block;"}
     }
   }
 
   & > .content {
+    box-sizing: border-box;
     grid-area: content;
     order: 3;
     @media screen and (max-width: 550px) {
-      ${currentPage !== "Content" ? "display: none;" : ""}
+      ${currentPage !== "Content" ? "display: none;" : "display: block;"}
     }
   }
 
@@ -63,7 +64,8 @@ const container = (currentPage: Page) => css`
   }
 
   @media screen and (max-width: 800px) {
-    width: 380px;
+    width: 100%;
+    max-width: 380px;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -87,7 +89,8 @@ const header = css`
 `;
 
 const logo = css`
-  width: 180px;
+  width: 300px;
+  max-width: 180px;
   height: 60px;
 
   background: url("/static/images/logo.png") no-repeat;

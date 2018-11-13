@@ -22,6 +22,7 @@ const container = css`
 `;
 
 const info = css`
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;

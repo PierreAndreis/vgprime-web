@@ -9,6 +9,12 @@ const container = css`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    @media screen and (max-width: 550px) {
+      & > * {
+        width: 100%;
+        background: red;
+      }
+    }
   }
 `;
 
@@ -56,7 +62,9 @@ class Articles extends React.Component<Props, State> {
             return (
               <div className="articles">
                 {articles.map(article => (
-                  <ArticleItem key={article.title + article.date} article={article} />
+                  <div className="article">
+                    <ArticleItem key={article.title + article.date} article={article} />
+                  </div>
                 ))}
               </div>
             );

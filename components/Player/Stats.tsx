@@ -8,11 +8,13 @@ import { buttonCss } from "../common/Button";
 
 const container = css`
   ${boxCss};
+  box-sizing: border-box;
   margin: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 130px;
+  width: 100%;
 `;
 
 const info = css`
