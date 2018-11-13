@@ -22,6 +22,7 @@ const container = css`
 `;
 
 const info = css`
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -57,7 +58,7 @@ const info = css`
     color: rgba(20, 20, 20, 0.7);
     text-transform: uppercase;
     font-weight: 500;
-    color:white;
+    color: white;
   }
 `;
 

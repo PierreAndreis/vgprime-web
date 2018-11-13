@@ -19,34 +19,34 @@ const playerActiveBackground = css`
 `;
 
 const playerWrap = css`
-border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-padding: 2px 5px;
-height: 54.5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 2px 5px;
+  height: 54.5px;
 
-display: flex;
-align-items: center;
-color: rgb(231, 231, 231);
-color: #4a4a4a;
+  display: flex;
+  align-items: center;
+  color: rgb(231, 231, 231);
+  color: #4a4a4a;
 
-border-sizing: border-box;
-transition: all 300ms;
+  box-sizing: border-box;
+  transition: all 300ms;
 
-&:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
+  &:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
 
-& > div {
-  flex-grow: 0;
-  flex-shrink: 0;
-}
+  & > div {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
 
-&:last-of-type {
-  border: 0;
-}
+  &:last-of-type {
+    border: 0;
+  }
 `;
 
 const position = css`
-width: 50px;
+  width: 50px;
   text-align: center;
   font-size: 14px;
   font-weight: bold;
@@ -62,7 +62,7 @@ width: 50px;
 `;
 
 const positionChange = css`
-   position: relative;
+  position: relative;
   height: 12px;
   font-size: 9px;
   text-align: center;
@@ -118,7 +118,7 @@ const games = css`
     margin-top: 5px;
     font-size: 10px;
     font-weight: bold;
-    color:#adadad;
+    color: #adadad;
   }
 `;
 
@@ -178,10 +178,12 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
     winPercent = (payload.wins / payload.games) * 100;
   }
 
-  let psChangeUp = payload &&
-    payload.positionChange > 0 && <>{payload.positionChange}▲</>;
-  let psChangeDown = payload &&
-    payload.positionChange < 0 && <>{payload.positionChange}▼</>;
+  let psChangeUp = payload && payload.positionChange > 0 && (
+    <>{payload.positionChange}▲</>
+  );
+  let psChangeDown = payload && payload.positionChange < 0 && (
+    <>{payload.positionChange}▼</>
+  );
 
   return (
     <Link href={payload ? `/player?name=${payload.name}` : "/"} prefetch>

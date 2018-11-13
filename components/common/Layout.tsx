@@ -6,13 +6,13 @@ import Rules from "../Rules";
 import Cookies from "js-cookie";
 
 import getConfig from "next/config";
+import NavBar, { Page } from "./NavBar";
 
 const { publicRuntimeConfig } = getConfig();
 
 const rulesModalValue = publicRuntimeConfig.rulesModalValue;
 
-const container = css`
-  width: auto;
+const container = (currentPage: Page) => css`
   max-width: 1300px;
   margin: 0 auto;
   padding: 15px;
@@ -36,6 +36,24 @@ const container = css`
     margin-top: 15px;
   }
 
+  & > .sidebar {
+    box-sizing: border-box;
+    grid-area: sidebar;
+    order: 2;
+    @media screen and (max-width: 550px) {
+      ${currentPage !== "Leaderboard" ? "display: none;" : "display: block;"}
+    }
+  }
+
+  & > .content {
+    box-sizing: border-box;
+    grid-area: content;
+    order: 3;
+    @media screen and (max-width: 550px) {
+      ${currentPage !== "Content" ? "display: none;" : "display: block;"}
+    }
+  }
+
   @media screen and (max-width: 1300px) {
     display: grid;
     grid-template:
@@ -46,11 +64,15 @@ const container = css`
   }
 
   @media screen and (max-width: 800px) {
-    width: 380px;
+    width: 100%;
+    max-width: 380px;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  @media screen and (max-width: 500px) {
   }
 `;
 
@@ -103,30 +125,22 @@ const rulesButton = css`
   }
 `;
 
-const sidebar = css`
-  grid-area: sidebar;
-  order: 2;
-`;
-
-const content = css`
-  grid-area: content;
-  order: 3;
-`;
-
 type State = {
   rulesOpened: boolean;
+  page: Page;
 };
 
 class Layout extends React.Component<{}, State> {
   static Sidebar: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className={sidebar}>{children}</div>
+    <div className="sidebar">{children}</div>
   );
   static Content: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className={content}>{children}</div>
+    <div className="content">{children}</div>
   );
 
   state = {
     rulesOpened: false,
+    page: "Main" as Page,
   };
 
   componentDidMount() {
@@ -148,8 +162,9 @@ class Layout extends React.Component<{}, State> {
   };
 
   render() {
+    console.log(this.state.page);
     return (
-      <div className={container}>
+      <div className={container(this.state.page)}>
         <div className={header}>
           <Link href="/" prefetch>
             <a>
@@ -162,6 +177,23 @@ class Layout extends React.Component<{}, State> {
         </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         {this.props.children}
+        <NavBar
+          changeHandler={newPage => this.setState({ page: newPage })}
+          page={this.state.page}
+        >
+          <NavBar.Tab title="Leaderboard">
+            <i>L</i>
+            <span>Leaderboard</span>
+          </NavBar.Tab>
+          <NavBar.Tab title="Main">
+            <i>M</i>
+            <span>Main</span>
+          </NavBar.Tab>
+          <NavBar.Tab title="Content">
+            <i>C</i>
+            <span>Content</span>
+          </NavBar.Tab>
+        </NavBar>
       </div>
     );
   }

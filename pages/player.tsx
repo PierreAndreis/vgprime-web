@@ -17,6 +17,8 @@ const playerInfo = css`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
 `;
 
 const searchArea = css`

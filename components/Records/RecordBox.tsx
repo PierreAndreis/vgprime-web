@@ -94,7 +94,7 @@ const stats = css`
       font-size: 9px;
       text-transform: uppercase;
       font-weight: bold;
-    color:#adadad;
+      color: #adadad;
     }
   }
 `;

@@ -156,11 +156,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                     <stop offset="95%" stopColor="#B1041E" stopOpacity={1} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid
-                  fill="none"
-                  stroke="#dcdcdc"
-                  strokeDasharray="5 5"
-                />
+                <CartesianGrid fill="none" stroke="#dcdcdc" strokeDasharray="5 5" />
                 <Line
                   type="monotone"
                   dataKey={dataKey}
