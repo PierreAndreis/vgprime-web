@@ -28,7 +28,7 @@ const playerWrap = css`
   color: rgb(231, 231, 231);
   color: #4a4a4a;
 
-  border-sizing: border-box;
+  box-sizing: border-box;
   transition: all 300ms;
 
   &:hover {
@@ -172,10 +172,12 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
     winPercent = (payload.wins / payload.games) * 100;
   }
 
-  let psChangeUp = payload &&
-    payload.positionChange > 0 && <>{payload.positionChange}▲</>;
-  let psChangeDown = payload &&
-    payload.positionChange < 0 && <>{payload.positionChange}▼</>;
+  let psChangeUp = payload && payload.positionChange > 0 && (
+    <>{payload.positionChange}▲</>
+  );
+  let psChangeDown = payload && payload.positionChange < 0 && (
+    <>{payload.positionChange}▼</>
+  );
 
   return (
     <Link href={payload ? `/player?name=${payload.name}` : "/"} prefetch>
