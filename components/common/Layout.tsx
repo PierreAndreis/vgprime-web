@@ -36,12 +36,13 @@ const container = (currentPage: Page) => css`
     margin-top: 15px;
   }
 
-  & > .sidebar {
+   & > .sidebar {
     box-sizing: border-box;
     grid-area: sidebar;
     order: 2;
     @media screen and (max-width: 550px) {
       ${currentPage !== "Leaderboard" ? "display: none;" : "display: block;"}
+    padding-bottom: 100px;
     }
   }
 
@@ -84,8 +85,12 @@ const header = css`
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  margin-top: 2%;
+  padding: 10px;
+  margin-top: 5%;
+  @media screen and (max-width: 800px) {
+    width: 90%;
+    align-items: center;
+  }
 `;
 
 const logo = css`
@@ -182,16 +187,16 @@ class Layout extends React.Component<{}, State> {
           page={this.state.page}
         >
           <NavBar.Tab title="Leaderboard">
-            <i>L</i>
-            <span>Leaderboard</span>
+            <i> <img src="static/images/ranking.svg" alt="leaderboard" height="24" width="24"></img></i>
+            <span></span>
           </NavBar.Tab>
           <NavBar.Tab title="Main">
-            <i>M</i>
-            <span>Main</span>
+            <i><img src="static/images/house.svg" alt="main" height="24" width="24"></img></i>
+            <span></span>
           </NavBar.Tab>
           <NavBar.Tab title="Content">
-            <i>C</i>
-            <span>Content</span>
+            <i><img src="static/images/console.svg" alt="content" height="24" width="24"></img></i>
+            <span></span>
           </NavBar.Tab>
         </NavBar>
       </div>

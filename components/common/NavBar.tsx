@@ -9,6 +9,7 @@ const container = css`
   width: 100%;
   box-sizing: border-box;
   bottom: 0px;
+  left:0;
   background: #fff;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   & > ul {
@@ -27,8 +28,12 @@ const container = css`
       &:hover {
         color: #7aaeff;
       }
+      .surface1:hover{
+        fill: #fff;
+      }
       &.active {
-        color: green;
+        border-bottom: 5px solid #4a90e2;
+        fill: #4a90e2;
       }
       & > i {
         font-size: 14px;
@@ -36,6 +41,7 @@ const container = css`
       }
       & > span {
         margin-top: 5px;
+        font-size: 12px;
       }
     }
   }
