@@ -9,11 +9,8 @@ const container = css`
   width: 100%;
   box-sizing: border-box;
   bottom: 0px;
-  left: 0px;
   background: #fff;
-  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   & > ul {
     display: flex;
     & > li {
@@ -22,8 +19,7 @@ const container = css`
       flex-direction: column;
       width: calc(100% / 3);
       text-align: center;
-      border-right: 1px solid rgba(0, 0, 0, 0.2);
-      padding: 10px 0px;
+      padding: 15px 0px;
       cursor: pointer;
       &:last-child {
         border-right: none;
@@ -35,7 +31,7 @@ const container = css`
         color: green;
       }
       & > i {
-        font-size: 18px;
+        font-size: 14px;
         font-weight: 600;
       }
       & > span {
