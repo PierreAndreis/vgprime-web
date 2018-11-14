@@ -55,6 +55,7 @@ const container = (currentPage: Page) => css`
     order: 3;
     @media screen and (max-width: 550px) {
       ${currentPage !== "Content" ? "display: none;" : "display: block;"}
+      padding-bottom: 100px;
     }
   }
 
