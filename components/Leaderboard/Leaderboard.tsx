@@ -49,20 +49,19 @@ const Leaderboard = ({
           />
         ))}
       </div>
-      {nextHandler &&
-        previousHandler && (
-          <div className={cx(navigationButtons)}>
-            <Button
-              onClick={previousHandler}
-              disabled={players.length === 0 || (players[0] && players[0].rank === 1)}
-            >
-              Previous
-            </Button>
-            <Button onClick={nextHandler} disabled={!nextHandler}>
-              Next
-            </Button>
-          </div>
-        )}
+      {nextHandler && previousHandler && (
+        <div className={cx(navigationButtons)}>
+          <Button
+            onClick={previousHandler}
+            disabled={players.length === 0 || (players[0] && players[0].rank === 1)}
+          >
+            Previous
+          </Button>
+          <Button onClick={nextHandler} disabled={!nextHandler}>
+            Next
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
