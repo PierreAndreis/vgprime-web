@@ -52,7 +52,7 @@ const container = css`
 
 */
 
-export type Page = "Main" | "Leaderboard" | "Content";
+export type Page = string;
 type Props = {
   page: Page;
   changeHandler: (newPage: Page) => void;

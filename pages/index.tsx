@@ -10,14 +10,12 @@ import { SkeletonContext } from "../components/common/Skeleton";
 import Articles from "../components/Articles/Articles";
 
 const records = css`
-  grid-area: content;
-  order: 3;
+  //grid-area: content;
+  //order: 3;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 `;
-
-const articles = css``;
 
 const searchArea = css`
   width: 330px;
@@ -46,43 +44,67 @@ export default class Home extends React.Component<Props, State> {
   };
   render() {
     return (
-      <Layout>
-        <Query query={qLeaderboard} variables={{ page: this.state.page }}>
-          {({ error, data, loading }) => {
-            let players: PlayersList =
-              data && data.leaderboard && data.leaderboard.length > 0
-                ? data.leaderboard
-                : [];
+      <Query query={qLeaderboard} variables={{ page: this.state.page }}>
+        {({ error, data, loading }) => {
+          let players: PlayersList =
+            data && data.leaderboard && data.leaderboard.length > 0
+              ? data.leaderboard
+              : [];
 
-            return (
-              <SkeletonContext.Provider
-                value={loading || error || players.length === 0 ? "loading" : "loaded"}
-              >
-                <Layout.Sidebar>
+          return (
+            <SkeletonContext.Provider
+              value={loading || error || players.length === 0 ? "loading" : "loaded"}
+            >
+              <Layout>
+                <Layout.Section
+                  area="sidebar"
+                  tabContent={
+                    <>
+                      <i>L</i>
+                      <span>Leaderboard</span>
+                    </>
+                  }
+                >
                   <h4>Leaderboard</h4>
                   <Leaderboard
                     players={players}
                     nextHandler={this.next}
                     previousHandler={this.previous}
                   />
-                </Layout.Sidebar>
-                <Layout.Content>
+                </Layout.Section>
+                <Layout.Section
+                  area="main"
+                  tabContent={
+                    <>
+                      <i>A</i>
+                      <span>Articles</span>
+                    </>
+                  }
+                >
+                  <Articles />
+                </Layout.Section>
+                <Layout.Section
+                  area="content"
+                  tabContent={
+                    <>
+                      <i>R</i>
+                      <span>Records</span>
+                    </>
+                  }
+                >
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
                     <Search />
                   </div>
-                  <div className={articles}>
-                    <Articles />
-                  </div>
                   <div className={records}>
                     <Records />
                   </div>
-                </Layout.Content>
-              </SkeletonContext.Provider>
-            );
-          }}
-        </Query>
-      </Layout>
+                </Layout.Section>
+              </Layout>
+            </SkeletonContext.Provider>
+          );
+        }}
+      </Query>
     );
   }
 }
