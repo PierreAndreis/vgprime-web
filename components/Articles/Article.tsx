@@ -28,8 +28,8 @@ const container = css`
   }
 
   h3 {
-    font-size: 1.5rem;
-    font-weight: 450;
+    font-size: 14px;
+    font-weight: 800;
   }
 `;
 

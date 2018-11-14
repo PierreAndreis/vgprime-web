@@ -7,6 +7,9 @@ import Cookies from "js-cookie";
 
 import getConfig from "next/config";
 import NavBar, { Page } from "./NavBar";
+import SvgHome from "./SvgHouse";
+import SvgGame from "./SvgGames";
+import SvgLeaderboard from "./SvgRank";
 
 const { publicRuntimeConfig } = getConfig();
 
@@ -100,7 +103,7 @@ const logo = css`
   background: url("/static/images/logo.png") no-repeat;
   background-size: contain;
 
-  color: #7aaeff;
+  color: #4A90E7;
   font-weight: bold;
   font-size: 35px;
 
@@ -117,15 +120,15 @@ const rulesButton = css`
   height: 40px;
   background: #fff;
   justify-self: center;
-  border: 1px solid #7aaeff;
+  border: 1px solid #4A90E7;
   border-radius: 30px;
   padding: 0px 15px;
-  color: #7aaeff;
+  color: #4A90E7;
   text-transform: uppercase;
   font-weight: 600;
   &:hover {
     cursor: pointer;
-    background: #7aaeff;
+    background: #4A90E7;
     color: #fff;
   }
 `;
@@ -187,16 +190,13 @@ class Layout extends React.Component<{}, State> {
           page={this.state.page}
         >
           <NavBar.Tab title="Leaderboard">
-            <i> <img src="static/images/ranking.svg" alt="leaderboard" height="24" width="24"></img></i>
-            <span></span>
+            <p> <SvgLeaderboard active={this.state.page === "Leaderboard"}></SvgLeaderboard></p>
           </NavBar.Tab>
           <NavBar.Tab title="Main">
-            <i><img src="static/images/house.svg" alt="main" height="24" width="24"></img></i>
-            <span></span>
+            <p> <SvgHome active={this.state.page === "Main"}></SvgHome></p>
           </NavBar.Tab>
           <NavBar.Tab title="Content">
-            <i><img src="static/images/console.svg" alt="content" height="24" width="24"></img></i>
-            <span></span>
+            <p> <SvgGame active={this.state.page === "Content"}></SvgGame></p>
           </NavBar.Tab>
         </NavBar>
       </div>

@@ -28,9 +28,6 @@ const container = css`
       &:hover {
         color: #7aaeff;
       }
-      .surface1:hover{
-        fill: #fff;
-      }
       &.active {
         border-bottom: 5px solid #4a90e2;
         fill: #4a90e2;
