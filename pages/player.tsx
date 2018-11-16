@@ -10,6 +10,7 @@ import PlayerInfo from "../components/Player/Player";
 import { byPlayerName as qLeaderboard, Player } from "./../graphql/leaderboard";
 import { PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
+import Articles from "../components/Articles/Articles";
 
 const playerInfo = css`
   grid-area: content;
@@ -48,7 +49,6 @@ class PlayerPage extends React.Component<Props> {
     }
 
     return (
-      <Layout>
         <Query query={qLeaderboard} variables={{ playerName }}>
           {({ error, data, loading }) => {
             // if (error) {
@@ -64,11 +64,30 @@ class PlayerPage extends React.Component<Props> {
               <SkeletonContext.Provider
                 value={loading || error || !player ? "loading" : "loaded"}
               >
-                <Layout.Sidebar>
+              <Layout>
+                <Layout.Section area="sidebar" tabContent={
+                  <>
+                  <i>L</i>
+                  <span>Leaderboard</span>
+                  </>
+                }>
                   <h4>Leaderboard</h4>
                   <Leaderboard players={players} playerName={playerName} />
-                </Layout.Sidebar>
-                <Layout.Content>
+                </Layout.Section>
+                <Layout.Section area="main" tabContent={
+                  <>
+                    <i>A</i>
+                    <span>Articles</span>
+                  </>
+                }>
+                  <Articles/>
+                </Layout.Section>
+                <Layout.Section area="content" tabContent={
+                  <>
+                    <i>S</i>
+                    <span>Stats</span>
+                  </>
+                }>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
                     <Search />
@@ -76,12 +95,12 @@ class PlayerPage extends React.Component<Props> {
                   <div className={playerInfo}>
                     <PlayerInfo player={player} />
                   </div>
-                </Layout.Content>
+                </Layout.Section>
+                </Layout>
               </SkeletonContext.Provider>
             );
           }}
         </Query>
-      </Layout>
     );
   }
 }

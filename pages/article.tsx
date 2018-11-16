@@ -7,9 +7,11 @@ import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Articles from "../components/Articles/Articles";
+import { withRouter } from "next/router";
 
 type Props = {
   articlePath?: string;
+  router: any;
 };
 
 type State = {
@@ -37,10 +39,9 @@ class ArticlePage extends React.Component<Props, State> {
   render() {
     const { articlePath } = this.props;
     if (!articlePath) {
-      return <div>Damn... 'articlePath' can't be null!</div>;
+      this.props.router.push('/');
     }
     return (
-      <Layout>
         <Query query={qLeaderboard} variables={{ page: this.state.page }}>
           {({ error, data, loading }) => {
             let players: PlayersList =
@@ -52,24 +53,43 @@ class ArticlePage extends React.Component<Props, State> {
               <SkeletonContext.Provider
                 value={loading || error || players.length === 0 ? "loading" : "loaded"}
               >
-                <Layout.Sidebar>
+              <Layout>
+                <Layout.Section area="sidebar" tabContent={
+                  <>
+                    <i>L</i>
+                    <span>Leaderboard</span>
+                  </>
+                }>
                   <h4>Leaderboard</h4>
                   <Leaderboard
                     players={players}
                     nextHandler={this.next}
                     previousHandler={this.previous}
                   />
-                </Layout.Sidebar>
-                <Layout.Content>
+                </Layout.Section>
+                <Layout.Section area="main" tabContent={
+                  <>
+                    <i>A</i>
+                    <span>Articles</span>
+                  </>
+                }>
+                  <Articles/>
+                </Layout.Section>
+                <Layout.Section area="content" tabContent={
+                  <>
+                    <i>A</i>
+                    <span>Article</span>
+                  </>
+                }>
                   <FullArticle articlePath={articlePath} />
-                </Layout.Content>
+                </Layout.Section>
+                </Layout>
               </SkeletonContext.Provider>
             );
           }}
         </Query>
-      </Layout>
     );
   }
 }
 
-export default ArticlePage;
+export default withRouter(ArticlePage);

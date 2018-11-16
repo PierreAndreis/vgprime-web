@@ -83,7 +83,8 @@ const container = (currentPage: Page) => css`
     align-items: center;
   }
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 550px) {
+    padding-bottom: 80px;
   }
 `;
 
