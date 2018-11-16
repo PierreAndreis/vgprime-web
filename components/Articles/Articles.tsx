@@ -6,14 +6,12 @@ import ArticleItem, { Article } from "./Article";
 
 const container = css`
   & .articles {
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     @media screen and (max-width: 550px) {
-      & > * {
-        width: 100%;
-        background: red;
-      }
+      flex-direction: column;
     }
   }
 `;
@@ -61,8 +59,8 @@ class Articles extends React.Component<Props, State> {
             const articles: Array<Article> = data && data.articles ? data.articles : [];
             return (
               <div className="articles">
-                {articles.map(article => (
-                  <div className="article">
+                {articles.map((article, key) => (
+                  <div key={`article${key}`} className="article">
                     <ArticleItem key={article.title + article.date} article={article} />
                   </div>
                 ))}

@@ -9,7 +9,7 @@ const container = css`
   width: 100%;
   box-sizing: border-box;
   bottom: 0px;
-  left:0;
+  left: 0;
   background: #fff;
   box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
   & > ul {
@@ -51,7 +51,7 @@ const container = css`
 
 */
 
-export type Page = "Main" | "Leaderboard" | "Content";
+export type Page = string;
 type Props = {
   page: Page;
   changeHandler: (newPage: Page) => void;
