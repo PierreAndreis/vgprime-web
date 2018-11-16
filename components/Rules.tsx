@@ -19,7 +19,7 @@ const content = css`
     text-align: center;
     text-transform: uppercase;
     padding-bottom: 20px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #4A90E7;
   }
   & header > .closeButton {
     font-size: 42px;

@@ -8,7 +8,8 @@ import { PlayersList } from "../../graphql/leaderboard";
 const container = css`
   ${Box};
   width: 360px;
-  border-bottom: 20px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 20px solid white;
+  border-radius: 10px;
 `;
 
 const navigationButtons = css`

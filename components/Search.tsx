@@ -17,6 +17,10 @@ const searchBox = css`
   box-sizing: border-box;
   padding: 0;
   margin: 15px auto;
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    margin-left:0px;
+  }
 `;
 
 const input = css`

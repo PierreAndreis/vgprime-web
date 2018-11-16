@@ -26,11 +26,10 @@ const graphBox = css`
   ${Box};
   padding: 20px;
   height: 130px;
-  width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: #82aef2;
-  color: #fff;
+  background-color: #fff;
+  color: #adadad;
   margin: 0;
 `;
 
@@ -120,8 +119,8 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                     y2="0%"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop offset="5%" stopColor="#51E1EC" stopOpacity={1} />
-                    <stop offset="95%" stopColor="#3023AE" stopOpacity={1} />
+                    <stop offset="0%" stopColor="#7aaeff" stopOpacity={1} />
+                    <stop offset="100%" stopColor="#74e1eb" stopOpacity={1} />
                   </linearGradient>
                   <linearGradient
                     id="bluexpink"
@@ -157,21 +156,17 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                     <stop offset="95%" stopColor="#B1041E" stopOpacity={1} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid
-                  fill="none"
-                  stroke="rgba(255, 255, 255, 0.2)"
-                  strokeDasharray="5 5"
-                />
+                <CartesianGrid fill="none" stroke="#dcdcdc" strokeDasharray="5 5" />
                 <Line
                   type="monotone"
                   dataKey={dataKey}
                   strokeWidth={2}
-                  stroke="#fff"
+                  stroke="url(#blue)"
                   dot={true}
                 />
                 <XAxis
                   dataKey="time"
-                  stroke="#fff"
+                  stroke="#213141"
                   padding={{ left: 30, right: 30 }}
                   height={10}
                   tick={{ fontSize: "9px" }}
@@ -185,7 +180,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                 />
                 <YAxis
                   reversed={dataKey === "rank"}
-                  stroke="#fff"
+                  stroke="#213141"
                   padding={{ top: 0, bottom: 0 }}
                   //width={40}
                   allowDecimals={false}

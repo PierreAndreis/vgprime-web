@@ -25,23 +25,26 @@ const backdrop = css`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
+  
 `;
 
 const modalContent = css`
   ${Box};
-  width: 100%;
+  width: 95%;
   height: auto;
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
   overflow-x: auto;
+  border-radius: 10px;
 
   @media screen and (max-width: 500px) {
-    width: 100%;
+    width: 80%;
     max-width: 100%;
-    height: 100%;
+    height: 80%;
     max-height: 100%;
     border-radius: 0;
+    border-radius: 10px;
   }
 `;
 

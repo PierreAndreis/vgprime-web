@@ -28,13 +28,14 @@ const records = css`
 `;
 
 const name = css`
-  font-size: 18px;
+  font-size: 14px;
   font-family: "Roboto Condensed";
   font-weight: 700;
 
   display: flex;
   align-items: center;
   margin-left: 10px;
+  margin-top: 5px;
   & i {
     color: #eaa900;
     margin-right: 5px;
@@ -42,8 +43,9 @@ const name = css`
     margin-bottom: -3px;
   }
   & > span {
-    margin-left: 3px;
-    padding-top: 3px;
+    margin-left: 5px;
+    margin-top: -13px;
+    padding-top: 15px;
     font-size: 12px;
     color: rgba(100, 100, 100, 0.5);
     text-transform: uppercase;
@@ -52,8 +54,9 @@ const name = css`
 `;
 
 const points = css`
-  font-size: 15px;
+  font-size: 14px;
   margin-left: auto;
+  margin-right: 10px;
   text-align: center;
   background-color: #4a90e2;
   border-radius: 15px;
@@ -70,7 +73,8 @@ const points = css`
 const stats = css`
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
   color: #4a4a4a;
   & > div {
     padding: 0 10px;
@@ -90,6 +94,7 @@ const stats = css`
       font-size: 9px;
       text-transform: uppercase;
       font-weight: bold;
+      color: #adadad;
     }
   }
 `;
@@ -171,7 +176,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                       <div>
                         <div
                           style={{
-                            color: winRate > 50 ? "#4A90E2" : "#D0021B",
+                            color: winRate > 50 ? "#4A90E2" : "#fd223c",
                           }}
                         >
                           <SkeletonWrapper width={40} height={18}>

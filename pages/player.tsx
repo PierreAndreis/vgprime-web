@@ -22,9 +22,9 @@ const playerInfo = css`
 `;
 
 const searchArea = css`
-  width: 330px;
+  width: 320px;
   box-sizing: border-box;
-  margin: 15px auto 30px;
+ margin: 15px auto 30px;
 `;
 
 type Props = {
