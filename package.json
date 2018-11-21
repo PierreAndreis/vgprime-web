@@ -34,7 +34,7 @@
     "react-spinners": "^0.4.7",
     "react-spring": "^6.1.8",
     "recharts": "^1.4.1",
-    "why-did-you-update": "^0.2.0"
+    "why-did-you-update": "^1.0.6"
   },
   "author": "",
   "license": "ISC",
