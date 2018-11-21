@@ -25,15 +25,52 @@ const container = css`
   }
 
   h3 {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 800;
   }
 
   img {
     display: none;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
   }
 
-  @media screen and (max-width: 500px) {
+  p {
+    padding-top: 5px;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 700px) {
+    background-size: 0;
+    padding: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    box-shadow: none;
+    border-top: 1px solid rgba(75, 75, 75, 0.1);
+    border-radius: 0;
+
+    &:first-of-type {
+      border-bottom: 0;
+    }
+
+    img {
+      display: inline-block;
+    }
+    div {
+      position: relative;
+      background: 0;
+      bottom: 0;
+      flex: 1;
+      height: 100%;
+      color: black;
+      text-align: left;
+    }
+    h3 {
+      font-weight: 400;
+    }
   }
 `;
 
@@ -49,14 +86,16 @@ type Props = {
   article: Article;
 };
 
-const ArticleComponent: React.SFC<Props> = ({ article: { path, title, image } }) => {
-  // const prettyDate = new Date(date).toLocaleDateString();
+const ArticleComponent: React.SFC<Props> = ({
+  article: { path, title, image, date },
+}) => {
   return (
     <Link href={`/article?path=${path}`}>
       <a className={container} style={{ backgroundImage: `url(${image})` }}>
         <img src={image} alt={title} />
         <div>
           <h3>{title}</h3>
+          <p>{new Date(date).toLocaleDateString()}</p>
         </div>
       </a>
     </Link>

@@ -72,8 +72,6 @@ const header = css`
   order: 0;
 
   display: flex;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
   margin-top: 5%;
@@ -138,17 +136,6 @@ class Layout extends React.Component<{}, State> {
   state = {
     rulesOpened: false,
   };
-
-  componentDidMount() {
-    if (typeof document !== "undefined") {
-      const rulesDate = Cookies.get("rulesModal");
-      if (!rulesDate || rulesDate !== rulesModalValue) {
-        Cookies.set("rulesModal", rulesModalValue);
-        this.setState({ rulesOpened: true });
-        return;
-      }
-    }
-  }
 
   openRulesModal = () => {
     this.setState({ rulesOpened: true });

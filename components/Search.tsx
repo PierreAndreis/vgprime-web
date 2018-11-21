@@ -15,7 +15,6 @@ const searchBox = css`
   flex-direction: row;
   position: relative;
   padding: 0;
-  margin: 15px auto;
   @media screen and (max-width: 800px) {
     width: 100%;
     margin-left: 0px;
@@ -28,6 +27,7 @@ const input = css`
   border: 0;
   outline: 0;
   padding: 15px;
+  margin: 0;
   padding-right: 30%;
   font-size: 15px;
   border-radius: 30px;

@@ -3,6 +3,7 @@ import { css } from "emotion";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import ArticleItem, { Article } from "./Article";
+import Box from "../common/Box";
 
 const container = css`
   width: 100%;
@@ -10,7 +11,9 @@ const container = css`
   flex-direction: row;
   justify-content: center;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 700px) {
+    ${Box};
+    overflow: hidden;
     flex-direction: column;
   }
 `;

@@ -19,7 +19,7 @@ const records = css`
 
 const searchArea = css`
   width: 330px;
-  margin: 15px auto 30px;
+  margin: 15px auto;
 `;
 
 type Props = {
@@ -64,6 +64,7 @@ export default class Home extends React.Component<Props, State> {
                   />
                 </Layout.Sidebar>
                 <Layout.Content>
+                  <h4>Articles</h4>
                   <Articles />
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
