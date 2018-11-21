@@ -4,13 +4,13 @@ import Link from "next/link";
 import Box from "../common/Box";
 
 const container = css`
-  background: blue;
   ${Box}
   display: block;
   box-sizing: border-box;
+  width: 100%;
   margin: 10px;
-  flex-basis: 1;
   height: 150px;
+
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;

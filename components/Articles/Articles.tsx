@@ -5,15 +5,10 @@ import { Query } from "react-apollo";
 import ArticleItem, { Article } from "./Article";
 
 const container = css`
-  & .articles {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    @media screen and (max-width: 550px) {
-      flex-direction: column;
-    }
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;
 
 const GET_ARTICLES = gql`
@@ -57,15 +52,9 @@ class Articles extends React.Component<Props, State> {
         <Query query={GET_ARTICLES} variables={{ page, limit: 3 }}>
           {({ data }) => {
             const articles: Array<Article> = data && data.articles ? data.articles : [];
-            return (
-              <div className="articles">
-                {articles.map((article, key) => (
-                  <div key={`article${key}`} className="article">
-                    <ArticleItem key={article.title + article.date} article={article} />
-                  </div>
-                ))}
-              </div>
-            );
+            return articles.map((article, key) => (
+              <ArticleItem key={article.title + article.date} article={article} />
+            ));
           }}
         </Query>
       </div>
