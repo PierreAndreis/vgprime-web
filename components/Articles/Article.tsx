@@ -6,7 +6,6 @@ import Box from "../common/Box";
 const container = css`
   ${Box}
   display: block;
-  box-sizing: border-box;
   width: 100%;
   margin: 10px;
   height: 150px;
@@ -14,7 +13,6 @@ const container = css`
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  box-sizing: border-box;
   overflow: hidden;
   & > div {
     position: absolute;
@@ -23,13 +21,19 @@ const container = css`
     background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
     text-align: right;
     padding: 15px;
-    box-sizing: border-box;
     bottom: 0;
   }
 
   h3 {
     font-size: 14px;
     font-weight: 800;
+  }
+
+  img {
+    display: none;
+  }
+
+  @media screen and (max-width: 500px) {
   }
 `;
 
@@ -50,8 +54,8 @@ const ArticleComponent: React.SFC<Props> = ({ article: { path, title, image } })
   return (
     <Link href={`/article?path=${path}`}>
       <a className={container} style={{ backgroundImage: `url(${image})` }}>
+        <img src={image} alt={title} />
         <div>
-          {/* <div className="date">{prettyDate}</div> */}
           <h3>{title}</h3>
         </div>
       </a>

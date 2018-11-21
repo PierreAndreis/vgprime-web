@@ -28,7 +28,6 @@ const playerWrap = css`
   color: rgb(231, 231, 231);
   color: #4a4a4a;
 
-  box-sizing: border-box;
   transition: all 300ms;
 
   &:hover {

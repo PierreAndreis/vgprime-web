@@ -9,6 +9,10 @@ const container = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
 `;
 
 const GET_ARTICLES = gql`

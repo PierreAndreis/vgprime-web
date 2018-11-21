@@ -17,18 +17,15 @@ const container = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-sizing: border-box;
   padding: 11px 30px;
 `;
 
 const info = css`
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 10px 0px;
   width: 100%;
-  box-sizing: border-box;
   & i {
     color: #eaa900;
     font-size: 20px;

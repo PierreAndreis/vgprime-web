@@ -15,8 +15,6 @@ const container = css`
   max-width: 1300px;
   margin: 0 auto;
   padding: 15px;
-  box-sizing: border-box;
-
   display: grid;
   grid-template:
     "header header" auto
@@ -36,13 +34,11 @@ const container = css`
   }
 
   & > .sidebar {
-    box-sizing: border-box;
     grid-area: sidebar;
     order: 2;
   }
 
   & > .content {
-    box-sizing: border-box;
     width: 100%;
     grid-area: content;
     order: 1;

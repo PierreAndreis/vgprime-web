@@ -9,7 +9,6 @@ import { CreateFilledHistorical } from "../../lib/historical";
 const container = css`
   display: grid;
   width: 100%;
-  box-sizing: border-box;
   grid-template-columns: 1fr 1fr;
   grid-gap: 15px;
 

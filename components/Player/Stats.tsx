@@ -8,7 +8,6 @@ import { buttonCss } from "../common/Button";
 
 const container = css`
   ${boxCss};
-  box-sizing: border-box;
   margin: 0;
   display: flex;
   flex-direction: row;

@@ -19,7 +19,6 @@ const records = css`
 
 const searchArea = css`
   width: 330px;
-  box-sizing: border-box;
   margin: 15px auto 30px;
 `;
 

@@ -2,7 +2,6 @@ import { css } from "emotion";
 
 export const Box = css`
   background: #213141;
-  box-sizing: border-box;
   position: relative;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
 

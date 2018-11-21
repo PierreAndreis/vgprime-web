@@ -6,7 +6,6 @@ const container = css`
   ${Box};
   background-image: linear-gradient(-135deg, #84aff5 0%, #91dde9 100%);
   color: rgba(255, 255, 255, 0.9);
-  box-sizing: border-box;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
