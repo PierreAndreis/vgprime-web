@@ -3,18 +3,10 @@ import { css } from "emotion";
 
 import Link from "next/link";
 import Rules from "../Rules";
-import Cookies from "js-cookie";
-
-import getConfig from "next/config";
-
-const { publicRuntimeConfig } = getConfig();
-
-const rulesModalValue = publicRuntimeConfig.rulesModalValue;
 
 const container = css`
   max-width: 1300px;
   margin: 0 auto;
-  padding: 15px;
   display: grid;
   grid-template:
     "header header" auto
@@ -74,7 +66,7 @@ const header = css`
   display: flex;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
-  margin-top: 5%;
+  margin-top: 20px;
   @media screen and (max-width: 800px) {
     width: 90%;
     align-items: center;
