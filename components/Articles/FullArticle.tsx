@@ -57,13 +57,16 @@ const loadingContainer = css`
 `;
 
 type Props = {
-  articlePath: string;
+  articlePath?: string;
   router: any;
 };
 
 class ArticlePage extends React.Component<Props> {
   render() {
     const { articlePath, router } = this.props;
+
+    if (!articlePath) return <div>Oh no! Something went wrong.</div>;
+
     return (
       <Query query={GET_ARTICLE} variables={{ path: articlePath }}>
         {({ error, loading, data }) => {

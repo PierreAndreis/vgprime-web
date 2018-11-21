@@ -25,34 +25,14 @@ const GET_ARTICLES = gql`
 
 type Props = {};
 
-type State = {
-  page: number;
-};
-
-class Articles extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      page: 0,
-    };
-  }
-
-  incPage = () => {
-    this.setState(({ page }) => ({ page: page + 1 }));
-  };
-
-  decPage = () => {
-    this.setState(({ page }) => ({ page: page - 1 }));
-  };
-
+class Articles extends React.Component<Props> {
   render() {
-    const { page } = this.state;
     return (
       <div className={container}>
-        <Query query={GET_ARTICLES} variables={{ page, limit: 3 }}>
+        <Query query={GET_ARTICLES} variables={{ page: 1, limit: 3 }}>
           {({ data }) => {
             const articles: Array<Article> = data && data.articles ? data.articles : [];
-            return articles.map((article, key) => (
+            return articles.map(article => (
               <ArticleItem key={article.title + article.date} article={article} />
             ));
           }}

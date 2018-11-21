@@ -18,7 +18,7 @@ type State = {
 };
 
 class ArticlePage extends React.Component<Props, State> {
-  static async getInitialProps({ query, res }: NextContext) {
+  static async getInitialProps({ query }: NextContext) {
     const articlePath = query.path;
     return { articlePath };
   }
