@@ -1,6 +1,5 @@
 import * as React from "react";
 import { css } from "emotion";
-// import { Player } from "./../../graphql/leaderboard";
 import Box from "./../common/Box";
 import {
   ResponsiveContainer,
@@ -10,9 +9,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  // Legend,
   TooltipPayload,
-  // TickFormatterFunction,
 } from "recharts";
 import { FadeLoader as LoadingIcon } from "react-spinners";
 import { SkeletonContext } from "../common/Skeleton";
@@ -122,45 +119,12 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                     <stop offset="0%" stopColor="#7aaeff" stopOpacity={1} />
                     <stop offset="100%" stopColor="#74e1eb" stopOpacity={1} />
                   </linearGradient>
-                  <linearGradient
-                    id="bluexpink"
-                    x1="0%"
-                    x2="100%"
-                    y1="0%"
-                    y2="0%"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="5%" stopColor="#4681BA" stopOpacity={1} />
-                    <stop offset="95%" stopColor="#DB4EA1" stopOpacity={1} />
-                  </linearGradient>
-                  <linearGradient
-                    id="orange"
-                    x1="0%"
-                    x2="100%"
-                    y1="0%"
-                    y2="0%"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="5%" stopColor="#F0CE78" stopOpacity={1} />
-                    <stop offset="95%" stopColor="#EEAE85" stopOpacity={1} />
-                  </linearGradient>
-                  <linearGradient
-                    id="red"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop offset="5%" stopColor="#FF5D6B" stopOpacity={1} />
-                    <stop offset="95%" stopColor="#B1041E" stopOpacity={1} />
-                  </linearGradient>
                 </defs>
                 <CartesianGrid fill="none" stroke="#dcdcdc" strokeDasharray="5 5" />
                 <Line
                   type="monotone"
                   dataKey={dataKey}
-                  strokeWidth={2}
+                  strokeWidth={3}
                   stroke="url(#blue)"
                   dot={true}
                 />
@@ -169,7 +133,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   stroke="#213141"
                   padding={{ left: 30, right: 30 }}
                   height={10}
-                  tick={{ fontSize: "9px" }}
+                  tick={{ fontSize: "10px" }}
                   interval={0}
                   allowDecimals={true}
                   type="number"
@@ -182,7 +146,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
                   reversed={dataKey === "rank"}
                   stroke="#213141"
                   padding={{ top: 0, bottom: 0 }}
-                  //width={40}
+                  width={20}
                   allowDecimals={false}
                   tick={{ fontSize: "12px" }}
                   tickLine={false}
