@@ -6,15 +6,15 @@ export const buttonCss = css`
   border-radius: 20px;
   border-color: transparent;
   outline: 0;
+  width: 95px;
 
   padding: 10px 15px;
   margin: 0 5px 2px;
 
   color: white;
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   font-weight: bold;
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 
   background: #74e1eb;
   background-image: linear-gradient(-45deg, #7aaeff 0%, #74e1eb 100%);
@@ -28,10 +28,11 @@ export const buttonCss = css`
   }
 
   &:disabled {
-    background: #a9a9a9;
+    background: #f3f3f3;
+    border: 1.5px solid #adadad;
     box-shadow: none;
     cursor: no-drop;
-    color: #3e3e3e;
+    color: #adadad;
   }
 `;
 

@@ -7,6 +7,9 @@ import Cookies from "js-cookie";
 
 import getConfig from "next/config";
 import NavBar, { Page } from "./NavBar";
+import SvgHome from "./SvgHouse";
+import SvgGame from "./SvgGames";
+import SvgLeaderboard from "./SvgRank";
 import { Label } from "recharts";
 
 const { publicRuntimeConfig } = getConfig();
@@ -28,13 +31,13 @@ const container = (currentPage: Page) => css`
   grid-column-gap: 10px;
 
   & h4 {
-    font-size: 17px;
+    font-size: 16px;
     text-transform: uppercase;
     font-family: "Roboto Condensed";
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-weight: 800;
     margin-left: 5px;
     margin-bottom: 15px;
+    margin-top: 15px;
   }
 
   & > .sidebar {
@@ -96,19 +99,22 @@ const header = css`
   padding-bottom: 20px;
   margin-bottom: 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  margin-top: 2%;
+  padding: 10px;
+  margin-top: 5%;
+  @media screen and (max-width: 800px) {
+    width: 90%;
+    align-items: center;
+  }
 `;
 
 const logo = css`
-  width: 300px;
-  max-width: 180px;
-  height: 60px;
+  width: 180px;
+  height: 50px;
 
   background: url("/static/images/logo.png") no-repeat;
   background-size: contain;
 
-  color: #7aaeff;
+  color: #4a90e7;
   font-weight: bold;
   font-size: 35px;
 
@@ -125,15 +131,15 @@ const rulesButton = css`
   height: 40px;
   background: #fff;
   justify-self: center;
-  border: 1px solid #7aaeff;
+  border: 1px solid #4a90e7;
   border-radius: 30px;
   padding: 0px 15px;
-  color: #7aaeff;
+  color: #4a90e7;
   text-transform: uppercase;
   font-weight: 600;
   &:hover {
     cursor: pointer;
-    background: #7aaeff;
+    background: #4a90e7;
     color: #fff;
   }
 `;
@@ -243,8 +249,7 @@ class Layout extends React.Component<{}, State> {
             <span>Leaderboard</span>
           </NavBar.Tab>
           <NavBar.Tab title="Main">
-            <i>M</i>
-            <span>Main</span>
+            <p> <SvgHome active={this.state.page === "Main"}></SvgHome></p>
           </NavBar.Tab>
           <NavBar.Tab title="Content">
             <i>C</i>

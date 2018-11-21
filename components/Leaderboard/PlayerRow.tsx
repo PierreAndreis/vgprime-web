@@ -21,7 +21,7 @@ const playerActiveBackground = css`
 const playerWrap = css`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 2px 5px;
-  height: 50px;
+  height: 54.5px;
 
   display: flex;
   align-items: center;
@@ -48,7 +48,7 @@ const playerWrap = css`
 const position = css`
   width: 50px;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #4a90e2;
   position: relative;
@@ -63,7 +63,7 @@ const position = css`
 
 const positionChange = css`
   position: relative;
-  height: 10px;
+  height: 12px;
   font-size: 9px;
   text-align: center;
   &.up {
@@ -84,8 +84,9 @@ const info = css`
   flex-direction: column;
   justify-content: center;
   & i {
-    font-size: 18px;
+    font-size: 20px;
     color: #eaa900;
+    margin-right: 5px;
   }
   & > div {
     display: flex;
@@ -95,8 +96,8 @@ const info = css`
     & > span {
       margin: 0 5px;
       padding-top: 2px;
-      font-size: 10px;
-      color: grey;
+      font-size: 12px;
+      color: rgba(100, 100, 100, 0.5);
       text-transform: uppercase;
     }
   }
@@ -109,13 +110,15 @@ const games = css`
   display: flex;
   flex-direction: column;
   & > div {
-    font-size: 15px;
+    font-size: 16px;
     font-family: "Roboto Condensed";
     font-weight: bold;
   }
   & > span {
     margin-top: 5px;
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #adadad;
   }
 `;
 
@@ -126,13 +129,16 @@ const points = css`
   display: flex;
   flex-direction: column;
   & > div {
-    font-size: 18px;
+    font-size: 16px;
     font-family: "Roboto Condensed";
     font-weight: bold;
+    color: #4a90e2;
   }
   & > span {
     margin-top: 5px;
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #adadad;
   }
 `;
 
@@ -141,14 +147,14 @@ const winRateBar = css`
   height: 8px;
   background: rgba(0, 0, 0, 0.1);
   margin-top: 5px;
-  border-radius: 5px;
+  border-radius: 20px;
   position: relative;
   overflow: hidden;
-  margin-left: 5px;
 
   & > div {
     background-image: linear-gradient(-45deg, #7aaeff 0%, #74e1eb 100%);
     height: 100%;
+    border-radius: 200px;
   }
 `;
 
@@ -156,7 +162,7 @@ const winRateLabel = css`
   font-size: 11px;
   display: flex;
   align-items: center;
-  margin-left: 6px;
+  margin-left: 10px;
   padding-top: 3px;
 `;
 
@@ -199,10 +205,10 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
             <SkeletonWrapper width={100}>
               {() => [
                 <i key="tier" className={`vg-rank-${payload.tier}`} />,
+                payload.name,
                 <span key="region">
                   {payload.region === "sg" ? "sea" : payload.region}
                 </span>,
-                payload.name,
               ]}
             </SkeletonWrapper>
           </div>

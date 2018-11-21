@@ -888,10 +888,10 @@
     "@types/react" "*"
     "@types/react-loadable" "*"
 
-"@types/next@^7.0.4":
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/@types/next/-/next-7.0.4.tgz#ef69bf1fef5b4b95766b3c4e5bec766f6e921b98"
-  integrity sha512-7z1lh+fSqNmg178rHn2GhvUFtNuyXmBEAwrulgeaiKem1+xdTiTWZhJsfa/YrC8KrkkzNC6G0IrX/bEk7F9DyA==
+"@types/next@^7.0.5":
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/@types/next/-/next-7.0.5.tgz#6802383cb1985f88a05130f1cacb32653acea7ef"
+  integrity sha512-XAUVUk9OaprcKIKsUTlND4maL0xPO+8tnLw62pE+MbFTGe+IaFYkvvycQV9we2mDk3ZLt3wHaKqbyVHdhzvNkQ==
   dependencies:
     "@types/next-server" "*"
     "@types/node" "*"
@@ -936,10 +936,10 @@
     "@types/react" "*"
     "@types/webpack" "*"
 
-"@types/react@*", "@types/react@^16.7.4":
-  version "16.7.4"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.4.tgz#0d21b6137fc68b433309ecffda28649797330fbd"
-  integrity sha512-+voCjvVBp0G9I5cu/6u3LxPpXsZDwV3E20ifyq3t6XDsK7Mx+WoRgzGsQ9XSalLf9XqK/Be0bWzhLbFxzof3Kg==
+"@types/react@*", "@types/react@^16.7.6":
+  version "16.7.6"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.6.tgz#80e4bab0d0731ad3ae51f320c4b08bdca5f03040"
+  integrity sha512-QBUfzftr/8eg/q3ZRgf/GaDP6rTYc7ZNem+g4oZM38C9vXyV8AWRWaTQuW5yCoZTsfHrN7b3DeEiUnqH9SrnpA==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -5709,10 +5709,10 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-apollo@2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.2.4.tgz#05b2a91deb4d5f30d2511fc663abc465b219435e"
-  integrity sha512-haS5R30Qvteb65ZLfWomUZQh47VU4ld4Kof3zlqdbLOrYPt3/DdVZC8ZFPZSxd5zPeIJtZqpUfAxD1WHVoMPIA==
+react-apollo@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.3.1.tgz#f3687062f438b9b40e525d7e1ac2bcf0101b4495"
+  integrity sha512-xPteQmCzMJT8wE4v0zq38E6JWLhrNcJENl66fP117lwzU2lZA+qoUDcizqKl0z2OY5b+KklmqnPPD+wcWAdy7w==
   dependencies:
     fbjs "^1.0.0"
     hoist-non-react-statics "^3.0.0"
@@ -5891,10 +5891,10 @@ recharts-scale@^0.4.2:
   dependencies:
     decimal.js-light "^2.4.1"
 
-recharts@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.3.6.tgz#01562de309fdd78eccc867fb67a7e1b6415c3bcb"
-  integrity sha512-e7JS9wF1PQfxAGnIfvLAw1BaEfW9yVDPOEC1oStuB/0wAyz4gCppg12DQtnM0yMcyxQs3uHnq+GR7M80zTqVOw==
+recharts@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.4.1.tgz#92df29090b457c34c58beec263dc766c2b9ea300"
+  integrity sha512-HtI3B4xGPn591kNDU5MaCcJeUtlSqOH3cOBtHuhXGxDU2MDkS6abaQtgZD1J4mQiUCUZT3LCziTz5+wD7k+pvw==
   dependencies:
     classnames "~2.2.5"
     core-js "~2.5.1"

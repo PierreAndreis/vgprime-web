@@ -22,7 +22,7 @@ const info = css`
   flex-direction: column;
   text-align: center;
   flex-grow: 1;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 2px solid rgba(0, 0, 0, 0.1);
 
   &:last-of-type {
     border-right: 0;
@@ -30,22 +30,24 @@ const info = css`
 `;
 
 const value = css`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   padding: 5px;
 `;
 
 const description = css`
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 10px;
+  font-weight: bold;
   text-transform: uppercase;
+  color: #adadad;
 `;
 
 const moreButton = css`
   ${buttonCss};
+  width: 180px;
   position: absolute;
   bottom: -15px;
-  padding: 10px 25px;
+  padding: 10px 10px;
   font-weight: 600;
   color: #fff;
   font-size: 14px;
