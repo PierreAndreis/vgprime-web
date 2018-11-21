@@ -6,7 +6,6 @@ import { Query } from "react-apollo";
 import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
-import Articles from "../components/Articles/Articles";
 import { withRouter } from "next/router";
 
 type Props = {
@@ -38,56 +37,38 @@ class ArticlePage extends React.Component<Props, State> {
 
   render() {
     const { articlePath } = this.props;
-    if (!articlePath) {
-      this.props.router.push('/');
+    if (typeof articlePath !== "string") {
+      this.props.router.push("/");
     }
     return (
-        <Query query={qLeaderboard} variables={{ page: this.state.page }}>
-          {({ error, data, loading }) => {
-            let players: PlayersList =
-              data && data.leaderboard && data.leaderboard.length > 0
-                ? data.leaderboard
-                : [];
+      <Query query={qLeaderboard} variables={{ page: this.state.page }}>
+        {({ error, data, loading }) => {
+          let players: PlayersList =
+            data && data.leaderboard && data.leaderboard.length > 0
+              ? data.leaderboard
+              : [];
 
-            return (
-              <SkeletonContext.Provider
-                value={loading || error || players.length === 0 ? "loading" : "loaded"}
-              >
+          return (
+            <SkeletonContext.Provider
+              value={loading || error || players.length === 0 ? "loading" : "loaded"}
+            >
               <Layout>
-                <Layout.Section area="sidebar" tabContent={
-                  <>
-                    <i>L</i>
-                    <span>Leaderboard</span>
-                  </>
-                }>
+                <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard
                     players={players}
                     nextHandler={this.next}
                     previousHandler={this.previous}
                   />
-                </Layout.Section>
-                <Layout.Section area="main" tabContent={
-                  <>
-                    <i>A</i>
-                    <span>Articles</span>
-                  </>
-                }>
-                  <Articles/>
-                </Layout.Section>
-                <Layout.Section area="content" tabContent={
-                  <>
-                    <i>A</i>
-                    <span>Article</span>
-                  </>
-                }>
+                </Layout.Sidebar>
+                <Layout.Content>
                   <FullArticle articlePath={articlePath} />
-                </Layout.Section>
-                </Layout>
-              </SkeletonContext.Provider>
-            );
-          }}
-        </Query>
+                </Layout.Content>
+              </Layout>
+            </SkeletonContext.Provider>
+          );
+        }}
+      </Query>
     );
   }
 }

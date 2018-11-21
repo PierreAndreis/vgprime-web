@@ -56,42 +56,16 @@ export default class Home extends React.Component<Props, State> {
               value={loading || error || players.length === 0 ? "loading" : "loaded"}
             >
               <Layout>
-                <Layout.Section
-                  area="sidebar"
-                  tabContent={
-                    <>
-                      <i>L</i>
-                      <span>Leaderboard</span>
-                    </>
-                  }
-                >
+                <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard
                     players={players}
                     nextHandler={this.next}
                     previousHandler={this.previous}
                   />
-                </Layout.Section>
-                <Layout.Section
-                  area="main"
-                  tabContent={
-                    <>
-                      <i>A</i>
-                      <span>Articles</span>
-                    </>
-                  }
-                >
+                </Layout.Sidebar>
+                <Layout.Content>
                   <Articles />
-                </Layout.Section>
-                <Layout.Section
-                  area="content"
-                  tabContent={
-                    <>
-                      <i>R</i>
-                      <span>Records</span>
-                    </>
-                  }
-                >
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
                     <Search />
@@ -99,7 +73,7 @@ export default class Home extends React.Component<Props, State> {
                   <div className={records}>
                     <Records />
                   </div>
-                </Layout.Section>
+                </Layout.Content>
               </Layout>
             </SkeletonContext.Provider>
           );

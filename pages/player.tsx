@@ -10,7 +10,6 @@ import PlayerInfo from "../components/Player/Player";
 import { byPlayerName as qLeaderboard, Player } from "./../graphql/leaderboard";
 import { PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
-import Articles from "../components/Articles/Articles";
 
 const playerInfo = css`
   grid-area: content;
@@ -25,7 +24,7 @@ const playerInfo = css`
 const searchArea = css`
   width: 320px;
   box-sizing: border-box;
- margin: 15px auto 30px;
+  margin: 15px auto 30px;
 `;
 
 type Props = {
@@ -49,45 +48,27 @@ class PlayerPage extends React.Component<Props> {
     }
 
     return (
-        <Query query={qLeaderboard} variables={{ playerName }}>
-          {({ error, data, loading }) => {
-            // if (error) {
-            //   return <ErrorMessage message={error.message} />;
-            // }
-            let players: PlayersList = [];
-            let player: Player | undefined;
-            if (data && data.leaderboard) {
-              players = data.leaderboard;
-              player = players.find(p => p.name === playerName) as Player;
-            }
-            return (
-              <SkeletonContext.Provider
-                value={loading || error || !player ? "loading" : "loaded"}
-              >
+      <Query query={qLeaderboard} variables={{ playerName }}>
+        {({ error, data, loading }) => {
+          // if (error) {
+          //   return <ErrorMessage message={error.message} />;
+          // }
+          let players: PlayersList = [];
+          let player: Player | undefined;
+          if (data && data.leaderboard) {
+            players = data.leaderboard;
+            player = players.find(p => p.name === playerName) as Player;
+          }
+          return (
+            <SkeletonContext.Provider
+              value={loading || error || !player ? "loading" : "loaded"}
+            >
               <Layout>
-                <Layout.Section area="sidebar" tabContent={
-                  <>
-                  <i>L</i>
-                  <span>Leaderboard</span>
-                  </>
-                }>
+                <Layout.Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard players={players} playerName={playerName} />
-                </Layout.Section>
-                <Layout.Section area="main" tabContent={
-                  <>
-                    <i>A</i>
-                    <span>Articles</span>
-                  </>
-                }>
-                  <Articles/>
-                </Layout.Section>
-                <Layout.Section area="content" tabContent={
-                  <>
-                    <i>S</i>
-                    <span>Stats</span>
-                  </>
-                }>
+                </Layout.Sidebar>
+                <Layout.Content>
                   <div className={searchArea}>
                     <h4>Search a Player</h4>
                     <Search />
@@ -95,12 +76,12 @@ class PlayerPage extends React.Component<Props> {
                   <div className={playerInfo}>
                     <PlayerInfo player={player} />
                   </div>
-                </Layout.Section>
-                </Layout>
-              </SkeletonContext.Provider>
-            );
-          }}
-        </Query>
+                </Layout.Content>
+              </Layout>
+            </SkeletonContext.Provider>
+          );
+        }}
+      </Query>
     );
   }
 }

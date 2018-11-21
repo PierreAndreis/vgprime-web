@@ -6,17 +6,12 @@ import Rules from "../Rules";
 import Cookies from "js-cookie";
 
 import getConfig from "next/config";
-import NavBar, { Page } from "./NavBar";
-import SvgHome from "./SvgHouse";
-import SvgGame from "./SvgGames";
-import SvgLeaderboard from "./SvgRank";
-import { Label } from "recharts";
 
 const { publicRuntimeConfig } = getConfig();
 
 const rulesModalValue = publicRuntimeConfig.rulesModalValue;
 
-const container = (currentPage: Page) => css`
+const container = css`
   max-width: 1300px;
   margin: 0 auto;
   padding: 15px;
@@ -25,7 +20,7 @@ const container = (currentPage: Page) => css`
   display: grid;
   grid-template:
     "header header" auto
-    "main sidebar" auto
+    "content sidebar" auto
     "content sidebar" 1fr
     / 1fr 360px;
   grid-column-gap: 10px;
@@ -44,35 +39,20 @@ const container = (currentPage: Page) => css`
     box-sizing: border-box;
     grid-area: sidebar;
     order: 2;
-    @media screen and (max-width: 550px) {
-      ${currentPage !== "sidebar" ? "display: none;" : "display: block;"}
-    }
-  }
-
-  & > .main {
-    box-sizing: border-box;
-    width: 100%;
-    grid-area: main;
-    order: 1;
-    @media screen and (max-width: 550px) {
-      ${currentPage !== "main" ? "display: none;" : "display: block;"}
-    }
   }
 
   & > .content {
     box-sizing: border-box;
+    width: 100%;
     grid-area: content;
-    order: 3;
-    @media screen and (max-width: 550px) {
-      ${currentPage !== "content" ? "display: none;" : "display: block;"}
-    }
+    order: 1;
   }
 
   @media screen and (max-width: 1300px) {
     display: grid;
     grid-template:
       "header header" auto
-      "sidebar main" auto
+      "sidebar content" auto
       "sidebar content" auto
       / 360px 1fr;
   }
@@ -146,13 +126,6 @@ const rulesButton = css`
 
 type State = {
   rulesOpened: boolean;
-  page: Page;
-};
-
-type SectionProps = {
-  children: React.ReactNode;
-  tabContent: React.ReactNode;
-  area: "sidebar" | "main" | "content";
 };
 
 class Layout extends React.Component<{}, State> {
@@ -165,13 +138,9 @@ class Layout extends React.Component<{}, State> {
   static Main: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
     <div className="main">{children}</div>
   );
-  static Section: React.SFC<SectionProps> = ({ children, area }) => (
-    <div className={area}>{children}</div>
-  );
 
   state = {
     rulesOpened: false,
-    page: "main",
   };
 
   componentDidMount() {
@@ -193,38 +162,8 @@ class Layout extends React.Component<{}, State> {
   };
 
   render() {
-    const children = React.Children.toArray(this.props.children);
-    const navTabs: Array<React.ReactElement<any>> = [];
-    const sections: Array<React.ReactElement<SectionProps>> = children
-      .filter(
-        child =>
-          React.isValidElement(child) &&
-          (child as React.ReactElement<any>).type === Layout.Section
-      )
-      .map((section, key) => {
-        const casted = section as React.ReactElement<SectionProps>;
-        return React.cloneElement(casted, { key: `section${key}${casted.props.area}` });
-      });
-    sections.forEach((section, key) => {
-      navTabs.push(
-        <NavBar.Tab key={`navTab${key}${section.props.area}`} title={section.props.area}>
-          {section.props.tabContent}
-        </NavBar.Tab>
-      );
-    });
-    // const sideBar = children.find(
-    //   x =>
-    //     React.isValidElement(x) && (x as React.ReactElement<any>).type === Layout.Sidebar
-    // );
-    // const content = children.find(
-    //   x =>
-    //     React.isValidElement(x) && (x as React.ReactElement<any>).type === Layout.Content
-    // );
-    // const main = children.find(
-    //   x => React.isValidElement(x) && (x as React.ReactElement<any>).type === Layout.Main
-    // );
     return (
-      <div className={container(this.state.page)}>
+      <div className={container}>
         <div className={header}>
           <Link href="/" prefetch>
             <a>
@@ -237,25 +176,7 @@ class Layout extends React.Component<{}, State> {
         </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
 
-        {sections}
-
-        <NavBar
-          changeHandler={newPage => this.setState({ page: newPage })}
-          page={this.state.page}
-        >
-          {navTabs}
-          {/* <NavBar.Tab title="Leaderboard">
-            <i>L</i>
-            <span>Leaderboard</span>
-          </NavBar.Tab>
-          <NavBar.Tab title="Main">
-            <p> <SvgHome active={this.state.page === "Main"}></SvgHome></p>
-          </NavBar.Tab>
-          <NavBar.Tab title="Content">
-            <i>C</i>
-            <span>Content</span>
-          </NavBar.Tab> */}
-        </NavBar>
+        {this.props.children}
       </div>
     );
   }
