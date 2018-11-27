@@ -6,7 +6,7 @@ import Box from "../common/Box";
 const container = css`
   ${Box}
   display: block;
-  width: 100%;
+  width: 250px;
   margin: 10px;
   height: 150px;
 
@@ -75,11 +75,13 @@ const container = css`
 `;
 
 export type Article = {
-  path: string;
-  title: string;
-  date: string;
-  image: string;
-  body: string;
+  attributes: {
+    path: string;
+    title: string;
+    date: string;
+    image: string;
+  };
+  body?: string;
 };
 
 type Props = {
@@ -87,7 +89,9 @@ type Props = {
 };
 
 const ArticleComponent: React.SFC<Props> = ({
-  article: { path, title, image, date },
+  article: {
+    attributes: { path, title, image, date },
+  },
 }) => {
   return (
     <Link href={`/article?path=${path}`}>

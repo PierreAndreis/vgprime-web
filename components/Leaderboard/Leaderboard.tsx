@@ -7,7 +7,7 @@ import { PlayersList } from "../../graphql/leaderboard";
 
 const container = css`
   ${Box};
-  width: 360px;
+  overflow: hidden;
   border-bottom: 20px solid white;
   border-radius: 10px;
 `;
@@ -35,10 +35,6 @@ const Leaderboard = ({
   nextHandler,
   previousHandler,
 }: LeaderboardProps) => {
-  // If not data fetched
-  // if (!players || players.length === 0) {
-  //   return null;
-  // }
   return (
     <div>
       <div className={container}>

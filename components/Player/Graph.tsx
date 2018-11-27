@@ -28,6 +28,10 @@ const graphBox = css`
   background-color: #fff;
   color: #adadad;
   margin: 0;
+
+  svg {
+    overflow: visible;
+  }
 `;
 
 const errorMessage = css`

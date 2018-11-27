@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import { dbHistoricalList } from "./../lib/historical";
 
 export interface Player {
   id: string;
@@ -11,7 +12,7 @@ export interface Player {
   rank: number;
   games: number;
   wins: number;
-  historical: any;
+  historical: dbHistoricalList;
 }
 
 export type PlayersList = ReadonlyArray<Player>;
@@ -30,6 +31,11 @@ export const byPage = gql`
       region
       games
       wins
+      historical {
+        date
+        rank
+        points
+      }
     }
   }
 `;
@@ -48,7 +54,11 @@ export const byPlayerName = gql`
       region
       games
       wins
-      historical
+      historical {
+        date
+        rank
+        points
+      }
     }
   }
 `;

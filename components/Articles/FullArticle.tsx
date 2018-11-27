@@ -3,7 +3,6 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { css } from "emotion";
 import ReactMarkdown from "react-markdown";
-import { withRouter } from "next/router";
 import contentStyle from "./ContentStyle";
 import { FadeLoader } from "react-spinners";
 
@@ -11,9 +10,10 @@ import { FadeLoader } from "react-spinners";
 const GET_ARTICLE = gql`
   query Article($path: String!) {
     article(path: $path) {
-      title
-      date
-      image
+      attributes {
+        title
+        date
+      }
       body
     }
   }
@@ -63,7 +63,7 @@ type Props = {
 
 class ArticlePage extends React.Component<Props> {
   render() {
-    const { articlePath, router } = this.props;
+    const { articlePath } = this.props;
 
     if (!articlePath) return <div>Oh no! Something went wrong.</div>;
 
@@ -78,10 +78,16 @@ class ArticlePage extends React.Component<Props> {
             );
           }
           if (error || !data || !data.article) {
-            router.push("/");
+            // @todo: error handler
+            console.log(error, data);
             return null;
           }
-          const { title, date, body } = data.article;
+
+          const {
+            attributes: { title, date },
+            body,
+          } = data.article;
+
           return (
             <div className={container}>
               <h1 className="title">{title}</h1>
@@ -99,4 +105,4 @@ class ArticlePage extends React.Component<Props> {
   }
 }
 
-export default withRouter(ArticlePage);
+export default ArticlePage;

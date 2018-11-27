@@ -21,26 +21,28 @@ const container = css`
 const GET_ARTICLES = gql`
   query Articles($page: Int!, $limit: Int!) {
     articles(page: $page, limit: $limit) {
-      path
-      title
-      date
-      image
-      body
+      attributes {
+        path
+        title
+        date
+        image
+      }
     }
   }
 `;
 
-type Props = {};
-
-class Articles extends React.Component<Props> {
+class Articles extends React.Component<{}> {
   render() {
     return (
       <div className={container}>
-        <Query query={GET_ARTICLES} variables={{ page: 1, limit: 3 }}>
+        <Query query={GET_ARTICLES} variables={{ page: 0, limit: 3 }}>
           {({ data }) => {
             const articles: Array<Article> = data && data.articles ? data.articles : [];
             return articles.map(article => (
-              <ArticleItem key={article.title + article.date} article={article} />
+              <ArticleItem
+                key={article.attributes.title + article.attributes.date}
+                article={article}
+              />
             ));
           }}
         </Query>

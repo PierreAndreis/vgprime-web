@@ -35,7 +35,7 @@ const value = css`
 `;
 
 const description = css`
-  font-size: 10px;
+  font-size: 13px;
   font-weight: bold;
   text-transform: uppercase;
   color: #adadad;
@@ -47,10 +47,6 @@ const moreButton = css`
   position: absolute;
   bottom: -15px;
   padding: 10px 10px;
-  font-weight: 600;
-  color: #fff;
-  font-size: 14px;
-  text-transform: none;
   left: 50%;
   transform: translateX(-50%);
 `;
@@ -98,7 +94,7 @@ const Stats: React.SFC<Props> = ({ player }) => {
         <span className={description}>Games</span>
       </div>
       <a
-        href={player ? `https://vgpro.gg/player/${player.name}` : `https://vgpro.gg`}
+        href={player ? `https://vgpro.gg/players/${player.name}` : `https://vgpro.gg`}
         target="_blank"
       >
         <button className={moreButton}>More on VGPRO.gg</button>

@@ -4,7 +4,7 @@ import { Player as PlayerType } from "../../graphql/leaderboard";
 import PlayerInfo from "./PlayerInfo";
 import Stats from "./Stats";
 import Graph from "./Graph";
-import { CreateFilledHistorical } from "../../lib/historical";
+import { createFilledHistorical } from "../../lib/historical";
 
 const container = css`
   display: grid;
@@ -44,8 +44,10 @@ const Player: React.SFC<Props> = ({ player }) => {
   //     </div>
   //   );
   // }
+
+  console.log(player);
   const historical = player
-    ? CreateFilledHistorical(player.historical, DAYS_AMMOUNT_ON_GRAPH)
+    ? createFilledHistorical(player.historical, DAYS_AMMOUNT_ON_GRAPH)
     : [];
   return (
     <div className={container}>

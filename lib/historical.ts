@@ -7,14 +7,70 @@ export type Historical = {
   time: number;
 };
 
-export type DbHistorical = {
-  [date: string]: Historical;
+export type HistoricalList = ReadonlyArray<Historical>;
+
+export type dbHistoricalList = ReadonlyArray<
+  Historical & { date: string; time: undefined }
+>;
+
+/*
+ * Will convert a DbHistorical in a Historical Array from today downto (today - nDays),
+ *  filling all the empty days.
+ */
+export const createFilledHistorical = (
+  dbHistorical: dbHistoricalList,
+  days = 5
+): Array<Historical> => {
+  // Transforms the received Object from Database to an Array of Historical
+  let fullHistorical: HistoricalList = DbHistoricalToHistoricalArray(dbHistorical);
+
+  // Ordering by date
+  fullHistorical = [...fullHistorical].sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+
+  console.log(fullHistorical);
+
+  // @ts-ignore
+  let _first;
+
+  // Keeping just the most recent historicals, with the minimum needed length to perform all the fills.
+  // TODO: Try to find a way to keep just the really needed historical
+  while (fullHistorical.length > days) {
+    [_first, ...fullHistorical] = fullHistorical;
+  }
+
+  const historical = [];
+  if (fullHistorical.length >= 1) {
+    // Will get an array from now to (now - days) of Date
+    const neededDates = ListDatesFromToday(days);
+    for (const d of neededDates) {
+      // Find historical by date, if doesn't exists, will get the nearest rank for the date.
+      historical.push(GetHistoricalByDate(d, fullHistorical));
+    }
+  }
+  return historical;
 };
 
-// * Used to extract date from DbHistorical key
-const extractDateFromDbHistoricalKey = (date: string): Date => {
-  const arr = date.split("/");
-  return new Date(+arr[2], +arr[0], +arr[1]);
+/*
+  * Will convert the received Historical from database to an Array of Historical
+  * Will try to find the dates on the "date" property inside the object's VALUE,
+  *  and if it is empty, will get the date from the object's KEY.
+  ! It will filter out all the objects with empty keys.
+*/
+const DbHistoricalToHistoricalArray = (
+  dbHistorical: dbHistoricalList
+): HistoricalList => {
+  return dbHistorical.map(value => {
+    const date: Date = new Date(Number(value.date));
+    date.setHours(0, 0, 0, 0);
+    return {
+      date: date,
+      rank: value.rank,
+      points: value.points,
+      time: date.getTime(),
+    };
+  });
 };
 
 /*
@@ -25,7 +81,7 @@ const extractDateFromDbHistoricalKey = (date: string): Date => {
   TODO: Find a better way to do this... Maybe there's no need to have a default value, maybe a
   TODO:  simple check on the historical length will be enough to determinate the most part of conditions
 */
-const GetHistoricalByDate = (dt: Date, historical: Array<Historical>): Historical => {
+const GetHistoricalByDate = (dt: Date, historical: HistoricalList): Historical => {
   // Search for the same date on historical
   let hist = historical.find(h => IsSameDay(h.date, dt));
   if (hist) return hist;
@@ -63,65 +119,4 @@ const GetHistoricalByDate = (dt: Date, historical: Array<Historical>): Historica
     rank: -1, // ? What should be the default rank if there's no historical on list?
     time: dt.getTime(),
   } as Historical;
-};
-
-/*
-  * Will convert the received Historical from database to an Array of Historical
-  * Will try to find the dates on the "date" property inside the object's VALUE,
-  *  and if it is empty, will get the date from the object's KEY.
-  ! It will filter out all the objects with empty keys.
-*/
-const DbHistoricalToHistoricalArray = (dbHistorical: DbHistorical): Array<Historical> => {
-  if (!dbHistorical) return [];
-  return Object.keys(dbHistorical)
-    .filter(k => k !== "")
-    .map((key: string) => {
-      const value: Historical = dbHistorical[key];
-      let hasDateInside = false;
-      if ("date" in value) hasDateInside = true;
-      const date: Date = hasDateInside
-        ? new Date(value.date)
-        : extractDateFromDbHistoricalKey(key);
-      date.setHours(0, 0, 0, 0);
-      return {
-        date,
-        rank: value.rank,
-        points: value.points,
-        time: date.getTime(),
-      };
-    });
-};
-
-/*
-  * Will convert a DbHistorical in a Historical Array from today downto (today - nDays), 
-  *  filling all the empty days.
-*/
-export const CreateFilledHistorical = (
-  dbHistorical: DbHistorical,
-  days = 5
-): Array<Historical> => {
-  // Transforms the received Object from Database to an Array of Historical
-  const fullHistorical: Array<Historical> = DbHistoricalToHistoricalArray(dbHistorical);
-
-  // Ordering by date
-  fullHistorical.sort((a, b) => {
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
-  });
-
-  // Keeping just the most recent historicals, with the minimum needed length to perform all the fills.
-  // TODO: Try to find a way to keep just the really needed historical
-  while (fullHistorical.length > days) {
-    fullHistorical.shift();
-  }
-
-  const historical = [];
-  if (fullHistorical.length >= 1) {
-    // Will get an array from now to (now - days) of Date
-    const neededDates = ListDatesFromToday(days);
-    for (const d of neededDates) {
-      // Find historical by date, if doesn't exists, will get the nearest rank for the date.
-      historical.push(GetHistoricalByDate(d, fullHistorical));
-    }
-  }
-  return historical;
 };

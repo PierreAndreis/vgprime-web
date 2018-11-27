@@ -166,7 +166,7 @@ const winRateLabel = css`
 `;
 
 export type PlayerRowProps = {
-  payload: Player;
+  payload?: Player;
   isActive: boolean;
 };
 
@@ -203,10 +203,10 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
           <div>
             <SkeletonWrapper width={100}>
               {() => [
-                <i key="tier" className={`vg-rank-${payload.tier}`} />,
-                payload.name,
+                <i key="tier" className={`vg-rank-${payload ? payload.tier : 1}`} />,
+                payload ? payload.name : "Unknown",
                 <span key="region">
-                  {payload.region === "sg" ? "sea" : payload.region}
+                  {payload ? (payload.region === "sg" ? "sea" : payload.region) : "NA"}
                 </span>,
               ]}
             </SkeletonWrapper>
@@ -225,20 +225,26 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
         </div>
         <div className={games}>
           <div>
-            <SkeletonWrapper width={30}>{() => payload.mvp}</SkeletonWrapper>
+            <SkeletonWrapper width={30}>
+              {() => (payload ? payload.mvp : 0)}
+            </SkeletonWrapper>
           </div>
           <span>MVPs</span>
         </div>
         <div className={games}>
           <div>
-            <SkeletonWrapper width={30}>{() => payload.games}</SkeletonWrapper>
+            <SkeletonWrapper width={30}>
+              {() => (payload ? payload.games : 0)}
+            </SkeletonWrapper>
           </div>
           <span>GAMES</span>
         </div>
 
         <div className={points}>
           <div>
-            <SkeletonWrapper width={30}>{() => payload.points}</SkeletonWrapper>
+            <SkeletonWrapper width={30}>
+              {() => (payload ? payload.points : "?")}
+            </SkeletonWrapper>
           </div>
           <span>POINTS</span>
         </div>
