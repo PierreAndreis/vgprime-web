@@ -1,7 +1,9 @@
 import { css, keyframes, cx } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
-import Link from "next/link";
+
+// @ts-ignore
+import { Link } from "../../routes";
 
 const enteringAnimation = keyframes`
   0% {
@@ -185,7 +187,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
   );
 
   return (
-    <Link href={payload ? `/player?name=${payload.name}` : "/"} prefetch>
+    <Link route="player" params={{ name: payload ? payload.name : "/" }} prefetch>
       <a className={cx(playerWrap, { [playerActiveBackground]: isActive })}>
         <div className={position}>
           <SkeletonWrapper width={30}>

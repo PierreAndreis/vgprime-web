@@ -1,7 +1,8 @@
 import * as React from "react";
 import { css } from "emotion";
 
-import Link from "next/link";
+// @ts-ignore
+import { Link } from "../../routes";
 import Rules from "../Rules";
 
 const container = css`

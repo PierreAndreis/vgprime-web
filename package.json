@@ -2,9 +2,9 @@
   "name": "vgprime",
   "version": "2.0.0",
   "scripts": {
-    "dev": "next -p 3001",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start -p 3001"
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",

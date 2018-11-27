@@ -1,7 +1,8 @@
 import React from "react";
 import { css } from "emotion";
 import { Query } from "react-apollo";
-import Link from "next/link";
+// @ts-ignore
+import { Link } from "../../routes";
 
 import qRecord from "../../graphql/record";
 import { Record } from "../../graphql/record";
@@ -136,7 +137,11 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                 key={`${title}player${k}`}
                 value={loading || error || !available ? "loading" : "loaded"}
               >
-                <Link href={available ? `/player?name=${player.name}` : "#"} prefetch>
+                <Link
+                  route="player"
+                  params={{ name: available ? player.name : "/" }}
+                  prefetch
+                >
                   <a className={container}>
                     <div className={name}>
                       <SkeletonWrapper width={20} height={23}>

@@ -1,6 +1,7 @@
 import React from "react";
 import { css } from "emotion";
-import Link from "next/link";
+// @ts-ignore
+import { Link } from "./../../routes";
 import Box from "../common/Box";
 
 const container = css`
@@ -94,7 +95,7 @@ const ArticleComponent: React.SFC<Props> = ({
   },
 }) => {
   return (
-    <Link href={`/article?path=${path}`}>
+    <Link route="article" params={{ path: path }}>
       <a className={container} style={{ backgroundImage: `url(${image})` }}>
         <img src={image} alt={title} />
         <div>
