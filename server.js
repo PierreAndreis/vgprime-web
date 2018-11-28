@@ -5,5 +5,5 @@ const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handler = routes.getRequestHandler(app);
 
 app.prepare().then(() => {
-  createServer(handler).listen(3001);
+  createServer(handler).listen(process.env.PORT || 3001);
 });
