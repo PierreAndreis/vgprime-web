@@ -21,7 +21,6 @@ FROM mhart/alpine-node:base-10
 # along with setting the path for node_modules to be accessible
 WORKDIR /usr/src
 ENV NODE_ENV="production"
-ENV PATH="./node_modules/.bin:$PATH"
 
 # Copy files from the base image over to our new image's working directory
 COPY --from=build /usr/src .
