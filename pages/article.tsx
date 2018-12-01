@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NextContext } from "next";
 import FullArticle from "../components/Articles/FullArticle";
-import Layout from "../components/common/Layout";
+import Layout, { Sidebar, Content } from "../components/common/Layout";
 import { Query } from "react-apollo";
 import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
@@ -53,17 +53,17 @@ class ArticlePage extends React.Component<Props, State> {
               value={loading || error || players.length === 0 ? "loading" : "loaded"}
             >
               <Layout>
-                <Layout.Sidebar>
+                <Sidebar>
                   <h4>Leaderboard</h4>
                   <Leaderboard
                     players={players}
                     nextHandler={this.next}
                     previousHandler={this.previous}
                   />
-                </Layout.Sidebar>
-                <Layout.Content>
+                </Sidebar>
+                <Content>
                   <FullArticle articlePath={articlePath} />
-                </Layout.Content>
+                </Content>
               </Layout>
             </SkeletonContext.Provider>
           );

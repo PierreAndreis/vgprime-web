@@ -25,7 +25,6 @@ const backdrop = css`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  
 `;
 
 const modalContent = css`
@@ -121,6 +120,7 @@ class Modal extends React.Component<Props> {
             duration: 200,
             tension: 0.1,
           }}
+          // @ts-ignore
           onRest={this.focusIfVisible}
         >
           {open =>

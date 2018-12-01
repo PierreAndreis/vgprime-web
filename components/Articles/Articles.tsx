@@ -11,7 +11,7 @@ const container = css`
   flex-direction: row;
   justify-content: center;
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 800px) {
     ${Box};
     overflow: hidden;
     flex-direction: column;

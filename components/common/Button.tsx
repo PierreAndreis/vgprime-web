@@ -6,7 +6,6 @@ export const buttonCss = css`
   border-radius: 20px;
   border-color: transparent;
   outline: 0;
-  width: 95px;
 
   padding: 10px 15px;
   margin: 0 5px 2px;

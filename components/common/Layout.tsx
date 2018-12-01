@@ -2,8 +2,15 @@ import * as React from "react";
 import { css } from "emotion";
 
 // @ts-ignore
+import Media from "react-media";
+
+// @ts-ignore
 import { Link } from "../../routes";
 import Rules from "../Rules";
+import Search from "../Search";
+import Box from "./Box";
+import Portal from "./Portal";
+import Button from "./Button";
 
 const container = css`
   max-width: 1300px;
@@ -28,22 +35,12 @@ const container = css`
 
   & > .sidebar {
     grid-area: sidebar;
-    order: 2;
   }
 
   & > .content {
     width: 100%;
     grid-area: content;
     order: 1;
-  }
-
-  @media screen and (max-width: 1300px) {
-    display: grid;
-    grid-template:
-      "header header" auto
-      "sidebar content" auto
-      "sidebar content" auto
-      / 360px 1fr;
   }
 
   @media screen and (max-width: 800px) {
@@ -53,10 +50,6 @@ const container = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  @media screen and (max-width: 550px) {
-    padding-bottom: 80px;
   }
 `;
 
@@ -69,8 +62,23 @@ const header = css`
   padding: 10px;
   margin-top: 20px;
   @media screen and (max-width: 800px) {
-    width: 90%;
-    align-items: center;
+    width: 100%;
+    padding: 15px 5px;
+    margin: 0;
+    flex-direction: column;
+  }
+
+  & .left {
+    display: flex;
+    margin-right: auto;
+  }
+
+  & .right {
+    display: flex;
+    width: 350px;
+    height: 40px;
+    align-self: center;
+    margin-left: auto;
   }
 `;
 
@@ -93,9 +101,9 @@ const logo = css`
 `;
 
 const rulesButton = css`
-  margin-left: auto;
-  align-self: center;
+  margin-right: 15px;
   height: 40px;
+  align-self: center;
   background: #fff;
   justify-self: center;
   border: 1px solid #4a90e7;
@@ -111,21 +119,103 @@ const rulesButton = css`
   }
 `;
 
+const sidebarMobileCss = css`
+  & > h4 {
+    ${Box}
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 21px;
+    height: 45px;
+    border-radius: 0;
+    margin-bottom: 10px;
+  }
+
+  & > .close {
+    display: block;
+    position: absolute;
+    font-size: 32px;
+    color: black;
+    z-index: 6;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 2px 10px;
+    transition: all 300ms;
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+  position: fixed;
+  height: 100%;
+  width: 400px;
+  max-width: 100%;
+  top: 0;
+  left: 0;
+`;
+
 type State = {
   rulesOpened: boolean;
 };
 
-class Layout extends React.Component<{}, State> {
-  static Sidebar: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className="sidebar">{children}</div>
-  );
-  static Content: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className="content">{children}</div>
-  );
-  static Main: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className="main">{children}</div>
-  );
+class SidebarMobile extends React.Component<
+  { children: React.ReactNode },
+  { open: boolean }
+> {
+  state = {
+    open: false,
+  };
 
+  handleOpen = () => {
+    this.setState(state => ({
+      open: !state.open,
+    }));
+  };
+
+  render() {
+    return (
+      <>
+        {this.state.open && (
+          <Portal>
+            <div className={sidebarMobileCss}>
+              <div className="close" onClick={this.handleOpen}>
+                &times;
+              </div>
+              {this.props.children}
+            </div>
+          </Portal>
+        )}
+        <div style={{ margin: "10px" }}>
+          <Button onClick={this.handleOpen}>Open Leaderboard</Button>
+        </div>
+      </>
+    );
+  }
+}
+
+export const Sidebar: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="sidebar">
+    <Media query={{ maxWidth: 800 }} defaultMatches={false}>
+      {(matches: boolean) =>
+        !matches ? children : <SidebarMobile>{children}</SidebarMobile>
+      }
+    </Media>
+  </div>
+);
+
+export const Content: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="content">{children}</div>
+);
+
+class Layout extends React.Component<{}, State> {
   state = {
     rulesOpened: false,
   };
@@ -141,15 +231,23 @@ class Layout extends React.Component<{}, State> {
     return (
       <div className={container}>
         <div className={header}>
-          <Link href="/" prefetch>
-            <a>
-              <div className={logo} />
-            </a>
-          </Link>
-          <button className={rulesButton} onClick={this.openRulesModal}>
-            Rules
-          </button>
+          <div className="left">
+            <Link href="/" prefetch>
+              <a>
+                <div className={logo} />
+              </a>
+            </Link>
+            <button className={rulesButton} onClick={this.openRulesModal}>
+              Rules
+            </button>
+          </div>
+          <div className="right">
+            <div style={{ flex: 1 }}>
+              <Search />
+            </div>
+          </div>
         </div>
+
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
 
         {this.props.children}

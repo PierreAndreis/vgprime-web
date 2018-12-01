@@ -29,8 +29,6 @@ export const createFilledHistorical = (
     return new Date(a.date).getTime() - new Date(b.date).getTime();
   });
 
-  console.log(fullHistorical);
-
   // @ts-ignore
   let _first;
 

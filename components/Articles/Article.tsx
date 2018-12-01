@@ -42,7 +42,8 @@ const container = css`
     font-size: 14px;
   }
 
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 800px) {
+    width: 100%;
     background-size: 0;
     padding: 10px;
     height: auto;

@@ -15,6 +15,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "typeRoots": ["node_modules/@types", "./@types"]
   }
 }

@@ -4,28 +4,30 @@ import { Query } from "react-apollo";
 // @ts-ignore
 import { Link } from "../../routes";
 
-import qRecord from "../../graphql/record";
-import { Record } from "../../graphql/record";
-
+import qRecord, { Record } from "../../graphql/record";
 import Box from "./../common/Box";
 import { SkeletonContext, SkeletonWrapper } from "../common/Skeleton";
 
 const container = css`
+  margin: 0 10px;
+  flex: 1;
+`;
+
+const records = css`
+  ${Box};
+  display: flex;
+  flex-direction: column;
+`;
+
+const eachContainer = css`
   display: block;
   color: inherit;
-  padding: 10px 8px 0;
+  padding: 6px 4px 0;
   margin-bottom: 10px;
   border-top: 1px solid rgba(75, 75, 75, 0.1);
   &:first-of-type {
     border-top: 0;
   }
-`;
-
-const records = css`
-  display: flex;
-  ${Box};
-  flex-direction: column;
-  margin: 10px 5px;
 `;
 
 const name = css`
@@ -113,7 +115,7 @@ type RecordItem = {
 };
 
 const RecordBox: React.SFC<Props> = ({ type, title }) => (
-  <div>
+  <div className={container}>
     <h4>{title}</h4>
     <div className={records}>
       <Query query={qRecord} variables={{ type, limit: 3 }}>
@@ -142,7 +144,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                   params={{ name: available ? player.name : "/" }}
                   prefetch
                 >
-                  <a className={container}>
+                  <a className={eachContainer}>
                     <div className={name}>
                       <SkeletonWrapper width={20} height={23}>
                         {() => <i className={`vg-rank-${player.tier}`} />}

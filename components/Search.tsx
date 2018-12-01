@@ -8,22 +8,19 @@ import gql from "graphql-tag";
 import { ApolloClient, InMemoryCache } from "apollo-boost";
 
 const searchBox = css`
-  height: 45px;
+  height: 40px;
   width: 100%;
 
   display: flex;
   flex-direction: row;
   position: relative;
   padding: 0;
-  @media screen and (max-width: 800px) {
-    width: 100%;
-    margin-left: 0px;
-  }
 `;
 
 const input = css`
   ${Box};
-  width: 99%;
+  width: 100%;
+  height: 100%;
   border: 0;
   outline: 0;
   padding: 15px;
@@ -31,7 +28,6 @@ const input = css`
   padding-right: 30%;
   font-size: 15px;
   border-radius: 30px;
-  /* box-shadow: 3px 3px 5px #dcdcdc; */
 `;
 
 const submitButton = css`
@@ -60,7 +56,7 @@ type Props = {
 type State = {
   value: string;
   loading: boolean;
-  errored: boolean;
+  error: boolean;
   success: boolean;
 };
 
@@ -71,7 +67,7 @@ class Search extends React.Component<Props, State> {
     this.state = {
       value: defaultValue,
       loading: false,
-      errored: false,
+      error: false,
       success: false,
     };
   }
@@ -82,7 +78,7 @@ class Search extends React.Component<Props, State> {
     this.setState({
       value,
       loading: false,
-      errored: false,
+      error: false,
     });
   };
 
@@ -97,7 +93,7 @@ class Search extends React.Component<Props, State> {
     e.preventDefault();
     this.setState({
       loading: true,
-      errored: false,
+      error: false,
       success: false,
     });
     try {
@@ -106,7 +102,7 @@ class Search extends React.Component<Props, State> {
         variables: { name: this.state.value },
       })) as any;
       if (data.player === null) {
-        this.setState({ errored: true, loading: false });
+        this.setState({ error: true, loading: false });
       } else {
         this.setState({ success: true });
         const path = Router.pathname;
@@ -116,7 +112,7 @@ class Search extends React.Component<Props, State> {
         }
       }
     } catch {
-      this.setState({ errored: true, success: false });
+      this.setState({ error: true, success: false });
     } finally {
       this.setState({ loading: false });
     }
@@ -133,20 +129,10 @@ class Search extends React.Component<Props, State> {
                   className={input}
                   value={this.state.value}
                   onChange={this.changeInput}
-                  placeholder={this.props.placeholder ? this.props.placeholder : ""}
+                  placeholder={"Search for a player"}
                 />
-                <button
-                  title={
-                    this.state.errored
-                      ? `Player not found!`
-                      : "Search for the specified player"
-                  }
-                  className={submitButton}
-                >
-                  {this.state.loading === true || this.state.success === true
-                    ? "Searching..."
-                    : "Search"}{" "}
-                  {this.state.errored === true && "<!>"}
+                <button className={submitButton} disabled={this.state.loading}>
+                  {this.state.loading ? "..." : "Search"} {this.state.error && "<!>"}
                 </button>
               </div>
             </form>

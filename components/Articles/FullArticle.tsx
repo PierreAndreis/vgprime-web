@@ -58,7 +58,6 @@ const loadingContainer = css`
 
 type Props = {
   articlePath?: string;
-  router: any;
 };
 
 class ArticlePage extends React.Component<Props> {
