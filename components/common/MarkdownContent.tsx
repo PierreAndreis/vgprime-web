@@ -23,6 +23,12 @@ const style = css`
     margin-bottom: 16px;
   }
 
+  ol,
+  ul,
+  dl {
+    list-style: initial;
+  }
+
   a {
     color: inherit;
     position: relative;

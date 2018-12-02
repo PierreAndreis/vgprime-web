@@ -2,7 +2,7 @@ import * as React from "react";
 import { css } from "emotion";
 import Modal from "./common/Modal";
 
-import rulesContent from "./rulesContent";
+import rulesContent from "./md/rulesContent";
 import Markdown from "./common/MarkdownContent";
 
 const content = css`
