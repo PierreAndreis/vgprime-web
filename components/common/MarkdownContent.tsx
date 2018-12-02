@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 
 const Markdown: React.SFC<{ source: string }> = props => (
   <article className={style}>
-    <ReactMarkdown source={props.source} />
+    <ReactMarkdown escapeHtml={false} source={props.source} />
   </article>
 );
 export default Markdown;
@@ -121,6 +121,34 @@ const style = css`
   ol ul {
     margin-top: 0;
     margin-bottom: 0;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  /* ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ol[type="alpha"] {
+    list-style-type: lower-alpha;
+  } */
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ol[type="alpha"] {
+    list-style-type: lower-alpha;
   }
 
   li {
