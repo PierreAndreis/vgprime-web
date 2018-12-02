@@ -133,18 +133,6 @@ const style = css`
     font-weight: 600;
   }
 
-  /* ul {
-    list-style-type: disc;
-  }
-
-  ol {
-    list-style-type: decimal;
-  }
-
-  ol[type="alpha"] {
-    list-style-type: lower-alpha;
-  } */
-
   ul {
     list-style-type: disc;
   }

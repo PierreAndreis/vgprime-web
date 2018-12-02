@@ -31,7 +31,7 @@ const container = css`
   }
 `;
 
-const DAYS_AMMOUNT_ON_GRAPH = 5;
+const DAYS_ON_GRAPH = 5;
 
 type Props = {
   player?: PlayerType;
@@ -45,9 +45,12 @@ const Player: React.SFC<Props> = ({ player }) => {
   //   );
   // }
 
+  console.log("player=", player);
+
   const historical = player
-    ? createFilledHistorical(player.historical, DAYS_AMMOUNT_ON_GRAPH)
+    ? createFilledHistorical(player.historical, DAYS_ON_GRAPH)
     : [];
+
   return (
     <div className={container}>
       <div className="info">

@@ -65,7 +65,7 @@ const DbHistoricalToHistoricalArray = (
     return {
       date: date,
       rank: value.rank,
-      points: value.points,
+      points: Number(Number(value.points).toFixed(0)),
       time: date.getTime(),
     };
   });

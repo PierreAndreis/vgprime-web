@@ -115,7 +115,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
 
           <div className="points">
             <SkeletonWrapper height={10} width={50}>
-              {() => (player ? player.points + " PTS" : "")}
+              {() => (player ? Number(player.points).toFixed(0) + " PTS" : "")}
             </SkeletonWrapper>
           </div>
         </div>

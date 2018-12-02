@@ -232,26 +232,16 @@ We may from time to time allow you to share Site content via social media share 
 19.  **Miscellaneous.** These Terms of Service constitute the entire agreement between Company and each user of the Company Service with respect to the subject matter of these Terms of Service.
   <ol type="alpha">
     <li>
-    </li>
-    <li>
     If any provision of these Terms of Service shall be deemed unlawful, void or for any reason unenforceable by a court of competent jurisdiction, the validity and enforceability of any remaining provisions will not be affected.
-    </li>
-    <li>
     </li>
     <li>
     The failure of the Company Parties to insist upon strict adherence to any term of these Terms of Service shall not constitute a waiver of such term and shall not be considered a waiver or limit that party’s right thereafter to insist upon strict adherence to that term or any other term contained in these Terms of Service. You may not assign your obligations or rights hereunder to another entity or individual. We may transfer, assign or delegate these Terms of Service and its rights and obligations without your consent.
     </li>
     <li>
-    </li>
-    <li>
     We shall have no liability to you hereunder if we are prevented from or delayed in performing our obligations, or from carrying on our business, by acts, events, omissions or accidents beyond our reasonable control, including, without limitation, strikes, lock-outs or other industrial disputes (whether involving the workforce of us or any other party), failure of a utility service or transport or telecommunications network, act of God, war, riot, civil commotion, malicious damage, compliance with any law or governmental order, rule, regulation or direction, accident, breakdown of plant or machinery, fire, flood or storm.
     </li>
     <li>
-    </li>
-    <li>
     No agency, partnership, joint venture, or employment is created as a result of these Terms of Service and you do not have any authority of any kind to bind us in any respect whatsoever.
-    </li>
-    <li>
     </li>
     <li>
     No action arising out of these Terms of Service or your use of the Company Service, regardless of form or the basis of the claim, may be brought by you more than one (1) year after the cause of action has arisen (or if multiple causes, from the date the first such cause arose).

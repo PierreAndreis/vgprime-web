@@ -1,14 +1,10 @@
 import * as React from "react";
-import Markdown from "../components/common/MarkdownContent";
-import userTerms from "../components/Markdowns/userTerms";
-import privacyPolicy from "../components/Markdowns/privacyPolicy";
+import MarkdownContent from "../components/common/MarkdownContent";
+import userTerms from "../components/md/userTerms";
+import privacyPolicy from "../components/md/privacyPolicy";
 
 const MdTestPage: React.SFC = () => {
-  return (
-    <article>
-      <Markdown source={userTerms} />;
-    </article>
-  );
+  return <MarkdownContent source={userTerms} />;
 };
 
 export default MdTestPage;
