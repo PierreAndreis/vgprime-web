@@ -54,13 +54,13 @@ const Player: React.SFC<Props> = ({ player }) => {
         <h4>Info</h4>
         <PlayerInfo player={player} />
       </div>
-      <div className="graph1">
-        <h4>Points over time</h4>
-        <Graph dataKey="points" title="Points" data={historical} />
-      </div>
       <div className="stats">
         <h4>Stats</h4>
         <Stats player={player} />
+      </div>
+      <div className="graph1">
+        <h4>Points over time</h4>
+        <Graph dataKey="points" title="Points" data={historical} />
       </div>
       <div className="graph2">
         <h4>Rank over time</h4>

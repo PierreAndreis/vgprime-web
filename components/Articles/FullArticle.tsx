@@ -3,8 +3,8 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { css } from "emotion";
 import ReactMarkdown from "react-markdown";
-import contentStyle from "./ContentStyle";
 import { FadeLoader } from "react-spinners";
+import Box from "../common/Box";
 
 // plz move this elsewhere
 const GET_ARTICLE = gql`
@@ -20,7 +20,7 @@ const GET_ARTICLE = gql`
 `;
 
 const container = css`
-  ${contentStyle};
+  ${Box};
   padding: 10px;
   max-width: 800px;
   margin: 0 auto;

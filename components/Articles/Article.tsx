@@ -95,9 +95,28 @@ const ArticleComponent: React.SFC<Props> = ({
     attributes: { path, title, image, date },
   },
 }) => {
+  let linkProps: {
+    route?: string;
+    params?: { path: string };
+    href?: string;
+  } = {
+    route: "article",
+    params: { path },
+  };
+
+  if (path.startsWith("http")) {
+    linkProps = {
+      href: path,
+    };
+  }
+
   return (
-    <Link route="article" params={{ path: path }}>
-      <a className={container} style={{ backgroundImage: `url(${image})` }}>
+    <Link {...linkProps}>
+      <a
+        className={container}
+        style={{ backgroundImage: `url(${image})` }}
+        target={path.startsWith("http") ? "_blank" : undefined}
+      >
         <img src={image} alt={title} />
         <div>
           <h3>{title}</h3>

@@ -158,7 +158,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                       <div className={points}>
                         <span>
                           <SkeletonWrapper width={40} height={10}>
-                            {() => `${player.points} Pts`}
+                            {() => `${Number(player.points).toFixed(0)} Pts`}
                           </SkeletonWrapper>
                         </span>
                       </div>

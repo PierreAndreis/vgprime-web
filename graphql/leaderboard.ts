@@ -19,7 +19,7 @@ export type PlayersList = ReadonlyArray<Player>;
 
 export const byPage = gql`
   query Leaderboard($page: Int) {
-    leaderboard(page: $page) {
+    leaderboard(page: $page, name: "season 1") {
       id
       name
       region
@@ -42,7 +42,7 @@ export const byPage = gql`
 
 export const byPlayerName = gql`
   query Leaderboard($playerName: String) {
-    leaderboard(playerName: $playerName) {
+    leaderboard(playerName: $playerName, name: "season 1") {
       id
       name
       region

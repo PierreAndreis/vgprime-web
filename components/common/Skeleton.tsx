@@ -20,7 +20,7 @@ const StyletonCSS = css`
     rgba(184, 193, 197, 0.4),
     rgba(186, 194, 197, 0.2)
   );
-  animation: ${cardLoading} 2s ease infinite
+  animation: ${cardLoading} 2s ease infinite;
   background-size: 600% 600%;
   margin-bottom: 1px;
 `;

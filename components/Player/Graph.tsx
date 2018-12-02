@@ -22,7 +22,7 @@ const loaderStyle = css`
 const graphBox = css`
   ${Box};
   padding: 20px;
-  height: 130px;
+  height: 200px;
   align-items: center;
   justify-content: center;
   background-color: #fff;
@@ -35,7 +35,6 @@ const graphBox = css`
 `;
 
 const errorMessage = css`
-  color: #fff;
   text-align: center;
   font-weight: 400;
 `;

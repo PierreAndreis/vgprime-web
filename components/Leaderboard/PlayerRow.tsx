@@ -245,7 +245,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
         <div className={points}>
           <div>
             <SkeletonWrapper width={30}>
-              {() => (payload ? payload.points : "?")}
+              {() => (payload ? Number(payload.points).toFixed(0) : "?")}
             </SkeletonWrapper>
           </div>
           <span>POINTS</span>
