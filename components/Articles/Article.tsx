@@ -92,7 +92,7 @@ type Props = {
 
 const ArticleComponent: React.SFC<Props> = ({
   article: {
-    attributes: { path, title, image, date },
+    attributes: { path, title, image },
   },
 }) => {
   let linkProps: {
