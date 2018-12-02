@@ -13,11 +13,12 @@ const container = css`
 `;
 
 const navigationButtons = css`
+  position: relative;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin-top: -15px;
-  position: relative;
 `;
 
 export interface LeaderboardProps {
@@ -42,23 +43,25 @@ const Leaderboard = ({
           <PlayerRow
             payload={players[index]}
             isActive={players[index] && players[index].name === playerName}
-            key={players[index] ? players[index].rank : index}
+            key={index}
           />
         ))}
       </div>
-      {nextHandler && previousHandler && (
-        <div className={cx(navigationButtons)}>
-          <Button
-            onClick={previousHandler}
-            disabled={players.length === 0 || (players[0] && players[0].rank === 1)}
-          >
-            Previous
-          </Button>
-          <Button onClick={nextHandler} disabled={!nextHandler}>
-            Next
-          </Button>
-        </div>
-      )}
+      <div className={cx(navigationButtons)}>
+        <Button
+          onClick={previousHandler}
+          disabled={
+            !previousHandler ||
+            players.length === 0 ||
+            (players[0] && players[0].rank === 1)
+          }
+        >
+          Previous
+        </Button>
+        <Button onClick={nextHandler} disabled={!nextHandler}>
+          Next
+        </Button>
+      </div>
     </div>
   );
 };

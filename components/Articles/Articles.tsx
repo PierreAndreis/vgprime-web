@@ -46,6 +46,11 @@ class Articles extends React.Component<{}> {
             ));
           }}
         </Query>
+        <ArticleItem
+          article={{
+            attributes: { path: "lol", title: "Test", date: "xd", image: "aluh" },
+          }}
+        />
       </div>
     );
   }

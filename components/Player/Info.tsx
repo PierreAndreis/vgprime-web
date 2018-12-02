@@ -3,7 +3,7 @@ import { css } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
 
-import boxCss from "./../common/Box";
+import boxCss from "../common/Box";
 
 import { PlayerStats } from "../../api/types";
 import { Query } from "react-apollo";
@@ -48,6 +48,8 @@ const info = css`
   & .points {
     padding: 8px 20px 8px 20px;
     background-color: #4a90e2;
+    min-width: 100px;
+    text-align: center;
     border-radius: 15px;
     margin-left: auto;
     justify-self: flex-end;
@@ -114,7 +116,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
           </div>
 
           <div className="points">
-            <SkeletonWrapper height={10} width={50}>
+            <SkeletonWrapper height={10} width={40}>
               {() => (player ? Number(player.points).toFixed(0) + " PTS" : "")}
             </SkeletonWrapper>
           </div>

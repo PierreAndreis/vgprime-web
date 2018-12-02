@@ -57,10 +57,7 @@ injectGlobal`
     background-attachment: fixed;
     overflow-x: none;
     height: 100%;
-    background: #1D272F;
     background: #ECEEF1;
-
-    color: white;
 
     color: #4A4A4A;
   }
@@ -70,7 +67,7 @@ injectGlobal`
 
   a {
     text-decoration: none;
-    color: white;
+    color: #4A4A4A;
   }
 
   a:hover {

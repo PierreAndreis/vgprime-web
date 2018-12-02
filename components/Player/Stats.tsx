@@ -22,6 +22,7 @@ const info = css`
   text-align: center;
   flex-grow: 1;
   border-right: 2px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
 
   &:last-of-type {
     border-right: 0;
@@ -55,7 +56,7 @@ type Props = {
   player?: Player;
 };
 
-const infoWidth = 40;
+const infoWidth = 50;
 const infoHeight = 25;
 
 const Stats: React.SFC<Props> = ({ player }) => {

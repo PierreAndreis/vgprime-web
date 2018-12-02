@@ -21,7 +21,7 @@ const loaderStyle = css`
 
 const graphBox = css`
   ${Box};
-  padding: 20px;
+  width: 100%;
   height: 200px;
   align-items: center;
   justify-content: center;
@@ -108,7 +108,7 @@ const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
               </div>
             );
           return (
-            <ResponsiveContainer height={100} width="100%">
+            <ResponsiveContainer height={150} width="95%">
               <LineChart data={data} syncId="date">
                 <defs>
                   <linearGradient

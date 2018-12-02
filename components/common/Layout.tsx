@@ -20,6 +20,7 @@ const container = css`
     "header header" auto
     "content sidebar" auto
     "content sidebar" 1fr
+    "footer footer" 50px
     / 1fr 360px;
   grid-column-gap: 10px;
 
@@ -162,6 +163,16 @@ const sidebarMobileCss = css`
   left: 0;
 `;
 
+const footer = css`
+  width: 100%;
+  grid-area: footer;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  & > a {
+  }
+`;
+
 type State = {
   rulesOpened: boolean;
 };
@@ -251,6 +262,11 @@ class Layout extends React.Component<{}, State> {
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
 
         {this.props.children}
+
+        <div className={footer}>
+          <a>Privacy Policy</a>
+          <a>Terms and Conditions</a>
+        </div>
       </div>
     );
   }
