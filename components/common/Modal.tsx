@@ -136,7 +136,7 @@ class Modal extends React.Component<Props> {
                   &times;
                 </span>
                 <animated.div className={modalContent} style={styles}>
-                  <div ref={this.modalRef} tabIndex={-1}>
+                  <div ref={this.modalRef} tabIndex={-1} style={{ outline: 0 }}>
                     {this.props.children}
                   </div>
                 </animated.div>
