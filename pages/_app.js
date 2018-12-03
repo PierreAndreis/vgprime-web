@@ -8,6 +8,7 @@ import { hydrate } from "react-emotion";
 
 import { Router } from "./../routes";
 
+import NextSeo from "next-seo";
 import withGA from "next-ga";
 
 import { Context as TrackingContext } from "../lib/tracking";
@@ -20,6 +21,9 @@ if (typeof window !== "undefined") {
   hydrate(window.__NEXT_DATA__.ids);
 }
 
+// import your default seo configuration
+import SEO from "../next-seo.config";
+
 // if (process.env.NODE_ENV !== "production") {
 //   const { whyDidYouUpdate } = require("why-did-you-update");
 //   whyDidYouUpdate(React, { exclude: [/^Skeleton|Query|Styled/] });
@@ -30,6 +34,7 @@ class VGPRIME extends App {
     const { Component, pageProps, apolloClient } = this.props;
     return (
       <Container>
+        <NextSeo config={SEO} />
         <div className="vgproLogoBg" />
         <TrackingContext.Provider value={this.props.analytics}>
           <ApolloProvider client={apolloClient}>
