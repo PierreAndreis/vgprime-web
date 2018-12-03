@@ -11,6 +11,7 @@ import Search from "../Search";
 import Box from "./Box";
 import Portal from "./Portal";
 import Button from "./Button";
+import FAQ from "../FAQ";
 
 const container = css`
   max-width: 1300px;
@@ -168,10 +169,6 @@ const footer = css`
   }
 `;
 
-type State = {
-  rulesOpened: boolean;
-};
-
 class SidebarMobile extends React.Component<
   { children: React.ReactNode },
   { open: boolean }
@@ -221,9 +218,14 @@ export const Content: React.SFC<{ children: React.ReactNode }> = ({ children }) 
   <div className="content">{children}</div>
 );
 
+type State = {
+  rulesOpened: boolean;
+  faqOpened: boolean;
+};
 class Layout extends React.Component<{}, State> {
   state = {
     rulesOpened: false,
+    faqOpened: false,
   };
 
   openRulesModal = () => {
@@ -231,6 +233,13 @@ class Layout extends React.Component<{}, State> {
   };
   closeRulesModal = () => {
     this.setState({ rulesOpened: false });
+  };
+
+  openFaqModal = () => {
+    this.setState({ faqOpened: true });
+  };
+  closeFaqModal = () => {
+    this.setState({ faqOpened: false });
   };
 
   render() {
@@ -252,7 +261,7 @@ class Layout extends React.Component<{}, State> {
         </div>
 
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
-
+        <FAQ open={this.state.faqOpened} closeAction={this.closeFaqModal} />
         {this.props.children}
 
         <div className={footer}>
@@ -263,6 +272,9 @@ class Layout extends React.Component<{}, State> {
             </a>
           </div>
           <div style={{ marginLeft: "auto" }}>
+            <a onClick={this.openFaqModal} style={{ cursor: "pointer" }}>
+              Frequently Asked Questions
+            </a>
             <a onClick={this.openRulesModal} style={{ cursor: "pointer" }}>
               Rules
             </a>
