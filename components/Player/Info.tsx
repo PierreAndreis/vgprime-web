@@ -152,7 +152,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
 
               for (let i = 0; i < 5; i++) {
                 let style;
-                let heroLink = "#";
+                let heroLink = "";
                 if (heroes[i]) {
                   heroLink = `https://vgpro.gg/heroes/${heroes[i]}`;
                   style = {
