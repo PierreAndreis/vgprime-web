@@ -33,8 +33,7 @@ const modalContent = css`
   height: auto;
   max-height: 90%;
   max-width: 800px;
-  padding-bottom: 20px;
-  overflow-x: auto;
+  padding: 20px 0;
   border-radius: 10px;
 
   @media screen and (max-width: 500px) {
@@ -48,7 +47,7 @@ const modalContent = css`
 `;
 
 const modalClose = css`
-  position: absolute;
+  position: fixed;
   top: 15px;
   right: 35px;
   color: #f1f1f1;
@@ -148,7 +147,11 @@ class Modal extends React.Component<Props> {
                     maxWidth: maxContentWidth,
                   }}
                 >
-                  <div ref={this.modalRef} tabIndex={-1} style={{ outline: 0 }}>
+                  <div
+                    ref={this.modalRef}
+                    tabIndex={-1}
+                    style={{ outline: 0, overflowX: "auto" }}
+                  >
                     {this.props.children}
                   </div>
                 </animated.div>
