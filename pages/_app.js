@@ -6,6 +6,9 @@ import { ApolloProvider } from "react-apollo";
 import { injectGlobal } from "emotion";
 import { hydrate } from "react-emotion";
 
+import Router from "next/router";
+import withGA from "next-ga";
+
 import "./../global/style";
 
 // Adds server generated styles to emotion cache.
@@ -33,4 +36,4 @@ class VGPRIME extends App {
   }
 }
 
-export default withApolloClient(VGPRIME);
+export default withGA("UA-xxxxxxxxx-1", Router)(withApolloClient(VGPRIME));
