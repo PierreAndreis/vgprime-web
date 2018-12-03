@@ -165,13 +165,16 @@ const sidebarMobileCss = css`
 `;
 
 const footer = css`
+  order: 10;
   width: 100%;
   grid-area: footer;
   display: flex;
   align-items: center;
+  justify-content: start;
+  text-align: center;
   padding: 0 15px;
   & > a {
-    padding: 10px;
+    padding: 0 10px;
   }
 `;
 
