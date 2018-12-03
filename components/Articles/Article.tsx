@@ -6,6 +6,8 @@ import Box from "../common/Box";
 
 const container = css`
   ${Box}
+  flex-shrink: 0;
+  flex-grow: 0;
   display: block;
   width: 250px;
   margin: 10px;
