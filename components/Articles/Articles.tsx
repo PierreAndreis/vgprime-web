@@ -4,9 +4,9 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import ArticleItem, { Article } from "./Article";
 import Box from "../common/Box";
+import Prizes from "../Prizes";
 
 const container = css`
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -35,7 +35,7 @@ class Articles extends React.Component<{}> {
   render() {
     return (
       <div className={container}>
-        <Query query={GET_ARTICLES} variables={{ page: 0, limit: 3 }}>
+        <Query query={GET_ARTICLES} variables={{ page: 0, limit: 1 }}>
           {({ data }) => {
             const articles: Array<Article> = data && data.articles ? data.articles : [];
             return articles.map(article => (
@@ -46,11 +46,6 @@ class Articles extends React.Component<{}> {
             ));
           }}
         </Query>
-        <ArticleItem
-          article={{
-            attributes: { path: "lol", title: "Test", date: "xd", image: "aluh" },
-          }}
-        />
       </div>
     );
   }

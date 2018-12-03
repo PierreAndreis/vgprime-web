@@ -4,24 +4,31 @@ import Box from "./common/Box";
 
 const container = css`
   ${Box};
+  width: 100%;
   background-image: linear-gradient(-135deg, #84aff5 0%, #91dde9 100%);
   color: rgba(255, 255, 255, 0.9);
   margin: 0 auto;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 15px 10%;
-
-  ${"" /* & p {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
- */};
-  & h1 {
-    font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  margin: 10px;
+  height: 150px;
+  & h2 {
+    font-size: 48px;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 10px 0;
+    text-align: center;
+    & small {
+      display: block;
+      margin: 0;
+      font-size: 24px;
+    }
+  }
+
+  p {
+    font-size: 16px;
+    margin: 5px 0;
   }
 `;
 
@@ -29,21 +36,10 @@ export default class extends React.Component<{}> {
   render() {
     return (
       <div className={container}>
-        {Array.from(Array(6), i => i).map((_, index) => (
-          <div
-            key={index}
-            style={{
-              width: "65px",
-              height: "65px",
-              borderRadius: "50%",
-              // background: "rgba(100, 100, 100, 0.8)",
-              border: "3px solid white",
-              marginLeft: "10px",
-              flexShrink: 0,
-              flexGrow: 0,
-            }}
-          />
-        ))}
+        <h2>
+          +$1000<small>in prizes</small>
+        </h2>
+        <p>Click here to learn more</p>
       </div>
     );
   }
