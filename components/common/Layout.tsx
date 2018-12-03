@@ -12,6 +12,7 @@ import Box from "./Box";
 import Portal from "./Portal";
 import Button from "./Button";
 import FAQ from "../FAQ";
+import Ads from "./Adsense";
 
 const container = css`
   max-width: 1300px;
@@ -19,6 +20,7 @@ const container = css`
   display: grid;
   grid-template:
     "header header" auto
+    "ads ads" auto
     "content sidebar" auto
     "content sidebar" 1fr
     "footer footer" 50px
@@ -259,7 +261,9 @@ class Layout extends React.Component<{}, State> {
             </div>
           </div>
         </div>
-
+        <div style={{ gridArea: "ads", width: "100%" }}>
+          <Ads />
+        </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         <FAQ open={this.state.faqOpened} closeAction={this.closeFaqModal} />
         {this.props.children}

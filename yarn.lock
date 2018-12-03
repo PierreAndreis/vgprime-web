@@ -5735,6 +5735,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-adsense@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-adsense/-/react-adsense-0.0.6.tgz#0ceaaba47280e89c346ec68a38a2aa0b56d55208"
+  integrity sha512-B1NOJFkURbW+1Gi5J7IxXkIsZ9dAI8MFQpEYfrbfsh7ZdVgOeCcrxjV/3tWpjLiAXCDqVy7yJVn+WecSn7WMow==
+
 react-apollo@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.3.2.tgz#b8e287d2813722b9e0a886cabf8149ab3b84a3b7"
