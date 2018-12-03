@@ -30,8 +30,8 @@ const container = css`
   }
 
   p {
-    font-size: 16px;
-    margin: 5px 0;
+    font-size: 14px;
+    margin: 20px 0 0 0;
   }
 `;
 

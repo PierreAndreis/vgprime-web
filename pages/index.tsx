@@ -8,6 +8,7 @@ import { SkeletonContext } from "../components/common/Skeleton";
 import Articles from "../components/Articles/Articles";
 import Prizes from "../components/Prizes";
 import Time from "../components/Time";
+import BrokenMyth from "../components/Articles/BrokenMyth";
 
 type Props = {
   query: Record<string, string | string[] | undefined>;
@@ -52,7 +53,8 @@ export default class Home extends React.Component<Props, State> {
                 </Sidebar>
                 <Content>
                   <div style={{ display: "flex", justifyContent: "center" }}>
-                    <Articles />
+                    {/* <Articles /> */}
+                    <BrokenMyth />
                     <Prizes />
                     <Time />
                   </div>
