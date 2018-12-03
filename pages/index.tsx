@@ -6,9 +6,9 @@ import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Records from "../components/Records";
 import Layout, { Content, Sidebar } from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
-import Articles from "../components/Articles/Articles";
 import Prizes from "../components/Prizes";
 import Time from "../components/Time";
+import BrokenMyth from "../components/Articles/BrokenMyth";
 
 type Props = {
   query: Record<string, string | string[] | undefined>;
@@ -58,7 +58,7 @@ export default class Home extends React.Component<Props, State> {
                 </Sidebar>
                 <Content>
                   <div className={top}>
-                    <Articles />
+                    <BrokenMyth />
                     <Prizes />
                     <Time />
                   </div>
