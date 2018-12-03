@@ -139,8 +139,11 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
                 data.playerStats.stats.Heroes
               ) {
                 const player = data.playerStats as PlayerStats;
+
                 heroes = [...player.stats.Heroes]
-                  .sort((a, b) => (a.games > b.games ? -1 : 1))
+                  .sort((a, b) =>
+                    a.games !== b.games ? (a.games > b.games ? -1 : 1) : 0
+                  )
                   .map(hero => hero.name);
               }
 

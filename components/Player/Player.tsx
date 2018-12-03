@@ -38,8 +38,6 @@ const Player: React.SFC<Props> = ({ player }) => {
   //   );
   // }
 
-  console.log("player=", player);
-
   const historical = player
     ? createFilledHistorical(player.historical, DAYS_ON_GRAPH)
     : [];
