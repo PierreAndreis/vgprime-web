@@ -263,7 +263,7 @@ class Layout extends React.Component<{}, State> {
             </a>
           </div>
           <div style={{ marginLeft: "auto" }}>
-            <a href="#rules" onClick={this.openRulesModal}>
+            <a onClick={this.openRulesModal} style={{ cursor: "pointer" }}>
               Rules
             </a>
             <Link href="/privacy-policy">
