@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Query } from "react-apollo";
+import { css } from "emotion";
 import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Records from "../components/Records";
 import Layout, { Content, Sidebar } from "../components/common/Layout";
 import { SkeletonContext } from "../components/common/Skeleton";
-import Articles from "../components/Articles/Articles";
 import Prizes from "../components/Prizes";
 import Time from "../components/Time";
 import BrokenMyth from "../components/Articles/BrokenMyth";
@@ -58,8 +58,7 @@ export default class Home extends React.Component<Props, State> {
                   />
                 </Sidebar>
                 <Content>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    {/* <Articles /> */}
+                  <div className={top}>
                     <BrokenMyth />
                     <Prizes />
                     <Time />

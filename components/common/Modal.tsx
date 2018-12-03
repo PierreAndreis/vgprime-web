@@ -70,7 +70,7 @@ type Props = {
 };
 
 class Modal extends React.Component<Props> {
-  defaultProps = {
+  static defaultProps = {
     maxWidth: 800,
   };
   onClose = () => {

@@ -26,19 +26,11 @@ type PrimeHoursList = ReadonlyArray<PrimeHour>;
 
 // .toLocaleTimeString doesn't support the second argument in some browsers
 function displayNiceTime(date: Date) {
-  // getHours returns the hours in local time zone from 0 to 23
-  let hours = date.getHours();
-  let meridiem = " AM";
-
-  // convert to 12-hour time format
-  if (hours > 12) {
-    hours = hours - 12;
-    meridiem = " PM";
-  } else if (hours === 0) {
-    hours = 12;
-  }
-
-  return `${hours} ${meridiem}`;
+  return date.toLocaleTimeString([], {
+    minute: "2-digit",
+    hour12: false,
+    hour: "2-digit",
+  });
 }
 
 const container = css`
@@ -92,7 +84,7 @@ const hours = css`
     }
 
     &:first-of-type {
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(0, 0, 0, 0.4);
       font-size: 11px;
       .region {
         font-weight: normal;
@@ -105,7 +97,7 @@ const hours = css`
     .region {
       width: 50px;
       text-transform: uppercase;
-      padding-left: 10px;
+      padding-left: 20px;
       font-weight: bold;
     }
     .start {
@@ -183,9 +175,9 @@ export default class extends React.Component<{}> {
                   <div className="end">END</div>
                 </div>
                 {primeHours.map(prime => (
-                  <div key={prime.name} className={prime.name === "eu" ? "active" : ""}>
-                    {prime.name === "eu" && <div className="live">ONLINE</div>}
-                    {prime.name !== "eu" && <div className="live">OFFLINE</div>}
+                  <div key={prime.name} className={prime.live ? "active" : ""}>
+                    {prime.live && <div className="live">ONLINE</div>}
+                    {!prime.live && <div className="live">OFFLINE</div>}
                     <div className="region">{prime.name}</div>
                     <div className="start">{displayNiceTime(new Date(prime.start))}</div>
                     <div className="end">{displayNiceTime(new Date(prime.end))}</div>
