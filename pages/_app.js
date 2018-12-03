@@ -6,15 +6,18 @@ import { ApolloProvider } from "react-apollo";
 import { injectGlobal } from "emotion";
 import { hydrate } from "react-emotion";
 
-import Router from "next/router";
+import { Router } from "./../routes";
+
 import withGA from "next-ga";
+
+import { Context as TrackingContext } from "../lib/tracking";
 
 import "./../global/style";
 
 // Adds server generated styles to emotion cache.
 // '__NEXT_DATA__.ids' is set in '_document.js'
 if (typeof window !== "undefined") {
-  // hydrate(window.__NEXT_DATA__.ids);
+  hydrate(window.__NEXT_DATA__.ids);
 }
 
 // if (process.env.NODE_ENV !== "production") {
@@ -28,12 +31,14 @@ class VGPRIME extends App {
     return (
       <Container>
         <div className="vgproLogoBg" />
-        <ApolloProvider client={apolloClient}>
-          <Component {...pageProps} />
-        </ApolloProvider>
+        <TrackingContext.Provider value={this.props.analytics}>
+          <ApolloProvider client={apolloClient}>
+            <Component {...pageProps} />
+          </ApolloProvider>
+        </TrackingContext.Provider>
       </Container>
     );
   }
 }
 
-export default withGA("UA-xxxxxxxxx-1", Router)(withApolloClient(VGPRIME));
+export default withGA("UA-93754104-3", Router)(withApolloClient(VGPRIME));

@@ -3,6 +3,7 @@ import { css } from "emotion";
 import Box from "./common/Box";
 import { buttonCss } from "./common/Button";
 import Modal from "./common/Modal";
+import TrackingComponent from "../lib/tracking";
 
 const container = css`
   ${Box};
@@ -27,13 +28,6 @@ const container = css`
       margin: 0;
       font-size: 24px;
     }
-  }
-
-  & > sub {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 10px;
   }
 
   p {
@@ -82,6 +76,11 @@ const modalContainer = css`
     justify-content: space-around;
     width: 270px;
     margin: auto;
+  }
+
+  & > sub {
+    margin: 15px auto 0;
+    font-size: 10px;
   }
 `;
 
@@ -140,15 +139,15 @@ export default class extends React.Component<Props, State> {
         <div className={container} onClick={this.open}>
           <h2>
             +$1000
-            <small>in prizes</small>
+            <small>in prizes*</small>
           </h2>
           <p>View More</p>
-          <sub>Prizes will be given as gift card</sub>
         </div>
         <Modal onClose={this.close} open={opened} maxWidth={300}>
           <div className={modalContainer}>
+            <TrackingComponent name="Prizes" />
             <header>
-              <h3>Prizes</h3>
+              <h3>Prizes*</h3>
               <span className="season">Dec 1st - 30th</span>
             </header>
             <section className="buttons">
@@ -169,6 +168,8 @@ export default class extends React.Component<Props, State> {
                 <Prize title="Top 3" value="20$" />
               </section>
             </section>
+
+            <sub>*Prizes will be given as gift card</sub>
           </div>
         </Modal>
       </>
