@@ -8,6 +8,7 @@ import boxCss from "../common/Box";
 import { PlayerStats } from "../../api/types";
 import { Query } from "react-apollo";
 import qPlayerStats from "../../graphql/playerStats";
+import Link from "next/link";
 
 const heroImage = (heroName: string): string =>
   `https://vgproassets.nyc3.cdn.digitaloceanspaces.com/heroes/${heroName.toLowerCase()}.png`;
@@ -151,14 +152,20 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
 
               for (let i = 0; i < 5; i++) {
                 let style;
+                let heroLink = "#";
                 if (heroes[i]) {
+                  heroLink = `https://vgpro.gg/heroes/${heroes[i]}`;
                   style = {
                     backgroundImage: `url(${heroImage(heroes[i])}`,
                   };
                 }
 
                 res.push(
-                  <div key={`topHero-${i}`} className={heroAvatar} style={style} />
+                  <Link href={heroLink}>
+                    <a target="_blank">
+                      <div key={`topHero-${i}`} className={heroAvatar} style={style} />
+                    </a>
+                  </Link>
                 );
               }
               return res;
