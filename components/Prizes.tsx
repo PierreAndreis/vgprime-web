@@ -3,6 +3,7 @@ import { css } from "emotion";
 import Box from "./common/Box";
 import { buttonCss } from "./common/Button";
 import Modal from "./common/Modal";
+import TrackingComponent from "../lib/tracking";
 
 const container = css`
   ${Box};
@@ -147,6 +148,7 @@ export default class extends React.Component<Props, State> {
         </div>
         <Modal onClose={this.close} open={opened} maxWidth={300}>
           <div className={modalContainer}>
+            <TrackingComponent name="Prizes" />
             <header>
               <h3>Prizes</h3>
               <span className="season">Dec 1st - 30th</span>

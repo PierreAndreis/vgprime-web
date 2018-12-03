@@ -4,6 +4,7 @@ import Modal from "./common/Modal";
 
 import rulesContent from "./md/rulesContent";
 import Markdown from "./common/MarkdownContent";
+import TrackingComponent from "../lib/tracking";
 
 const content = css`
   padding: 15px;
@@ -23,6 +24,7 @@ class Rules extends React.Component<Props> {
     return (
       <Modal open={open} onClose={this.close}>
         <div className={content}>
+          <TrackingComponent name="Rules" />
           <Markdown source={rulesContent} />
         </div>
       </Modal>
