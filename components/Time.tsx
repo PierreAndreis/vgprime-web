@@ -22,7 +22,7 @@ type PrimeHour = {
   live: boolean;
 };
 
-type PrimeHoursList = ReadonlyArray<PrimeHour>;
+type PrimeHoursList = [PrimeHour];
 
 // .toLocaleTimeString doesn't support the second argument in some browsers
 function displayNiceTime(date: Date) {
@@ -167,6 +167,8 @@ export default class extends React.Component<{}> {
               return <div>Loading</div>;
             }
 
+            primeHours.sort((a, b) => (a.start > b.start ? 1 : -1));
+
             return (
               <div className={hours}>
                 <div>
@@ -178,7 +180,9 @@ export default class extends React.Component<{}> {
                   <div key={prime.name} className={prime.live ? "active" : ""}>
                     {prime.live && <div className="live">ONLINE</div>}
                     {!prime.live && <div className="live">OFFLINE</div>}
-                    <div className="region">{prime.name}</div>
+                    <div className="region">
+                      {prime.name === "sg" ? "SEA" : prime.name}
+                    </div>
                     <div className="start">{displayNiceTime(new Date(prime.start))}</div>
                     <div className="end">{displayNiceTime(new Date(prime.end))}</div>
                   </div>
