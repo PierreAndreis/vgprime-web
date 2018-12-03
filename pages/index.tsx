@@ -9,7 +9,6 @@ import { SkeletonContext } from "../components/common/Skeleton";
 import Prizes from "../components/Prizes";
 import Time from "../components/Time";
 import BrokenMyth from "../components/Articles/BrokenMyth";
-import { css } from "emotion";
 
 type Props = {
   query: Record<string, string | string[] | undefined>;
