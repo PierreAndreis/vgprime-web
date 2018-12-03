@@ -4,7 +4,6 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import ArticleItem, { Article } from "./Article";
 import Box from "../common/Box";
-import Prizes from "../Prizes";
 
 const container = css`
   display: flex;

@@ -1,6 +1,45 @@
 import * as React from "react";
 import { css } from "emotion";
 import Box from "./common/Box";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+const qPrimeHours = gql`
+  query PrimeHours {
+    primeHours {
+      name
+      start
+      end
+      live
+    }
+  }
+`;
+
+type PrimeHour = {
+  name: string;
+  start: string;
+  end: string;
+  live: boolean;
+};
+
+type PrimeHoursList = ReadonlyArray<PrimeHour>;
+
+// .toLocaleTimeString doesn't support the second argument in some browsers
+function displayNiceTime(date: Date) {
+  // getHours returns the hours in local time zone from 0 to 23
+  let hours = date.getHours();
+  let meridiem = " AM";
+
+  // convert to 12-hour time format
+  if (hours > 12) {
+    hours = hours - 12;
+    meridiem = " PM";
+  } else if (hours === 0) {
+    hours = 12;
+  }
+
+  return `${hours} ${meridiem}`;
+}
 
 const container = css`
   ${Box};
@@ -14,13 +53,26 @@ const container = css`
   width: 250px;
   margin: 10px;
   height: 150px;
-  padding: 10px;
   & h2 {
-    margin: 0;
-    font-size: 14px;
+    margin: 5px;
+    font-size: 18px;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+    padding-right: 15px;
+    position: relative;
+    & span {
+      position: absolute;
+      right: -2px;
+      top: -9px;
+
+      & svg {
+        font-size: 5px;
+        width: 15px;
+        height: 15px;
+        margin-top: 10px;
+      }
+    }
   }
 `;
 
@@ -31,18 +83,74 @@ const hours = css`
   width: 100%;
   & > div {
     display: flex;
-    justify-content: space-around;
-    margin: 5px;
-    font-size: 14px;
+    justify-content: center;
+    padding: 2px;
+    font-size: 12px;
+    position: relative;
+    &:nth-child(even) {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    &:first-of-type {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 11px;
+      .region {
+        font-weight: normal;
+      }
+    }
+    & > div {
+      margin: 0 5px;
+    }
+
     .region {
-      font-weight: bold;
       width: 50px;
+      text-transform: uppercase;
+      padding-left: 10px;
+      font-weight: bold;
     }
     .start {
-      width: 30px;
+      width: 45px;
+      text-align: right;
     }
     .end {
-      width: 40px;
+      width: 45px;
+      text-align: right;
+    }
+
+    .live {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 3px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    &.active .live {
+      animation: blink 1s infinite;
+      color: white;
+    }
+
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    &.active {
+      background-image: linear-gradient(
+        to right,
+        rgba(152, 251, 152, 0.7),
+        transparent,
+        transparent,
+        transparent
+      );
     }
   }
 `;
@@ -51,39 +159,42 @@ export default class extends React.Component<{}> {
   render() {
     return (
       <div className={container}>
-        <h2>PRIME HOURS</h2>
-        <div className={hours}>
-          <div>
-            <div className="region">REGION</div>
-            <div className="start">START</div>
-            <div className="end">END</div>
-          </div>
-          <div>
-            <div className="region">NA</div>
-            <div className="start">{new Date(1).toLocaleTimeString()}</div>
-            <div className="end">9PM</div>
-          </div>
-          <div>
-            <div className="region">NA</div>
-            <div className="start">8PM</div>
-            <div className="end">9PM</div>
-          </div>
-          <div>
-            <div className="region">NA</div>
-            <div className="start">8PM</div>
-            <div className="end">9PM</div>
-          </div>
-          <div>
-            <div className="region">NA</div>
-            <div className="start">8PM</div>
-            <div className="end">9PM</div>
-          </div>
-          <div>
-            <div className="region">NA</div>
-            <div className="start">8PM</div>
-            <div className="end">9PM</div>
-          </div>
-        </div>
+        <h2>
+          PRIME HOURS{" "}
+          <span>
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M11,17H13V11H11V17Z" />
+            </svg>
+          </span>
+        </h2>
+        <Query query={qPrimeHours}>
+          {({ data, loading }) => {
+            const primeHours = data.primeHours as PrimeHoursList;
+
+            if (loading) {
+              return <div>Loading</div>;
+            }
+
+            return (
+              <div className={hours}>
+                <div>
+                  <div className="region">REGION</div>
+                  <div className="start">START</div>
+                  <div className="end">END</div>
+                </div>
+                {primeHours.map(prime => (
+                  <div key={prime.name} className={prime.name === "eu" ? "active" : ""}>
+                    {prime.name === "eu" && <div className="live">ONLINE</div>}
+                    {prime.name !== "eu" && <div className="live">OFFLINE</div>}
+                    <div className="region">{prime.name}</div>
+                    <div className="start">{displayNiceTime(new Date(prime.start))}</div>
+                    <div className="end">{displayNiceTime(new Date(prime.end))}</div>
+                  </div>
+                ))}
+              </div>
+            );
+          }}
+        </Query>
       </div>
     );
   }
