@@ -53,7 +53,7 @@ export default `
 |---------------|-----|------|-----------|
 | Ranked 5V5    | 34  | 17   | 8         |
 | Casual 5V5    | 27  | 16   | 8         |
-| Ranked 3V3    | 32  | 13   | 6         |
+| Ranked 3V3    | 30  | 15   | 7.5       |
 | Casual 3V3    | 24  | 12   | 6         |
 | Battle Royale | 12  | 3    | 3         |
 | Blitz         | 7   | 6    | 1         |
