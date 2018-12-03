@@ -29,6 +29,13 @@ const container = css`
     }
   }
 
+  & > sub {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 10px;
+  }
+
   p {
     position: absolute;
     bottom: 15px;
@@ -132,9 +139,11 @@ export default class extends React.Component<Props, State> {
       <>
         <div className={container} onClick={this.open}>
           <h2>
-            +$1000<small>in prizes</small>
+            +$1000
+            <small>in prizes</small>
           </h2>
           <p>View More</p>
+          <sub>Prizes will be given as gift card</sub>
         </div>
         <Modal onClose={this.close} open={opened} maxWidth={300}>
           <div className={modalContainer}>
