@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
+import { css } from "emotion";
 import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Records from "../components/Records";
@@ -8,7 +9,6 @@ import { SkeletonContext } from "../components/common/Skeleton";
 import Articles from "../components/Articles/Articles";
 import Prizes from "../components/Prizes";
 import Time from "../components/Time";
-import { css } from "emotion";
 
 type Props = {
   query: Record<string, string | string[] | undefined>;
