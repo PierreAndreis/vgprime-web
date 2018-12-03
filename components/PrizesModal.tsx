@@ -2,7 +2,7 @@ import * as React from "react";
 import Modal from "./common/Modal";
 import { css } from "emotion";
 
-const container = css`
+const modalContainer = css`
   padding: 20px;
   & > header {
     display: flex;
@@ -22,7 +22,7 @@ const container = css`
 
 const PrizesModal: React.SFC = () => (
   <Modal onClose={() => {}} open={true}>
-    <div className={container}>
+    <div className={modalContainer}>
       <header>
         <h3>Prizes</h3>
         <span className="season">Dec 1st - 30th</span>
