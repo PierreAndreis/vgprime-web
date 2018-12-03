@@ -119,7 +119,7 @@ const hours = css`
       color: rgba(255, 255, 255, 0.4);
     }
     &.active .live {
-      animation: blink 1s infinite;
+      animation: blink 3s infinite;
       color: white;
     }
 
