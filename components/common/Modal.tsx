@@ -71,6 +71,9 @@ type Props = {
 };
 
 class Modal extends React.Component<Props> {
+  defaultProps = {
+    maxWidth: 800,
+  };
   onClose = () => {
     this.props.onClose();
   };
@@ -92,8 +95,7 @@ class Modal extends React.Component<Props> {
   };
 
   render() {
-    const { maxWidth } = this.props;
-    const maxContentWidth = maxWidth ? maxWidth : "none";
+    const maxContentWidth = this.props.maxWidth;
     return (
       <Portal>
         {/* 

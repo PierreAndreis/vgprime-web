@@ -102,25 +102,6 @@ const logo = css`
   }
 `;
 
-const rulesButton = css`
-  margin-right: 15px;
-  height: 40px;
-  align-self: center;
-  background: #fff;
-  justify-self: center;
-  border: 1px solid #4a90e7;
-  border-radius: 30px;
-  padding: 0px 15px;
-  color: #4a90e7;
-  text-transform: uppercase;
-  font-weight: 600;
-  &:hover {
-    cursor: pointer;
-    background: #4a90e7;
-    color: #fff;
-  }
-`;
-
 const sidebarMobileCss = css`
   & > h4 {
     ${Box}
@@ -262,9 +243,6 @@ class Layout extends React.Component<{}, State> {
                 <div className={logo} />
               </a>
             </Link>
-            <button className={rulesButton} onClick={this.openRulesModal}>
-              Rules
-            </button>
           </div>
           <div className="right">
             <div style={{ flex: 1 }}>
@@ -285,6 +263,9 @@ class Layout extends React.Component<{}, State> {
             </a>
           </div>
           <div style={{ marginLeft: "auto" }}>
+            <a href="#rules" onClick={this.openRulesModal}>
+              Rules
+            </a>
             <Link href="/privacy-policy">
               <a>Privacy Policy</a>
             </Link>
