@@ -167,7 +167,7 @@ export default class extends React.Component<{}> {
               return <div>Loading</div>;
             }
 
-            primeHours.sort((a, b) => (a.start > b.start ? 1 : -1));
+            primeHours.sort((a, b) => (a.name > b.name ? 1 : -1));
 
             return (
               <div className={hours}>
