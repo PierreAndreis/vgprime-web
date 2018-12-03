@@ -5842,10 +5842,10 @@ react-spinners@^0.4.7:
     react-emotion "^9.1.1"
     recompose "0.27.1"
 
-react-spring@^6.1.9:
-  version "6.1.9"
-  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-6.1.9.tgz#bf858aedb5bd954c83545c27731a9f05320a49fe"
-  integrity sha512-SLgijUY3XL2fWZrb1N/oVxnQaZloYtSm2Fy6VngC2xoJRKwXY0i0KH03CGXV5iBKV0GhST4oCI1XTy75V40K9A==
+react-spring@^6.1.10:
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-6.1.10.tgz#ae28796dccfb32baa02d34fb94289c2088f63a1b"
+  integrity sha512-msMoHyXHzb3KdHNY6Yo6wm1t+1GKjy6k2kqaYT3bG6nM//HOL5798OD6Qg719SEDskRDh2vXxIyJ5KEoAUbecA==
   dependencies:
     "@babel/runtime" "^7.0.0"
 
