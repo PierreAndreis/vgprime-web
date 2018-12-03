@@ -165,16 +165,25 @@ const sidebarMobileCss = css`
 `;
 
 const footer = css`
-  order: 10;
+  ${Box};
+  flex-direction: row;
+  order: 4;
   width: 100%;
   grid-area: footer;
   display: flex;
   align-items: center;
-  justify-content: start;
-  text-align: center;
-  padding: 0 15px;
-  & > a {
-    padding: 0 10px;
+  padding: 10px;
+  margin-top: 15px;
+  font-size: 12px;
+  a {
+    padding: 10px;
+    font-weight: bold;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
   }
 `;
 
@@ -269,12 +278,20 @@ class Layout extends React.Component<{}, State> {
         {this.props.children}
 
         <div className={footer}>
-          <Link href="/privacy-policy">
-            <a>Privacy Policy</a>
-          </Link>
-          <Link href="/user-terms">
-            <a>Terms and Conditions</a>
-          </Link>
+          <div>
+            VGPRIME is not affiliated or part of Super Evil Megacorp or Vainglory. Made by{" "}
+            <a href="https://vgpro.gg" target="_blank" style={{ padding: 0 }}>
+              VGPRO.gg
+            </a>
+          </div>
+          <div style={{ marginLeft: "auto" }}>
+            <Link href="/privacy-policy">
+              <a>Privacy Policy</a>
+            </Link>
+            <Link href="/user-terms">
+              <a>Terms and Conditions</a>
+            </Link>
+          </div>
         </div>
       </div>
     );

@@ -8,7 +8,6 @@ import PlayerInfo from "../components/Player/Player";
 import { byPlayerName as qLeaderboard, Player } from "./../graphql/leaderboard";
 import { PlayersList } from "../graphql/leaderboard";
 import { SkeletonContext } from "../components/common/Skeleton";
-import Articles from "../components/Articles/Articles";
 
 type Props = {
   playerName: string | null;

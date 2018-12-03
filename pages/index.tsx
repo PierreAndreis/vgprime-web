@@ -13,10 +13,15 @@ import BrokenMyth from "../components/Articles/BrokenMyth";
 type Props = {
   query: Record<string, string | string[] | undefined>;
 };
-
 type State = {
   page: number;
 };
+
+const top = css`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
 
 export default class Home extends React.Component<Props, State> {
   state = {
