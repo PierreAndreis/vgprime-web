@@ -67,6 +67,7 @@ const modalClose = css`
 type Props = {
   onClose: () => void;
   open: boolean;
+  maxWidth?: number;
 };
 
 class Modal extends React.Component<Props> {
@@ -91,6 +92,8 @@ class Modal extends React.Component<Props> {
   };
 
   render() {
+    const { maxWidth } = this.props;
+    const maxContentWidth = maxWidth ? maxWidth : "none";
     return (
       <Portal>
         {/* 
@@ -135,7 +138,14 @@ class Modal extends React.Component<Props> {
                 <span className={modalClose} onClick={this.onClose}>
                   &times;
                 </span>
-                <animated.div className={modalContent} style={styles}>
+                <animated.div
+                  className={modalContent}
+                  style={{
+                    opacity: styles.opacity,
+                    transform: styles.transform,
+                    maxWidth: maxContentWidth,
+                  }}
+                >
                   <div ref={this.modalRef} tabIndex={-1} style={{ outline: 0 }}>
                     {this.props.children}
                   </div>
