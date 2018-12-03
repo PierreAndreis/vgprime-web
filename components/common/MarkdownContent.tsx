@@ -145,6 +145,10 @@ const style = css`
     list-style-type: lower-alpha;
   }
 
+  ol[type="roman"] {
+    list-style-type: lower-roman;
+  }
+
   li {
     word-wrap: break-all;
   }

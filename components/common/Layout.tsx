@@ -39,6 +39,7 @@ const container = css`
   }
 
   & > .content {
+    padding: 10px;
     width: 100%;
     grid-area: content;
     order: 1;
@@ -170,6 +171,7 @@ const footer = css`
   align-items: center;
   padding: 0 15px;
   & > a {
+    padding: 10px;
   }
 `;
 
@@ -264,8 +266,12 @@ class Layout extends React.Component<{}, State> {
         {this.props.children}
 
         <div className={footer}>
-          <a>Privacy Policy</a>
-          <a>Terms and Conditions</a>
+          <Link href="/privacy-policy">
+            <a>Privacy Policy</a>
+          </Link>
+          <Link href="/user-terms">
+            <a>Terms and Conditions</a>
+          </Link>
         </div>
       </div>
     );

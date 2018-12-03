@@ -21,7 +21,6 @@ const GET_ARTICLE = gql`
 
 const container = css`
   ${Box};
-  padding: 10px;
   max-width: 800px;
   margin: 0 auto;
   & > .image > img {
