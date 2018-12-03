@@ -30,8 +30,10 @@ const container = css`
   }
 
   p {
-    font-size: 14px;
-    margin: 20px 0 0 0;
+    position: absolute;
+    bottom: 15px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -58,9 +60,8 @@ const modalContainer = css`
   & > section.buttons {
     display: flex;
     width: 270px;
-    justify-content: space-evenly;
-    margin: auto;
-    padding: 40px 10px 20px 10px;
+    justify-content: space-around;
+    margin: 15px auto 5px;
     & > button {
       ${buttonCss};
       margin: 0 20px;
@@ -71,12 +72,9 @@ const modalContainer = css`
 
   & > section.prizes {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     width: 270px;
     margin: auto;
-    & > section {
-      //background: red;
-    }
   }
 `;
 
@@ -136,7 +134,7 @@ export default class extends React.Component<Props, State> {
           <h2>
             +$1000<small>in prizes</small>
           </h2>
-          <p>Click here to learn more</p>
+          <p>View More</p>
         </div>
         <Modal onClose={this.close} open={opened} maxWidth={300}>
           <div className={modalContainer}>

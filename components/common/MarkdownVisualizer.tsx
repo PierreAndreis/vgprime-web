@@ -4,7 +4,7 @@ import Layout, { Content, Sidebar } from "./Layout";
 import { css } from "react-emotion";
 import Box from "./Box";
 import { Query } from "react-apollo";
-import { PlayersList, Player } from "../../graphql/leaderboard";
+import { PlayersList } from "../../graphql/leaderboard";
 import { SkeletonContext } from "./Skeleton";
 import Leaderboard from "../Leaderboard/Leaderboard";
 import { byPage as qLeaderboard } from "../../graphql/leaderboard";
