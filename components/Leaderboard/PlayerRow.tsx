@@ -187,7 +187,11 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
   );
 
   return (
-    <Link route="player" params={{ name: payload ? payload.name : "/" }} prefetch>
+    <Link
+      route={payload ? "player" : "index"}
+      params={{ name: payload ? payload.name : undefined }}
+      prefetch
+    >
       <a className={cx(playerWrap, { [playerActiveBackground]: isActive })}>
         <div className={position}>
           <SkeletonWrapper width={30}>

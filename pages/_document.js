@@ -24,6 +24,7 @@ export default class MyDocument extends Document {
             name="viewport"
             content="width=device-width,initial-scale=1,shrink-to-fit=no"
           />
+          <link rel="shortcut icon" href="https://vgpro.gg/favicons/favicon.ico" />
           <link
             defer="defer"
             href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,500,700|Roboto:300,400,500,700"

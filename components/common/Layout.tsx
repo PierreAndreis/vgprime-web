@@ -11,6 +11,8 @@ import Search from "../Search";
 import Box from "./Box";
 import Portal from "./Portal";
 import Button from "./Button";
+import FAQ from "../FAQ";
+import Ads from "./Adsense";
 
 const container = css`
   max-width: 1300px;
@@ -18,6 +20,7 @@ const container = css`
   display: grid;
   grid-template:
     "header header" auto
+    "ads ads" auto
     "content sidebar" auto
     "content sidebar" 1fr
     "footer footer" 50px
@@ -201,10 +204,6 @@ const vgproLink = css`
   }
 `;
 
-type State = {
-  rulesOpened: boolean;
-};
-
 class SidebarMobile extends React.Component<
   { children: React.ReactNode },
   { open: boolean }
@@ -254,9 +253,14 @@ export const Content: React.SFC<{ children: React.ReactNode }> = ({ children }) 
   <div className="content">{children}</div>
 );
 
+type State = {
+  rulesOpened: boolean;
+  faqOpened: boolean;
+};
 class Layout extends React.Component<{}, State> {
   state = {
     rulesOpened: false,
+    faqOpened: false,
   };
 
   openRulesModal = () => {
@@ -264,6 +268,13 @@ class Layout extends React.Component<{}, State> {
   };
   closeRulesModal = () => {
     this.setState({ rulesOpened: false });
+  };
+
+  openFaqModal = () => {
+    this.setState({ faqOpened: true });
+  };
+  closeFaqModal = () => {
+    this.setState({ faqOpened: false });
   };
 
   render() {
@@ -289,9 +300,11 @@ class Layout extends React.Component<{}, State> {
             </div>
           </div>
         </div>
-
+        <div style={{ gridArea: "ads", width: "100%" }}>
+          <Ads />
+        </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
-
+        <FAQ open={this.state.faqOpened} closeAction={this.closeFaqModal} />
         {this.props.children}
 
         <div className={footer}>
@@ -302,6 +315,9 @@ class Layout extends React.Component<{}, State> {
             </a>
           </div>
           <div style={{ marginLeft: "auto" }}>
+            <a onClick={this.openFaqModal} style={{ cursor: "pointer" }}>
+              Frequently Asked Questions
+            </a>
             <a onClick={this.openRulesModal} style={{ cursor: "pointer" }}>
               Rules
             </a>

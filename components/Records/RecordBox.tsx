@@ -140,8 +140,8 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                 value={loading || error || !available ? "loading" : "loaded"}
               >
                 <Link
-                  route="player"
-                  params={{ name: available ? player.name : "/" }}
+                  route={available ? "player" : "index"}
+                  params={{ name: available ? player.name : undefined }}
                   prefetch
                 >
                   <a className={eachContainer}>

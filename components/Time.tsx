@@ -22,7 +22,7 @@ type PrimeHour = {
   live: boolean;
 };
 
-type PrimeHoursList = ReadonlyArray<PrimeHour>;
+type PrimeHoursList = [PrimeHour];
 
 // .toLocaleTimeString doesn't support the second argument in some browsers
 function displayNiceTime(date: Date) {
@@ -119,7 +119,7 @@ const hours = css`
       color: rgba(255, 255, 255, 0.4);
     }
     &.active .live {
-      animation: blink 1s infinite;
+      animation: blink 3s infinite;
       color: white;
     }
 
@@ -153,11 +153,11 @@ export default class extends React.Component<{}> {
       <div className={container}>
         <h2>
           PRIME HOURS{" "}
-          <span>
+          {/* <span>
             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M11,17H13V11H11V17Z" />
             </svg>
-          </span>
+          </span> */}
         </h2>
         <Query query={qPrimeHours}>
           {({ data, loading }) => {
@@ -166,6 +166,8 @@ export default class extends React.Component<{}> {
             if (loading) {
               return <div>Loading</div>;
             }
+
+            primeHours.sort((a, b) => (a.name > b.name ? 1 : -1));
 
             return (
               <div className={hours}>
@@ -178,7 +180,9 @@ export default class extends React.Component<{}> {
                   <div key={prime.name} className={prime.live ? "active" : ""}>
                     {prime.live && <div className="live">ONLINE</div>}
                     {!prime.live && <div className="live">OFFLINE</div>}
-                    <div className="region">{prime.name}</div>
+                    <div className="region">
+                      {prime.name === "sg" ? "SEA" : prime.name}
+                    </div>
                     <div className="start">{displayNiceTime(new Date(prime.start))}</div>
                     <div className="end">{displayNiceTime(new Date(prime.end))}</div>
                   </div>
