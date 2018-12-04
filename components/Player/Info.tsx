@@ -152,7 +152,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
 
               for (let i = 0; i < 5; i++) {
                 let style;
-                let heroLink = "#";
+                let heroLink = "";
                 if (heroes[i]) {
                   heroLink = `https://vgpro.gg/heroes/${heroes[i]}`;
                   style = {
@@ -161,7 +161,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
                 }
 
                 res.push(
-                  <Link href={heroLink}>
+                  <Link href={heroLink} key={heroLink}>
                     <a target="_blank">
                       <div key={`topHero-${i}`} className={heroAvatar} style={style} />
                     </a>

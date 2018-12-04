@@ -33,6 +33,10 @@ const input = css`
 const submitButton = css`
   ${buttonCss};
   position: absolute;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   right: 0;
   width: 30%;
   height: 100%;
@@ -59,6 +63,19 @@ type State = {
   error: boolean;
   success: boolean;
 };
+
+const triangleError = (
+  <svg
+    width="24"
+    height="24"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    style={{ marginTop: -2 }}
+  >
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" />
+  </svg>
+);
 
 class Search extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -132,7 +149,12 @@ class Search extends React.Component<Props, State> {
                   placeholder={"Search for a player"}
                 />
                 <button className={submitButton} disabled={this.state.loading}>
-                  {this.state.loading ? "..." : "Search"} {this.state.error && "<!>"}
+                  {this.state.loading
+                    ? "..."
+                    : this.state.error
+                    ? triangleError
+                    : "Search"}{" "}
+                  {/* {this.state.error && triangleError} */}
                 </button>
               </div>
             </form>
