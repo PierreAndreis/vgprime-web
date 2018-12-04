@@ -31,6 +31,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link defer="defer" href="/static/vainglory-icons-font.css" rel="stylesheet" />
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
           <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
         </Head>
 

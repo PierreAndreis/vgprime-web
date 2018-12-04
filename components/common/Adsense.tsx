@@ -25,7 +25,7 @@ class Ads extends React.Component<{}> {
     return (
       <div style={{ margin: "5px auto", display: "inline", textAlign: "center" }}>
         {this.state.active && (
-          <AdSense.Google client="ca-pub-8733440501534468" slot="4915906039" />
+          <AdSense.Google client="ca-pub-8733440501534468" slot="4915906039" responsive />
         )}
       </div>
     );
