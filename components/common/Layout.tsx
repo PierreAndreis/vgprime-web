@@ -73,6 +73,17 @@ const header = css`
   & .left {
     display: flex;
     margin-right: auto;
+
+    & > div.vgpro {
+      align-self: center;
+    }
+    @media screen and (max-width: 800px) {
+      justify-content: space-between;
+      & > div.vgpro {
+        position: absolute;
+        right: 5px;
+      }
+    }
   }
 
   & .right {
@@ -168,6 +179,28 @@ const footer = css`
   }
 `;
 
+const vgproLink = css`
+  //${Box};
+  border: 0;
+  padding: 10px 15px;
+  margin: 0 5px 2px;
+  border-radius: 20px;
+  background: linear-gradient(-90deg, rgb(251, 171, 126) 0%, rgb(247, 206, 104) 100%) rgb(230, 190, 61);
+  box-shadow: rgb(230, 190, 61) 0px 0px 10px;
+  border: none;
+  color: #fff;
+  transition: all 300ms;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  outline: 0;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  &:hover {
+    box-shadow: rgb(230, 190, 61) 0px 0px 10px;
+    background: rgb(248, 204, 106);
+  }
+`;
+
 type State = {
   rulesOpened: boolean;
 };
@@ -243,7 +276,13 @@ class Layout extends React.Component<{}, State> {
                 <div className={logo} />
               </a>
             </Link>
+            <div className="vgpro">
+              <Link href="https://vgpro.gg/">
+                <a className={vgproLink}>Back to VGPRO.gg</a>
+              </Link>
+            </div>
           </div>
+
           <div className="right">
             <div style={{ flex: 1 }}>
               <Search />
