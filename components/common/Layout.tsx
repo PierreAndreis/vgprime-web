@@ -20,10 +20,11 @@ const container = css`
   display: grid;
   grid-template:
     "header header" auto
-    "ads ads" auto
+    "ads sidebar" 80px
     "content sidebar" auto
     "content sidebar" 1fr
     "footer footer" 50px
+    "adsBottom adsBottom" 80px
     / 1fr 360px;
   grid-column-gap: 10px;
 
@@ -306,6 +307,9 @@ class Layout extends React.Component<{}, State> {
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         <FAQ open={this.state.faqOpened} closeAction={this.closeFaqModal} />
         {this.props.children}
+        <div style={{ gridArea: "adsBottom", width: "100%" }}>
+          <Ads />
+        </div>
 
         <div className={footer}>
           <div>
