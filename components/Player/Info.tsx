@@ -161,7 +161,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
                 }
 
                 res.push(
-                  <Link href={heroLink} key={heroLink}>
+                  <Link href={heroLink} key={i || heroes[i]}>
                     <a target="_blank">
                       <div key={`topHero-${i}`} className={heroAvatar} style={style} />
                     </a>
