@@ -13,6 +13,7 @@ import Portal from "./Portal";
 import Button from "./Button";
 import FAQ from "../FAQ";
 import Ads from "./Adsense";
+import { auto } from "async";
 
 const container = css`
   max-width: 1300px;
@@ -47,6 +48,9 @@ const container = css`
     width: 100%;
     grid-area: content;
     order: 1;
+    @media screen and (max-width: 800px) {
+      padding-top: 0;
+    }
   }
 
   @media screen and (max-width: 800px) {
@@ -118,6 +122,8 @@ const logo = css`
 `;
 
 const sidebarMobileCss = css`
+  background: #fff;
+  width: 100%;
   & > h4 {
     ${Box}
     margin: 0;
@@ -205,6 +211,39 @@ const vgproLink = css`
   }
 `;
 
+const leaderboardCard = css`
+  background-image: linear-gradient(-135deg, #84aff5 0%, #91dde9 100%);
+  color: #fff;
+  font-size: 32px;
+  width: 250px;
+  height: 150px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 10px;
+  cursor: pointer;
+  & > h5 {
+    position: absolute;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    align-self: center;
+  }
+  & > small {
+    //text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.3);
+    width: 250px;
+    font-size: 14px;
+    text-align: center;
+    //margin-top: 50px;
+    margin-top: auto;
+    margin-bottom: 10px;
+  }
+`;
+
 class SidebarMobile extends React.Component<
   { children: React.ReactNode },
   { open: boolean }
@@ -232,8 +271,9 @@ class SidebarMobile extends React.Component<
             </div>
           </Portal>
         )}
-        <div style={{ margin: "10px" }}>
-          <Button onClick={this.handleOpen}>Open Leaderboard</Button>
+        <div className={leaderboardCard} onClick={this.handleOpen}>
+          <h5>Leaderboard</h5>
+          <small>Click here to see the season's highscores</small>
         </div>
       </>
     );
@@ -301,15 +341,19 @@ class Layout extends React.Component<{}, State> {
             </div>
           </div>
         </div>
-        <div style={{ gridArea: "ads", width: "100%" }}>
+        <div
+          style={{
+            gridArea: "ads",
+            width: "100%",
+            //order: 1,
+          }}
+        >
           <Ads />
         </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         <FAQ open={this.state.faqOpened} closeAction={this.closeFaqModal} />
+
         {this.props.children}
-        <div style={{ gridArea: "adsBottom", width: "100%" }}>
-          <Ads />
-        </div>
 
         <div className={footer}>
           <div>
@@ -332,6 +376,9 @@ class Layout extends React.Component<{}, State> {
               <a>Terms and Conditions</a>
             </Link>
           </div>
+        </div>
+        <div style={{ gridArea: "adsBottom", width: "100%", order: 4 }}>
+          <Ads />
         </div>
       </div>
     );
