@@ -10,10 +10,8 @@ import Rules from "../Rules";
 import Search from "../Search";
 import Box from "./Box";
 import Portal from "./Portal";
-import Button from "./Button";
 import FAQ from "../FAQ";
 import Ads from "./Adsense";
-import { auto } from "async";
 
 const container = css`
   max-width: 1300px;
@@ -190,12 +188,12 @@ const footer = css`
 `;
 
 const vgproLink = css`
-  //${Box};
   border: 0;
   padding: 10px 15px;
   margin: 0 5px 2px;
   border-radius: 20px;
-  background: linear-gradient(-90deg, rgb(251, 171, 126) 0%, rgb(247, 206, 104) 100%) rgb(230, 190, 61);
+  background: linear-gradient(-90deg, rgb(251, 171, 126) 0%, rgb(247, 206, 104) 100%)
+    rgb(230, 190, 61);
   box-shadow: rgb(230, 190, 61) 0px 0px 10px;
   border: none;
   color: #fff;
@@ -233,17 +231,14 @@ const leaderboardCard = css`
     align-self: center;
   }
   & > small {
-    //text-transform: uppercase;
     color: rgba(0, 0, 0, 0.3);
     width: 250px;
     font-size: 14px;
     text-align: center;
-    //margin-top: 50px;
     margin-top: auto;
     margin-bottom: 10px;
   }
 `;
-
 class SidebarMobile extends React.Component<
   { children: React.ReactNode },
   { open: boolean }
