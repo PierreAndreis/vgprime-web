@@ -5,6 +5,12 @@ import { withRouter } from "next/router";
 import { css } from "emotion";
 import Box from "./Box";
 
+declare global {
+  interface Window {
+    noAdBlock?: boolean;
+  }
+}
+
 const container = css`
   width: 100%;
 `;
@@ -42,26 +48,26 @@ class Ads extends React.Component<{}> {
     this.detectAdBlocker();
   }
 
-  detectAdBlocker() {
-    const head = document.getElementsByTagName("head")[0];
+  isThereAdblock = () => {
+    const check = window.noAdBlock;
 
-    const noAdBlockDetected = () => {
-      this.setState({
-        adBlockDetected: false,
-      });
-    };
-    const adBlockDetected = () => {
+    if (!check) {
       this.setState({
         adBlockDetected: true,
       });
-    };
+    }
+  };
+
+  detectAdBlocker() {
+    const head = document.getElementsByTagName("head")[0];
+
     // we will dynamically generate some 'bait'.
     const script = document.createElement("script");
     script.id = "adblock-detection";
     script.type = "text/javascript";
-    script.src = "/ads.js";
-    script.onload = noAdBlockDetected;
-    script.onerror = adBlockDetected;
+    script.src = "/static/adsbygoogle.js";
+    script.onload = this.isThereAdblock;
+    script.onerror = this.isThereAdblock;
     head.appendChild(script);
   }
 
