@@ -110,7 +110,12 @@ export default class Home extends React.Component<Props, State> {
                         <Sidebar>
                           <div className={header}>
                             <h4>Leaderboard</h4>
-                            <select onChange={() => console.log(leaderboards)}>
+                            <select
+                              ref="select_values"
+                              onChange={e =>
+                                this.setState({ leaderboard: e.target.value })
+                              }
+                            >
                               {Object.keys(leaderboards).map(groupName => (
                                 <optgroup label={groupName}>
                                   {leaderboards[groupName].map(leaderboard => (
