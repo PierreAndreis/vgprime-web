@@ -43,11 +43,16 @@ const header = css`
 `;
 
 type LeaderboardItem = {
+  group: string;
   name: string;
   start: string;
   end: string;
   count: number;
 };
+
+interface LeaderboardGroupsItem {
+  [key: string]: LeaderboardItem[];
+}
 
 export default class Home extends React.Component<Props, State> {
   initialState: State = {
@@ -75,9 +80,14 @@ export default class Home extends React.Component<Props, State> {
         </Head>
         <Query query={qLeaderboardList}>
           {({ error, data, loading }) => {
-            let leaderboards: LeaderboardItem[] = [];
+            let leaderboards: LeaderboardGroupsItem = {};
             if (!error && !loading && data) {
-              leaderboards = data.leaderboardList;
+              console.log(data);
+              data.leaderboardList.forEach((leaderboard: LeaderboardItem) => {
+                const group = leaderboard.group;
+                leaderboards[group] = leaderboards[group] || [];
+                leaderboards[group].push(leaderboard);
+              });
             }
             return (
               <Query
@@ -100,19 +110,31 @@ export default class Home extends React.Component<Props, State> {
                         <Sidebar>
                           <div className={header}>
                             <h4>Leaderboard</h4>
-                            <DropDown
+                            <select onChange={() => console.log(leaderboards)}>
+                              {Object.keys(leaderboards).map(groupName => (
+                                <optgroup label={groupName}>
+                                  {leaderboards[groupName].map(leaderboard => (
+                                    <option value={leaderboard.name}>
+                                      {leaderboard.name} (
+                                      {new Date(leaderboard.start).toLocaleDateString()} -{" "}
+                                      {new Date(leaderboard.end).toLocaleDateString()})
+                                    </option>
+                                  ))}
+                                </optgroup>
+                              ))}
+                            </select>
+                            {/* <DropDown
                               onChange={(index, value) => this.setLeaderboard(value)}
                             >
-                              {leaderboards.map(leaderboard => (
+                              {Object.values(leaderboards).map(group => (
+                                
                                 <DropDown.Item value={leaderboard.name}>
                                   {leaderboard.name} (
                                   {new Date(leaderboard.start).toLocaleDateString()} -{" "}
                                   {new Date(leaderboard.end).toLocaleDateString()})
                                 </DropDown.Item>
                               ))}
-                              {/* <ComboBox.Item value="season 1" />
-                              <ComboBox.Item value="season 1 - weekend 1" /> */}
-                            </DropDown>
+                            </DropDown> */}
                           </div>
                           <Leaderboard
                             players={players}
