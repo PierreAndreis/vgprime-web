@@ -2,9 +2,6 @@ import * as React from "react";
 import { css } from "emotion";
 
 // @ts-ignore
-import Media from "react-media";
-
-// @ts-ignore
 import { Link } from "../../routes";
 import Rules from "../Rules";
 import Search from "../Search";
@@ -39,6 +36,18 @@ const container = css`
 
   & > .sidebar {
     grid-area: sidebar;
+    & > .visibleOnMobile {
+      display: none;
+      @media screen and (max-width: 800px) {
+        display: block;
+      }
+    }
+    & > .invisibleOnMobile {
+      display: block;
+      @media screen and (max-width: 800px) {
+        display: none;
+      }
+    }
   }
 
   & > .content {
@@ -277,11 +286,10 @@ class SidebarMobile extends React.Component<
 
 export const Sidebar: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="sidebar">
-    <Media query={{ maxWidth: 800 }} defaultMatches={false}>
-      {(matches: boolean) =>
-        !matches ? children : <SidebarMobile>{children}</SidebarMobile>
-      }
-    </Media>
+    <div className="invisibleOnMobile">{children}</div>
+    <div className="visibleOnMobile">
+      <SidebarMobile>{children}</SidebarMobile>
+    </div>
   </div>
 );
 
