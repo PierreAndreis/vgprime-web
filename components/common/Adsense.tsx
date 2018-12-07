@@ -2,7 +2,7 @@ import React from "react";
 // @ts-ignore
 import AdSense from "react-adsense";
 import { withRouter } from "next/router";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Box from "./Box";
 
 declare global {
@@ -79,10 +79,10 @@ class Ads extends React.Component<{}> {
           display: "inline",
           textAlign: "center",
         }}
-        className={container}
+        css={[container]}
       >
         {this.state.adBlockDetected ? (
-          <div className={adblockDetectedContainer}>
+          <div css={[adblockDetectedContainer]}>
             To support us, please consider disabling your adblock.
           </div>
         ) : (

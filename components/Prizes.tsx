@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Box from "./common/Box";
 import { buttonCss } from "./common/Button";
 import Modal from "./common/Modal";
@@ -109,7 +109,7 @@ type PrizeProps = {
 };
 
 const Prize: React.SFC<PrizeProps> = ({ title, value }) => (
-  <div className={prize}>
+  <div css={[prize]}>
     <h5>{title}</h5>
     <span>{value}</span>
   </div>
@@ -136,7 +136,7 @@ export default class extends React.Component<Props, State> {
     const { opened } = this.state;
     return (
       <>
-        <div className={container} onClick={this.open}>
+        <div css={[container]} onClick={this.open}>
           <h2>
             +$1000
             <small>in prizes*</small>
@@ -144,7 +144,7 @@ export default class extends React.Component<Props, State> {
           <p>View More</p>
         </div>
         <Modal onClose={this.close} open={opened} maxWidth={300}>
-          <div className={modalContainer}>
+          <div css={[modalContainer]}>
             <TrackingComponent name="Prizes" />
             <header>
               <h3>Prizes*</h3>

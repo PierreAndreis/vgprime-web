@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import { Query } from "react-apollo";
 // @ts-ignore
 import { Link } from "../../routes";
@@ -115,9 +115,9 @@ type RecordItem = {
 };
 
 const RecordBox: React.SFC<Props> = ({ type, title }) => (
-  <div className={container}>
+  <div css={[container]}>
     <h4>{title}</h4>
-    <div className={records}>
+    <div css={[records]}>
       <Query query={qRecord} variables={{ type, limit: 3 }}>
         {({ loading, data, error }) => {
           let players: Array<RecordItem> = [];
@@ -144,8 +144,8 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                   params={{ name: available ? player.name : undefined }}
                   prefetch
                 >
-                  <a className={eachContainer}>
-                    <div className={name}>
+                  <a css={[eachContainer]}>
+                    <div css={[name]}>
                       <SkeletonWrapper width={20} height={23}>
                         {() => <i className={`vg-rank-${player.tier}`} />}
                       </SkeletonWrapper>
@@ -155,7 +155,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                           {() => (player.region === "sg" ? "sea" : player.region)}
                         </SkeletonWrapper>
                       </span>
-                      <div className={points}>
+                      <div css={[points]}>
                         <span>
                           <SkeletonWrapper width={40} height={10}>
                             {() => `${Number(player.points).toFixed(0)} Pts`}
@@ -163,7 +163,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
                         </span>
                       </div>
                     </div>
-                    <div className={stats}>
+                    <div css={[stats]}>
                       <div>
                         <div>
                           <SkeletonWrapper width={22} height={18}>

@@ -1,9 +1,10 @@
 {
-  "presets": [
-    "next/babel",
-    "@zeit/next-typescript/babel"
-  ],
+  "presets": ["next/babel", "@zeit/next-typescript/babel"],
   "plugins": [
-    ["emotion", { "inline": true }]
+    ["emotion", { "inline": true }],
+    [
+      "@babel/plugin-transform-react-jsx",
+      { "pragma": "Emotion.jsx", "pragmaFrag": "React.Fragment" }
+    ]
   ]
 }

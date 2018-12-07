@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 // @ts-ignore
 import { Link } from "./../../routes";
 import Box from "../common/Box";
@@ -115,7 +115,7 @@ const ArticleComponent: React.SFC<Props> = ({
   return (
     <Link {...linkProps}>
       <a
-        className={container}
+        css={[container]}
         style={{ backgroundImage: `url(${image})` }}
         target={path.startsWith("http") ? "_blank" : undefined}
       >

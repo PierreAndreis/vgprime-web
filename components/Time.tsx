@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Box from "./common/Box";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
@@ -79,7 +79,7 @@ const hours = css`
     padding: 2px;
     font-size: 12px;
     position: relative;
-    &:nth-child(even) {
+    &:nth-of-type(even) {
       background: rgba(0, 0, 0, 0.03);
     }
 
@@ -150,7 +150,7 @@ const hours = css`
 export default class extends React.Component<{}> {
   render() {
     return (
-      <div className={container}>
+      <div css={[container]}>
         <h2>
           PRIME HOURS{" "}
           {/* <span>
@@ -170,14 +170,14 @@ export default class extends React.Component<{}> {
             primeHours.sort((a, b) => (a.name > b.name ? 1 : -1));
 
             return (
-              <div className={hours}>
+              <div css={[hours]}>
                 <div>
                   <div className="region">REGION</div>
                   <div className="start">START</div>
                   <div className="end">END</div>
                 </div>
                 {primeHours.map(prime => (
-                  <div key={prime.name} className={prime.live ? "active" : ""}>
+                  <div key={prime.name} css={[prime.live ? "active" : ""]}>
                     {prime.live && <div className="live">ONLINE</div>}
                     {!prime.live && <div className="live">OFFLINE</div>}
                     <div className="region">

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Modal from "./common/Modal";
 
 import rulesContent from "./md/rulesContent";
@@ -23,7 +23,7 @@ class Rules extends React.Component<Props> {
     const { open } = this.props;
     return (
       <Modal open={open} onClose={this.close}>
-        <div className={content}>
+        <div css={[content]}>
           <TrackingComponent name="Rules" />
           <Markdown source={rulesContent} />
         </div>

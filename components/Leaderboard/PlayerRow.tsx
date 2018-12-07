@@ -1,4 +1,4 @@
-import { css, keyframes, cx } from "emotion";
+import { css, keyframes } from "@emotion/core";
 import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
 
@@ -57,7 +57,7 @@ const position = css`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  & > span:nth-child(2) {
+  & > span:nth-of-type(2) {
     flex-grow: 1;
   }
 `;
@@ -192,20 +192,24 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
       params={{ name: payload ? payload.name : undefined }}
       prefetch
     >
-      <a className={cx(playerWrap, { [playerActiveBackground]: isActive })}>
-        <div className={position}>
+      <a css={[playerWrap, playerActiveBackground && isActive]}>
+        <div css={[position]}>
           <SkeletonWrapper width={30}>
             {() => (
               <>
-                <span className={cx(positionChange, "up")}>{psChangeUp}</span>
+                <span className="up" css={[positionChange]}>
+                  {psChangeUp}
+                </span>
                 <span>{payload ? payload.rank : ""}</span>
-                <span className={cx(positionChange, "down")}>{psChangeDown}</span>
+                <span className="down" css={positionChange}>
+                  {psChangeDown}
+                </span>
               </>
             )}
           </SkeletonWrapper>
         </div>
 
-        <div className={info}>
+        <div css={info}>
           <div>
             <SkeletonWrapper width={100}>
               {() => [
@@ -220,16 +224,16 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
           <div style={{ padding: "1px" }}>
             <SkeletonWrapper width={50} height={8}>
               {() => (
-                <div className={winRateBar}>
+                <div css={winRateBar}>
                   <div style={{ width: `${winPercent}%` }} />
                 </div>
               )}
             </SkeletonWrapper>
 
-            <div className={winRateLabel}>{Math.floor(winPercent) || 0}% W/R</div>
+            <div css={winRateLabel}>{Math.floor(winPercent) || 0}% W/R</div>
           </div>
         </div>
-        <div className={games}>
+        <div css={games}>
           <div>
             <SkeletonWrapper width={30}>
               {() => (payload ? payload.mvp : 0)}
@@ -237,7 +241,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
           </div>
           <span>MVPs</span>
         </div>
-        <div className={games}>
+        <div css={games}>
           <div>
             <SkeletonWrapper width={30}>
               {() => (payload ? payload.games : 0)}
@@ -246,7 +250,7 @@ const PlayerRow: React.SFC<PlayerRowProps> = ({ payload, isActive = false }) => 
           <span>GAMES</span>
         </div>
 
-        <div className={points}>
+        <div css={points}>
           <div>
             <SkeletonWrapper width={30}>
               {() => (payload ? Number(payload.points).toFixed(0) : "?")}

@@ -1,4 +1,4 @@
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Box from "./Box";
 
 const errorMessageClass = css`
@@ -15,5 +15,5 @@ interface ErrorMessageProps {
 }
 
 export default ({ message }: ErrorMessageProps) => (
-  <aside className={errorMessageClass}>{message}</aside>
+  <aside css={[errorMessageClass]}>{message}</aside>
 );

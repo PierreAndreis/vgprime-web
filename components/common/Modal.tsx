@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "react-emotion";
+import { css } from "@emotion/core";
 import { Transition, animated } from "react-spring";
 
 import Box from "./Box";
@@ -130,17 +130,17 @@ class Modal extends React.Component<Props> {
           {open =>
             open &&
             (styles => (
-              <animated.div className={modal}>
+              <animated.div css={[modal]}>
                 <animated.div
-                  className={backdrop}
+                  css={[backdrop]}
                   style={{ opacity: styles.backdropOpacity }}
                   onClick={this.onClose}
                 />
-                <span className={modalClose} onClick={this.onClose}>
+                <span css={[modalClose]} onClick={this.onClose}>
                   &times;
                 </span>
                 <animated.div
-                  className={modalContent}
+                  css={[modalContent]}
                   style={{
                     opacity: styles.opacity,
                     transform: styles.transform,

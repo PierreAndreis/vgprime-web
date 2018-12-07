@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Modal from "./common/Modal";
 
 import Markdown from "./common/MarkdownContent";
@@ -23,7 +23,7 @@ class FAQ extends React.Component<Props> {
     const { open } = this.props;
     return (
       <Modal open={open} onClose={this.close}>
-        <div className={content}>
+        <div css={[content]}>
           <TrackingComponent name="FAQ" />
           <Markdown source={faqContent} />
         </div>

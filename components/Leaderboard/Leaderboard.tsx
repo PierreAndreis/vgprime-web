@@ -2,7 +2,7 @@ import * as React from "react";
 import PlayerRow from "./PlayerRow";
 import Box from "../common/Box";
 import Button from "./../common/Button";
-import { css, cx } from "emotion";
+import { css } from "@emotion/core";
 import { PlayersList } from "../../graphql/leaderboard";
 
 const container = css`
@@ -38,7 +38,7 @@ const Leaderboard = ({
 }: LeaderboardProps) => {
   return (
     <div>
-      <div className={container}>
+      <div css={[container]}>
         {Array.from({ length: PLAYER_PER_PAGE }, (_, k) => k + 1).map((_, index) => (
           <PlayerRow
             payload={players[index]}
@@ -47,7 +47,7 @@ const Leaderboard = ({
           />
         ))}
       </div>
-      <div className={cx(navigationButtons)}>
+      <div css={[navigationButtons]}>
         <Button
           onClick={previousHandler}
           disabled={

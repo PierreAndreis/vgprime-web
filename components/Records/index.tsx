@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import RecordBox from "./RecordBox";
 
 const records = css`
@@ -14,7 +14,7 @@ const records = css`
   }
 `;
 export default () => (
-  <div className={records}>
+  <div css={[records]}>
     <RecordBox type={"mostMVPs"} title="Most MVPs" />
     <RecordBox type={"mostGames"} title="Most Games Played" />
     <RecordBox type={"mostWins"} title="Most Wins" />

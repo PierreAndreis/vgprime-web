@@ -3,25 +3,17 @@ import React from "react";
 import withApolloClient from "../lib/with-apollo-client";
 import { ApolloProvider } from "react-apollo";
 
-import { injectGlobal } from "emotion";
-import { hydrate } from "react-emotion";
-
 import { Router } from "./../routes";
 
-import NextSeo from "next-seo";
 import withGA from "next-ga";
+
+import { Global } from "@emotion/core";
 
 import { Context as TrackingContext } from "../lib/tracking";
 
-import "./../global/style";
+import globalStyle from "./../global/style";
 
-// Adds server generated styles to emotion cache.
-// '__NEXT_DATA__.ids' is set in '_document.js'
-if (typeof window !== "undefined") {
-  hydrate(window.__NEXT_DATA__.ids);
-}
-
-// import your default seo configuration
+import NextSeo from "next-seo";
 import SEO from "../next-seo.config";
 
 // if (process.env.NODE_ENV !== "production") {
@@ -35,6 +27,7 @@ class VGPRIME extends App {
     return (
       <Container>
         <NextSeo config={SEO} />
+        <Global styles={globalStyle} />
         <div className="vgproLogoBg" />
         <TrackingContext.Provider value={this.props.analytics}>
           <ApolloProvider client={apolloClient}>

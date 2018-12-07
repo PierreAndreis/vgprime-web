@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import ArticleItem, { Article } from "./Article";
@@ -33,7 +33,7 @@ const GET_ARTICLES = gql`
 class Articles extends React.Component<{}> {
   render() {
     return (
-      <div className={container}>
+      <div css={[container]}>
         <Query query={GET_ARTICLES} variables={{ page: 0, limit: 1 }}>
           {({ data }) => {
             const articles: Array<Article> = data && data.articles ? data.articles : [];

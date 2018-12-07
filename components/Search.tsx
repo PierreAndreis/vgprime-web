@@ -1,6 +1,6 @@
 import * as React from "react";
 import Box from "./common/Box";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import { buttonCss } from "./common/Button";
 import { ApolloConsumer } from "react-apollo";
 import Router from "next/router";
@@ -141,14 +141,14 @@ class Search extends React.Component<Props, State> {
         {client => {
           return (
             <form onSubmit={this.onSubmit(client)}>
-              <div className={searchBox}>
+              <div css={[searchBox]}>
                 <input
-                  className={input}
+                  css={[input]}
                   value={this.state.value}
                   onChange={this.changeInput}
                   placeholder={"Search for a player"}
                 />
-                <button className={submitButton} disabled={this.state.loading}>
+                <button css={[submitButton]} disabled={this.state.loading}>
                   {this.state.loading
                     ? "..."
                     : this.state.error

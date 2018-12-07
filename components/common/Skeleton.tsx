@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import { keyframes } from "react-emotion";
 
 const cardLoading = keyframes`
@@ -40,7 +40,7 @@ const Skeleton: React.SFC<SkeletonProps> = ({ width, height, borderRadius }) => 
 
   return (
     <div
-      className={StyletonCSS}
+      css={[StyletonCSS]}
       style={{
         ...style,
         //animationDelay: `${Math.floor(Math.random() * 3) + 1}s`

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
 import Leaderboard from "../components/Leaderboard/Leaderboard";
 import Records from "../components/Records";
@@ -62,7 +62,7 @@ export default class Home extends React.Component<Props, State> {
                     />
                   </Sidebar>
                   <Content>
-                    <div className={top}>
+                    <div css={[top]}>
                       <BrokenMyth />
                       <Prizes />
                       <Time />

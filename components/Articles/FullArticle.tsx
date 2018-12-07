@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import ReactMarkdown from "react-markdown";
 import { FadeLoader } from "react-spinners";
 import Box from "../common/Box";
@@ -70,7 +70,7 @@ class ArticlePage extends React.Component<Props> {
         {({ error, loading, data }) => {
           if (loading) {
             return (
-              <div className={loadingContainer}>
+              <div css={[loadingContainer]}>
                 <FadeLoader />
               </div>
             );
@@ -87,7 +87,7 @@ class ArticlePage extends React.Component<Props> {
           } = data.article;
 
           return (
-            <div className={container}>
+            <div css={[container]}>
               <h1 className="title">{title}</h1>
               <div className="date">
                 Published on {new Date(date).toLocaleDateString()}

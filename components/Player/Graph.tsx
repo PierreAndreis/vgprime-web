@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Box from "./../common/Box";
 import {
   ResponsiveContainer,
@@ -74,7 +74,7 @@ const CustomTooltip: React.SFC<TooltipProps> = ({ active, payload, title }) => {
 
   const strDate = payload[0].payload.date.toLocaleDateString();
   return (
-    <div className={`custom-tooltip ${tooltipBox}`}>
+    <div css={[`custom-tooltip ${tooltipBox}`]}>
       <p className="label">{strDate}</p>
       <p className="intro">
         <b>{title}:</b> {payload[0].value}
@@ -95,14 +95,14 @@ const formatXAxis = (tickItem: any): string => {
 
 const Graph: React.SFC<Props> = ({ data, dataKey, title }) => {
   return (
-    <div className={graphBox}>
+    <div css={[graphBox]}>
       <SkeletonContext.Consumer>
         {loading => {
           if (loading === "loading")
-            return <LoadingIcon className={loaderStyle} loading={true} />;
+            return <LoadingIcon css={[loaderStyle]} loading={true} />;
           if (!data || data.length <= 1)
             return (
-              <div className={errorMessage}>
+              <div css={[errorMessage]}>
                 <div>We don't have enough data to build this chart.</div>
                 <div>Please try again later.</div>
               </div>

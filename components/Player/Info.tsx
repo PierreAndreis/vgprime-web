@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import { SkeletonWrapper } from "../common/Skeleton";
 import { Player } from "../../graphql/leaderboard";
 
@@ -99,8 +99,8 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
     const { player } = this.props;
 
     return (
-      <div className={container}>
-        <div className={info}>
+      <div css={[container]}>
+        <div css={[info]}>
           <SkeletonWrapper width={20} height={20}>
             {() => <i className={`vg-rank-${player ? player.tier : ""}`} />}
           </SkeletonWrapper>
@@ -122,8 +122,8 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
             </SkeletonWrapper>
           </div>
         </div>
-        <div className={separator} />
-        <div className={heroes}>
+        <div css={[separator]} />
+        <div css={[heroes]}>
           <span>TOP 5 HEROES</span>
           <Query
             query={qPlayerStats}
@@ -163,7 +163,7 @@ class PlayerInfo extends React.Component<PlayerInfoProps> {
                 res.push(
                   <Link href={heroLink} key={i || heroes[i]}>
                     <a target="_blank">
-                      <div key={`topHero-${i}`} className={heroAvatar} style={style} />
+                      <div key={`topHero-${i}`} css={heroAvatar} style={style} />
                     </a>
                   </Link>
                 );

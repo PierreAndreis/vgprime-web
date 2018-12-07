@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Player } from "../../graphql/leaderboard";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import boxCss from "./../common/Box";
 import { SkeletonWrapper } from "../common/Skeleton";
 
@@ -61,44 +61,44 @@ const infoHeight = 25;
 
 const Stats: React.SFC<Props> = ({ player }) => {
   return (
-    <div className={container}>
-      <div className={info}>
-        <span className={value}>
+    <div css={[container]}>
+      <div css={[info]}>
+        <span css={[value]}>
           <SkeletonWrapper width={infoWidth} height={infoHeight}>
             {() => (player ? player.wins : 0)}
           </SkeletonWrapper>
         </span>
-        <span className={description}>Wins</span>
+        <span css={[description]}>Wins</span>
       </div>
-      <div className={info}>
-        <span className={value}>
+      <div css={[info]}>
+        <span css={[value]}>
           <SkeletonWrapper width={infoWidth} height={infoHeight}>
             {() => (player ? player.games - player.wins : 0)}
           </SkeletonWrapper>
         </span>
-        <span className={description}>Losses</span>
+        <span css={[description]}>Losses</span>
       </div>
-      <div className={info}>
-        <span className={value}>
+      <div css={[info]}>
+        <span css={[value]}>
           <SkeletonWrapper width={infoWidth} height={infoHeight}>
             {() => (player ? player.mvp : 0)}
           </SkeletonWrapper>
         </span>
-        <span className={description}>MVPs</span>
+        <span css={[description]}>MVPs</span>
       </div>
-      <div className={info}>
-        <span className={value}>
+      <div css={[info]}>
+        <span css={[value]}>
           <SkeletonWrapper width={infoWidth} height={infoHeight}>
             {() => (player ? player.games : 0)}
           </SkeletonWrapper>
         </span>
-        <span className={description}>Games</span>
+        <span css={[description]}>Games</span>
       </div>
       <a
         href={player ? `https://vgpro.gg/players/${player.name}` : `https://vgpro.gg`}
         target="_blank"
       >
-        <button className={moreButton}>More on VGPRO.gg</button>
+        <button css={[moreButton]}>More on VGPRO.gg</button>
       </a>
     </div>
   );

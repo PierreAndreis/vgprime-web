@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 
 // @ts-ignore
 import Media from "react-media";
@@ -258,7 +258,7 @@ class SidebarMobile extends React.Component<
       <>
         {this.state.open && (
           <Portal>
-            <div className={sidebarMobileCss}>
+            <div css={[sidebarMobileCss]}>
               <div className="close" onClick={this.handleOpen}>
                 &times;
               </div>
@@ -266,7 +266,7 @@ class SidebarMobile extends React.Component<
             </div>
           </Portal>
         )}
-        <div className={leaderboardCard} onClick={this.handleOpen}>
+        <div css={[leaderboardCard]} onClick={this.handleOpen}>
           <h5>Leaderboard</h5>
           <small>Click here to see the season's highscores</small>
         </div>
@@ -315,17 +315,17 @@ class Layout extends React.Component<{}, State> {
 
   render() {
     return (
-      <div className={container}>
-        <div className={header}>
+      <div css={[container]}>
+        <div css={[header]}>
           <div className="left">
             <Link href="/" prefetch>
               <a>
-                <div className={logo} />
+                <div css={[logo]} />
               </a>
             </Link>
             <div className="vgpro">
               <Link href="https://vgpro.gg/">
-                <a className={vgproLink}>Back to VGPRO.gg</a>
+                <a css={[vgproLink]}>Back to VGPRO.gg</a>
               </Link>
             </div>
           </div>
@@ -340,7 +340,7 @@ class Layout extends React.Component<{}, State> {
           style={{
             gridArea: "ads",
             width: "100%",
-            //order: 1,
+            order: 0,
           }}
         >
           <Ads />
@@ -350,7 +350,7 @@ class Layout extends React.Component<{}, State> {
 
         {this.props.children}
 
-        <div className={footer}>
+        <div css={[footer]}>
           <div>
             VGPRIME is not affiliated or part of Super Evil Megacorp or Vainglory. Made by{" "}
             <a href="https://vgpro.gg" target="_blank" style={{ padding: 0 }}>

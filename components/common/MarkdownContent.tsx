@@ -1,9 +1,9 @@
-import { css } from "emotion";
+import { css } from "@emotion/core";
 
 import ReactMarkdown from "react-markdown";
 
 const Markdown: React.SFC<{ source: string }> = props => (
-  <article className={style}>
+  <article css={[style]}>
     <ReactMarkdown escapeHtml={false} source={props.source} />
   </article>
 );
@@ -199,7 +199,7 @@ const style = css`
     border-top: 1px solid #c6cbd1;
   }
 
-  table tr:nth-child(2n) {
+  table tr:nth-of-type(2n) {
     background-color: #f6f8fa;
   }
 

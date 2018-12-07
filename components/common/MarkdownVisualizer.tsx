@@ -1,7 +1,7 @@
 import * as React from "react";
 import MarkdownContent from "./MarkdownContent";
 import Layout, { Content, Sidebar } from "./Layout";
-import { css } from "react-emotion";
+import { css } from "@emotion/core";
 import Box from "./Box";
 import { Query } from "react-apollo";
 import { PlayersList } from "../../graphql/leaderboard";
@@ -58,7 +58,7 @@ class MarkdownVisualizer extends React.Component<Props, State> {
                   />
                 </Sidebar>
                 <Content>
-                  <div className={container}>
+                  <div css={[container]}>
                     <MarkdownContent source={this.props.markdown} />
                   </div>
                 </Content>

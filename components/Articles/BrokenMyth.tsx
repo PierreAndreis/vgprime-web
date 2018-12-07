@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import Box from "../common/Box";
 import Link from "next/link";
 
@@ -51,7 +51,7 @@ const container = css`
 
 const BrokenMyth: React.SFC = () => (
   <Link href="https://brokenmyth.net/exclusive-introducing-vgprime/">
-    <a target="_blank" className={container}>
+    <a target="_blank" css={[container]}>
       <h2>How to play</h2>
       <p>
         Explained by <img src="/static/images/logo_brokenmyth.png" />

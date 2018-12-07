@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css } from "emotion";
+import { css } from "@emotion/core";
 import { Player as PlayerType } from "../../graphql/leaderboard";
 import Info from "./Info";
 import Stats from "./Stats";
@@ -43,7 +43,7 @@ const Player: React.SFC<Props> = ({ player }) => {
     : [];
 
   return (
-    <div className={container}>
+    <div css={[container]}>
       <div className="info">
         <h4>Info</h4>
         <Info player={player} />

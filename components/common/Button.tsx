@@ -1,5 +1,5 @@
 import * as React from "react";
-import { css, cx } from "emotion";
+import { css } from "@emotion/core";
 
 export const buttonCss = css`
   border: 0;
@@ -41,7 +41,7 @@ type ButtonProps = {
 } & React.HTMLAttributes<HTMLButtonElement>;
 
 const Button: React.SFC<ButtonProps> = ({ className, ...props }) => (
-  <button className={cx(className, buttonCss)} {...props} />
+  <button css={[className, buttonCss]} {...props} />
 );
 
 export default Button;
