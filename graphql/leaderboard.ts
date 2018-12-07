@@ -18,8 +18,8 @@ export interface Player {
 export type PlayersList = ReadonlyArray<Player>;
 
 export const byPage = gql`
-  query Leaderboard($page: Int) {
-    leaderboard(page: $page, name: "season 1") {
+  query Leaderboard($page: Int, $name: String!) {
+    leaderboard(page: $page, name: $name) {
       id
       name
       region
@@ -41,8 +41,8 @@ export const byPage = gql`
 `;
 
 export const byPlayerName = gql`
-  query Leaderboard($playerName: String) {
-    leaderboard(playerName: $playerName, name: "season 1") {
+  query Leaderboard($playerName: String, $name: String!) {
+    leaderboard(playerName: $playerName, name: $name) {
       id
       name
       region
@@ -59,6 +59,17 @@ export const byPlayerName = gql`
         rank
         points
       }
+    }
+  }
+`;
+
+export const list = gql`
+  query LeaderboardList {
+    leaderboardList {
+      name
+      start
+      end
+      count
     }
   }
 `;

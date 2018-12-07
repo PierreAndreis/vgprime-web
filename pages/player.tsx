@@ -35,7 +35,7 @@ class PlayerPage extends React.Component<Props> {
         <Head>
           <title>{playerName} - VGPRIME</title>
         </Head>
-        <Query query={qLeaderboard} variables={{ playerName }}>
+        <Query query={qLeaderboard()} variables={{ playerName }}>
           {({ error, data, loading }) => {
             let players: PlayersList = [];
             let player: Player | undefined;
