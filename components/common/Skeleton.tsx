@@ -56,22 +56,21 @@ Skeleton.defaultProps = {
   borderRadius: "5px",
 };
 
-type SkeletonStatus = "loading" | "loaded" | "error";
+type SkeletonStatus = boolean;
 
 type SkeletonWrapperProps = {
   children(): React.ReactNode;
-  status?: SkeletonStatus;
   render?(status: SkeletonStatus, Skeleton: React.SFC<SkeletonProps>): JSX.Element;
 } & SkeletonProps;
 
 class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {
   render() {
-    const { children, status, render, ...props } = this.props;
+    const { children, render, ...props } = this.props;
 
     if (typeof render === "function") {
       return (
         <SkeletonContext.Consumer>
-          {value => render(value || status, Skeleton)}
+          {value => render(value, Skeleton)}
         </SkeletonContext.Consumer>
       );
     }
@@ -79,8 +78,7 @@ class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {
     return (
       <SkeletonContext.Consumer>
         {value => {
-          let providedStatus = status || value;
-          if (providedStatus === "loading") return <Skeleton {...props} />;
+          if (value) return <Skeleton {...props} />;
           else return children();
         }}
       </SkeletonContext.Consumer>
@@ -88,6 +86,6 @@ class SkeletonWrapper extends React.PureComponent<SkeletonWrapperProps> {
   }
 }
 
-const SkeletonContext = React.createContext<SkeletonStatus>("loading");
+const SkeletonContext = React.createContext<SkeletonStatus>(true);
 
 export { Skeleton, SkeletonWrapper, SkeletonContext };

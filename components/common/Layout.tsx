@@ -6,7 +6,6 @@ import { Link } from "../../routes";
 import Rules from "../Rules";
 import Search from "../Search";
 import Box from "./Box";
-import Portal from "./Portal";
 import FAQ from "../FAQ";
 import Ads from "./Adsense";
 
@@ -36,18 +35,6 @@ const container = css`
 
   & > .sidebar {
     grid-area: sidebar;
-    & > .visibleOnMobile {
-      display: none;
-      @media screen and (max-width: 800px) {
-        display: block;
-      }
-    }
-    & > .invisibleOnMobile {
-      display: block;
-      @media screen and (max-width: 800px) {
-        display: none;
-      }
-    }
   }
 
   & > .content {
@@ -128,51 +115,6 @@ const logo = css`
   }
 `;
 
-const sidebarMobileCss = css`
-  background: #fff;
-  width: 100%;
-  & > h4 {
-    ${Box}
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    font-size: 21px;
-    height: 45px;
-    border-radius: 0;
-    margin-bottom: 10px;
-  }
-
-  & > .close {
-    display: block;
-    position: absolute;
-    font-size: 32px;
-    color: black;
-    z-index: 6;
-    top: 5px;
-    right: 15px;
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 2px 10px;
-    transition: all 300ms;
-    &:hover {
-      background: rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background: white;
-  position: fixed;
-  height: 100%;
-  width: 400px;
-  max-width: 100%;
-  top: 0;
-  left: 0;
-`;
-
 const footer = css`
   ${Box};
   flex-direction: row;
@@ -218,79 +160,8 @@ const vgproLink = css`
   }
 `;
 
-const leaderboardCard = css`
-  background-image: linear-gradient(-135deg, #84aff5 0%, #91dde9 100%);
-  color: #fff;
-  font-size: 32px;
-  width: 250px;
-  height: 150px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  margin: 10px;
-  cursor: pointer;
-  & > h5 {
-    position: absolute;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-    align-self: center;
-  }
-  & > small {
-    color: rgba(0, 0, 0, 0.3);
-    width: 250px;
-    font-size: 14px;
-    text-align: center;
-    margin-top: auto;
-    margin-bottom: 10px;
-  }
-`;
-class SidebarMobile extends React.Component<
-  { children: React.ReactNode },
-  { open: boolean }
-> {
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState(state => ({
-      open: !state.open,
-    }));
-  };
-
-  render() {
-    return (
-      <>
-        {this.state.open && (
-          <Portal>
-            <div className={sidebarMobileCss}>
-              <div className="close" onClick={this.handleOpen}>
-                &times;
-              </div>
-              {this.props.children}
-            </div>
-          </Portal>
-        )}
-        <div className={leaderboardCard} onClick={this.handleOpen}>
-          <h5>Leaderboard</h5>
-          <small>Click here to see the season's highscores</small>
-        </div>
-      </>
-    );
-  }
-}
-
 export const Sidebar: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="sidebar">
-    <div className="invisibleOnMobile">{children}</div>
-    <div className="visibleOnMobile">
-      <SidebarMobile>{children}</SidebarMobile>
-    </div>
-  </div>
+  <div className="sidebar">{children}</div>
 );
 
 export const Content: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
@@ -348,7 +219,6 @@ class Layout extends React.Component<{}, State> {
           style={{
             gridArea: "ads",
             width: "100%",
-            //order: 1,
           }}
         >
           <Ads />

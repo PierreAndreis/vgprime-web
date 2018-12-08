@@ -135,10 +135,7 @@ const RecordBox: React.SFC<Props> = ({ type, title }) => (
           return players.map(({ player, available }, k) => {
             let winRate = Math.floor((player.wins / player.games) * 100);
             return (
-              <SkeletonContext.Provider
-                key={`${title}player${k}`}
-                value={loading || error || !available ? "loading" : "loaded"}
-              >
+              <SkeletonContext.Provider key={k} value={loading || !!error || !available}>
                 <Link
                   route={available ? "player" : "index"}
                   params={{ name: available ? player.name : undefined }}

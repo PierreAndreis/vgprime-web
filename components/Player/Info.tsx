@@ -1,17 +1,10 @@
 import * as React from "react";
 import { css } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
-import { Player } from "../../graphql/leaderboard";
+import { Player } from "../../graphql/player";
 
 import boxCss from "../common/Box";
-
-import { PlayerStats } from "../../api/types";
-import { Query } from "react-apollo";
-import qPlayerStats from "../../graphql/playerStats";
-import Link from "next/link";
-
-const heroImage = (heroName: string): string =>
-  `https://vgproassets.nyc3.cdn.digitaloceanspaces.com/heroes/${heroName.toLowerCase()}.png`;
+import TopHeroes from "./TopHeroes";
 
 const container = css`
   ${boxCss};
@@ -79,102 +72,44 @@ const heroes = css`
     font-weight: 600;
   }
 `;
-const heroeImageSize = "40px";
 
-const heroAvatar = css`
-  background-color: #dcdcdc;
-  background-size: ${heroeImageSize} ${heroeImageSize};
-  width: ${heroeImageSize};
-  height: ${heroeImageSize};
-  border-radius: ${heroeImageSize};
-  margin-right: 5px;
-`;
-
-export type PlayerInfoProps = {
+export type Props = {
   player?: Player;
+  playerName: string;
 };
 
-class PlayerInfo extends React.Component<PlayerInfoProps> {
-  render() {
-    const { player } = this.props;
+const PlayerInfo: React.FunctionComponent<Props> = ({ player, playerName }) => {
+  return (
+    <div className={container}>
+      <div className={info}>
+        <SkeletonWrapper width={20} height={20}>
+          {() => <i className={`vg-rank-${player ? player.tier : ""}`} />}
+        </SkeletonWrapper>
 
-    return (
-      <div className={container}>
-        <div className={info}>
-          <SkeletonWrapper width={20} height={20}>
-            {() => <i className={`vg-rank-${player ? player.tier : ""}`} />}
+        <div className="name">
+          <SkeletonWrapper height={15} width={100}>
+            {() => (player ? player.name : "")}
           </SkeletonWrapper>
-
-          <div className="name">
-            <SkeletonWrapper height={15} width={100}>
-              {() => (player ? player.name : "")}
-            </SkeletonWrapper>
-          </div>
-          <div className="region">
-            <SkeletonWrapper height={15} width={20}>
-              {() => (player ? (player.region === "sg" ? "sea" : player.region) : "")}
-            </SkeletonWrapper>
-          </div>
-
-          <div className="points">
-            <SkeletonWrapper height={10} width={40}>
-              {() => (player ? Number(player.points).toFixed(0) + " PTS" : "")}
-            </SkeletonWrapper>
-          </div>
         </div>
-        <div className={separator} />
-        <div className={heroes}>
-          <span>TOP 5 HEROES</span>
-          <Query
-            query={qPlayerStats}
-            variables={{ playerName: player ? player.name : "IDontExist" }}
-          >
-            {({ error, data, loading }) => {
-              let heroes: ReadonlyArray<string> = [];
+        <div className="region">
+          <SkeletonWrapper height={15} width={20}>
+            {() => (player ? (player.region === "sg" ? "sea" : player.region) : "")}
+          </SkeletonWrapper>
+        </div>
 
-              if (
-                !loading &&
-                !error &&
-                data.playerStats &&
-                data.playerStats.stats &&
-                data.playerStats.stats.Heroes
-              ) {
-                const player = data.playerStats as PlayerStats;
-
-                heroes = [...player.stats.Heroes]
-                  .sort((a, b) =>
-                    a.games !== b.games ? (a.games > b.games ? -1 : 1) : 0
-                  )
-                  .map(hero => hero.name);
-              }
-
-              const res: React.ReactNode[] = [];
-
-              for (let i = 0; i < 5; i++) {
-                let style;
-                let heroLink = "";
-                if (heroes[i]) {
-                  heroLink = `https://vgpro.gg/heroes/${heroes[i]}`;
-                  style = {
-                    backgroundImage: `url(${heroImage(heroes[i])}`,
-                  };
-                }
-
-                res.push(
-                  <Link href={heroLink} key={i || heroes[i]}>
-                    <a target="_blank">
-                      <div key={`topHero-${i}`} className={heroAvatar} style={style} />
-                    </a>
-                  </Link>
-                );
-              }
-              return res;
-            }}
-          </Query>
+        <div className="points">
+          <SkeletonWrapper height={10} width={40}>
+            {() => (player ? Number(player.points).toFixed(0) + " PTS" : "")}
+          </SkeletonWrapper>
         </div>
       </div>
-    );
-  }
-}
+      <div className={separator} />
+      <div className={heroes}>
+        <span>TOP 5 HEROES</span>
+        <TopHeroes playerName={playerName} />
+      </div>
+    </div>
+  );
+};
 
 export default PlayerInfo;

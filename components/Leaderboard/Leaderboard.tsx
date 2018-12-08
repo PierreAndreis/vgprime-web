@@ -10,6 +10,13 @@ const container = css`
   overflow: hidden;
   border-bottom: 20px solid white;
   border-radius: 10px;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 45px;
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+  }
 `;
 
 const navigationButtons = css`
@@ -19,13 +26,19 @@ const navigationButtons = css`
   align-items: center;
   justify-content: space-around;
   margin-top: -15px;
+
+  @media screen and (max-width: 800px) {
+    position: absolute;
+    top: 50px;
+    margin-top: 0;
+  }
 `;
 
 export interface LeaderboardProps {
   players: PlayersList;
   playerName?: string;
-  nextHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  previousHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  nextHandler?: () => void;
+  previousHandler?: () => void;
 }
 
 const PLAYER_PER_PAGE = 10;
