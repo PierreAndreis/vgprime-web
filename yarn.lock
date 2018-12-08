@@ -957,10 +957,10 @@
   resolved "https://registry.yarnpkg.com/@types/recharts-scale/-/recharts-scale-1.0.0.tgz#348c9220d6d9062c44a9d585d686644a97f7e25d"
   integrity sha512-HR/PrCcxYb2YHviTqH7CMdL1TUhUZLTUKzfrkMhxm1HTa5mg/QtP8XMiuSPz6dZ6wecazAOu8aYZ5DqkNlgHHQ==
 
-"@types/recharts@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.4.tgz#eee5cb80daea270498e8570d89c2ae2782b37020"
-  integrity sha512-Zh3BcOc/S8KCDF4yW3Q6DIf60yY/h68IBNXrHyamIDTZRikSVo97OV3/lTPPpw8Jn4+x41aOZaeDbaDellGDbw==
+"@types/recharts@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.2.tgz#263db0caa03b20445b071d0d3000c5221765e029"
+  integrity sha512-lriVDcpbbSjRK1n1rL41ZxgNhbxJAXZkSZAQ1M91IvNwlM2uc4W9Stevk9ODK1/lzgHpJjc/WJs6aN0s707fCQ==
   dependencies:
     "@types/d3-shape" "*"
     "@types/react" "*"
@@ -5754,7 +5754,12 @@ react-dom@^16.6.3:
     prop-types "^15.6.2"
     scheduler "^0.11.2"
 
-react-emotion@^9.1.1, react-emotion@^9.2.12:
+react-emotion@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-10.0.0.tgz#03adf5a93f9dc41396401551566adf9668a2418e"
+  integrity sha512-HMEH1I0m4AxJzG31ii/g227WhR0RBlRdr2M4C0n7yg9s3SiAPGB7lxvc/EoE8ixU9PLeOlBOb/n0wo42tGu99Q==
+
+react-emotion@^9.1.1:
   version "9.2.12"
   resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-9.2.12.tgz#74d1494f89e22d0b9442e92a33ca052461955c83"
   integrity sha512-qt7XbxnEKX5sZ73rERJ92JMbEOoyOwG3BuCRFRkXrsJhEe+rFBRTljRw7yOLHZUCQC4GBObZhjXIduQ8S0ZpYw==
