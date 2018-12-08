@@ -3,11 +3,11 @@ import { css, cx } from "emotion";
 
 export const buttonCss = css`
   border: 0;
-  border-radius: 20px;
+  border-radius: 15px;
   border-color: transparent;
   outline: 0;
 
-  padding: 10px 15px;
+  padding: 5px 15px;
   margin: 0 5px 2px;
 
   color: white;
@@ -15,15 +15,14 @@ export const buttonCss = css`
   text-transform: uppercase;
   font-weight: bold;
 
-  background: #74e1eb;
-  background-image: linear-gradient(-45deg, #7aaeff 0%, #74e1eb 100%);
-  box-shadow: 0 0 10px #77c8f5;
+  background: #4a90e2;
 
   cursor: pointer;
   transition: all 300ms;
+  border: 1.5px solid transparent;
 
   &:hover {
-    background: #74e1eb;
+    background: #7aaeff;
   }
 
   &:disabled {
