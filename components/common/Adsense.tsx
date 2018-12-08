@@ -16,6 +16,7 @@ const container = css`
   text-align: center;
   margin: 10px auto;
   width: auto;
+  z-index: -1;
 `;
 
 const adblockDetectedContainer = css`
