@@ -50,6 +50,8 @@ const sidebarMobileCss = css`
     line-height: 2.2;
     border-radius: 0;
     flex-shrink: 0;
+    flex-direction: row;
+    justify-content: center;
   }
 
   & > .close {

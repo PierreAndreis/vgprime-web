@@ -36,6 +36,14 @@ const toggle = css`
       color: white;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    width: 150px;
+    margin-left: 10px;
+    & > div {
+      font-size: 9px;
+    }
+  }
 `;
 
 type State = {
@@ -47,15 +55,12 @@ type Props = {
   playerName?: string;
 };
 
-const isItWeekend = () => {
-  const today = new Date();
-  return today.getDay() == 6 || today.getDay() == 0;
-};
+const isItWeekend = new Date().getUTCDay() == 6 || new Date().getUTCDay() == 0;
 
 class LeaderboardContainer extends React.Component<Props, State> {
   state: State = {
     page: 0,
-    type: isItWeekend() ? "weekly" : "monthly",
+    type: isItWeekend ? "weekly" : "monthly",
   };
 
   nextPage = () => {
