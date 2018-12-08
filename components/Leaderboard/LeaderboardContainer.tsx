@@ -57,7 +57,7 @@ class LeaderboardContainer extends React.Component<Props, State> {
             }
 
             const allowNextHandler = !loading && !playerName;
-            const allowPrevHandler = allowNextHandler && page < 1;
+            const allowPrevHandler = allowNextHandler && page > 0;
 
             return (
               <SkeletonContext.Provider value={loading}>
