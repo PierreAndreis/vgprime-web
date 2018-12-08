@@ -5,8 +5,8 @@ import { Player } from "./player";
 export type PlayersList = ReadonlyArray<Player>;
 
 export const byPage = gql`
-  query Leaderboard($page: Int, $name: String!, $playerName: String) {
-    leaderboard(page: $page, name: $name, playerName: $playerName) {
+  query Leaderboard($page: Int, $type: String!, $playerName: String) {
+    leaderboard(page: $page, type: $type, playerName: $playerName) {
       id
       name
       region

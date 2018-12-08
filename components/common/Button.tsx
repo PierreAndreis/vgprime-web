@@ -7,7 +7,7 @@ export const buttonCss = css`
   border-color: transparent;
   outline: 0;
 
-  padding: 5px 15px;
+  padding: 7px 15px;
   margin: 0 5px 2px;
 
   color: white;

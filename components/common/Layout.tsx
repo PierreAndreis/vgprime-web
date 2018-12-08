@@ -15,11 +15,11 @@ const container = css`
   display: grid;
   grid-template:
     "header header" auto
-    "ads sidebar" 80px
+    "ads sidebar" auto
     "content sidebar" auto
     "content sidebar" 1fr
     "footer footer" 50px
-    "adsBottom adsBottom" 80px
+    "adsBottom adsBottom" auto
     / 1fr 360px;
   grid-column-gap: 10px;
 

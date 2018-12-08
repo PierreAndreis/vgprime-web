@@ -12,13 +12,15 @@ declare global {
 }
 
 const container = css`
+  ${Box}
+  text-align: center;
+  margin: 10px 0;
   width: 100%;
+  max-height: 250px;
 `;
 
 const adblockDetectedContainer = css`
-  ${Box};
   padding: 20px;
-  margin: 10px 0px;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 12px;
@@ -73,14 +75,7 @@ class Ads extends React.Component<{}> {
 
   render() {
     return (
-      <div
-        style={{
-          margin: "5px auto",
-          display: "inline",
-          textAlign: "center",
-        }}
-        className={container}
-      >
+      <div className={container}>
         {this.state.adBlockDetected ? (
           <div className={adblockDetectedContainer}>
             To support us, please consider disabling your adblock.
@@ -94,7 +89,6 @@ class Ads extends React.Component<{}> {
             />
           )
         )}
-        {!this.state.active && <div> error!</div>}
       </div>
     );
   }

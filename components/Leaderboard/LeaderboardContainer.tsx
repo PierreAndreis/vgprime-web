@@ -1,6 +1,6 @@
 import React from "react";
 import { Query } from "react-apollo";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
 import { byPage as qLeaderboard } from "../../graphql/leaderboard";
 import { SkeletonContext } from "../common/Skeleton";
@@ -13,19 +13,49 @@ const header = css`
   align-items: center;
 `;
 
+const toggle = css`
+  display: flex;
+  width: 200px;
+  border-radius: 5px;
+  justify-content: space-around;
+  border: 2px solid #84aff5;
+  overflow: hidden;
+  & > div {
+    padding: 2px 5px;
+    flex-grow: 1;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    &.active {
+      background: #84aff5;
+      color: white;
+    }
+  }
+`;
+
 type State = {
   page: number;
-  leaderboard: "weekly" | "global";
+  type: "weekly" | "monthly";
 };
 
 type Props = {
   playerName?: string;
 };
 
+const isItWeekend = () => {
+  const today = new Date();
+  return today.getDay() == 6 || today.getDay() == 0;
+};
+
 class LeaderboardContainer extends React.Component<Props, State> {
   state: State = {
     page: 0,
-    leaderboard: "global",
+    type: isItWeekend() ? "weekly" : "monthly",
   };
 
   nextPage = () => {
@@ -40,16 +70,36 @@ class LeaderboardContainer extends React.Component<Props, State> {
     }));
   };
 
+  changeType = (type: "weekly" | "monthly") => () => {
+    this.setState({
+      type,
+    });
+  };
+
   render() {
     const { playerName } = this.props;
-    const { page } = this.state;
+    const { page, type } = this.state;
 
     return (
       <>
         <header className={header}>
           <h4>Leaderboard</h4>
+          <div className={toggle}>
+            <div
+              className={cx(type === "monthly" && "active")}
+              onClick={this.changeType("monthly")}
+            >
+              Season
+            </div>
+            <div
+              className={cx(type === "weekly" && "active")}
+              onClick={this.changeType("weekly")}
+            >
+              Weekend
+            </div>
+          </div>
         </header>
-        <Query query={qLeaderboard} variables={{ page, playerName, name: "season 1" }}>
+        <Query query={qLeaderboard} variables={{ page, playerName, type }}>
           {({ data, loading }) => {
             let players = [];
             if (!loading && data && data.leaderboard) {
