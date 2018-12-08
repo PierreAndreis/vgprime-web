@@ -14,9 +14,8 @@ declare global {
 const container = css`
   ${Box}
   text-align: center;
-  margin: 10px 0;
-  width: 100%;
-  max-height: 250px;
+  margin: 10px auto;
+  width: auto;
 `;
 
 const adblockDetectedContainer = css`
