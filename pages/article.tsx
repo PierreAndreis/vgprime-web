@@ -2,11 +2,8 @@ import * as React from "react";
 import { NextContext } from "next";
 import FullArticle from "../components/Articles/FullArticle";
 import Layout, { Sidebar, Content } from "../components/common/Layout";
-import { Query } from "react-apollo";
-import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
-import { SkeletonContext } from "../components/common/Skeleton";
-import Leaderboard from "../components/Leaderboard/Leaderboard";
 import { withRouter } from "next/router";
+import LeaderboardContainer from "../components/Leaderboard/LeaderboardContainer";
 
 type Props = {
   articlePath?: string;
@@ -41,34 +38,14 @@ class ArticlePage extends React.Component<Props, State> {
       this.props.router.push("/");
     }
     return (
-      <Query query={qLeaderboard} variables={{ page: this.state.page }}>
-        {({ error, data, loading }) => {
-          let players: PlayersList =
-            data && data.leaderboard && data.leaderboard.length > 0
-              ? data.leaderboard
-              : [];
-
-          return (
-            <SkeletonContext.Provider
-              value={loading || error || players.length === 0 ? "loading" : "loaded"}
-            >
-              <Layout>
-                <Sidebar>
-                  <h4>Leaderboard</h4>
-                  <Leaderboard
-                    players={players}
-                    nextHandler={this.next}
-                    previousHandler={this.previous}
-                  />
-                </Sidebar>
-                <Content>
-                  <FullArticle articlePath={articlePath} />
-                </Content>
-              </Layout>
-            </SkeletonContext.Provider>
-          );
-        }}
-      </Query>
+      <Layout>
+        <Sidebar>
+          <LeaderboardContainer />
+        </Sidebar>
+        <Content>
+          <FullArticle articlePath={articlePath} />
+        </Content>
+      </Layout>
     );
   }
 }

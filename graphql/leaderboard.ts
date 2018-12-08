@@ -1,25 +1,12 @@
 import gql from "graphql-tag";
-import { dbHistoricalList } from "./../lib/historical";
 
-export interface Player {
-  id: string;
-  name: string;
-  region: string;
-  positionChange: number;
-  mvp: number;
-  tier: number;
-  points: number;
-  rank: number;
-  games: number;
-  wins: number;
-  historical: dbHistoricalList;
-}
+import { Player } from "./player";
 
 export type PlayersList = ReadonlyArray<Player>;
 
 export const byPage = gql`
-  query Leaderboard($page: Int) {
-    leaderboard(page: $page, name: "season 1") {
+  query Leaderboard($page: Int, $type: String!, $playerName: String) {
+    leaderboard(page: $page, type: $type, playerName: $playerName) {
       id
       name
       region
@@ -40,25 +27,13 @@ export const byPage = gql`
   }
 `;
 
-export const byPlayerName = gql`
-  query Leaderboard($playerName: String) {
-    leaderboard(playerName: $playerName, name: "season 1") {
-      id
+export const list = gql`
+  query LeaderboardList {
+    leaderboardList {
       name
-      region
-      positionChange
-      mvp
-      tier
-      points
-      rank
-      region
-      games
-      wins
-      historical {
-        date
-        rank
-        points
-      }
+      start
+      end
+      count
     }
   }
 `;

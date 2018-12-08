@@ -1,6 +1,6 @@
 import { css, keyframes, cx } from "emotion";
 import { SkeletonWrapper } from "../common/Skeleton";
-import { Player } from "../../graphql/leaderboard";
+import { Player } from "../../graphql/player";
 
 // @ts-ignore
 import { Link } from "../../routes";

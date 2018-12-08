@@ -2,15 +2,10 @@ import * as React from "react";
 import { css } from "emotion";
 
 // @ts-ignore
-import Media from "react-media";
-
-// @ts-ignore
 import { Link } from "../../routes";
 import Rules from "../Rules";
 import Search from "../Search";
 import Box from "./Box";
-import Portal from "./Portal";
-import Button from "./Button";
 import FAQ from "../FAQ";
 import Ads from "./Adsense";
 
@@ -20,11 +15,11 @@ const container = css`
   display: grid;
   grid-template:
     "header header" auto
-    "ads sidebar" 80px
+    "ads sidebar" auto
     "content sidebar" auto
     "content sidebar" 1fr
     "footer footer" 50px
-    "adsBottom adsBottom" 80px
+    "adsBottom adsBottom" auto
     / 1fr 360px;
   grid-column-gap: 10px;
 
@@ -47,6 +42,9 @@ const container = css`
     width: 100%;
     grid-area: content;
     order: 1;
+    @media screen and (max-width: 800px) {
+      padding-top: 0;
+    }
   }
 
   @media screen and (max-width: 800px) {
@@ -117,49 +115,6 @@ const logo = css`
   }
 `;
 
-const sidebarMobileCss = css`
-  & > h4 {
-    ${Box}
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    font-size: 21px;
-    height: 45px;
-    border-radius: 0;
-    margin-bottom: 10px;
-  }
-
-  & > .close {
-    display: block;
-    position: absolute;
-    font-size: 32px;
-    color: black;
-    z-index: 6;
-    top: 5px;
-    right: 15px;
-    cursor: pointer;
-    border-radius: 50%;
-    padding: 2px 10px;
-    transition: all 300ms;
-    &:hover {
-      background: rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background: white;
-  position: fixed;
-  height: 100%;
-  width: 400px;
-  max-width: 100%;
-  top: 0;
-  left: 0;
-`;
-
 const footer = css`
   ${Box};
   flex-direction: row;
@@ -184,12 +139,12 @@ const footer = css`
 `;
 
 const vgproLink = css`
-  //${Box};
   border: 0;
   padding: 10px 15px;
   margin: 0 5px 2px;
   border-radius: 20px;
-  background: linear-gradient(-90deg, rgb(251, 171, 126) 0%, rgb(247, 206, 104) 100%) rgb(230, 190, 61);
+  background: linear-gradient(-90deg, rgb(251, 171, 126) 0%, rgb(247, 206, 104) 100%)
+    rgb(230, 190, 61);
   box-shadow: rgb(230, 190, 61) 0px 0px 10px;
   border: none;
   color: #fff;
@@ -205,49 +160,8 @@ const vgproLink = css`
   }
 `;
 
-class SidebarMobile extends React.Component<
-  { children: React.ReactNode },
-  { open: boolean }
-> {
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState(state => ({
-      open: !state.open,
-    }));
-  };
-
-  render() {
-    return (
-      <>
-        {this.state.open && (
-          <Portal>
-            <div className={sidebarMobileCss}>
-              <div className="close" onClick={this.handleOpen}>
-                &times;
-              </div>
-              {this.props.children}
-            </div>
-          </Portal>
-        )}
-        <div style={{ margin: "10px" }}>
-          <Button onClick={this.handleOpen}>Open Leaderboard</Button>
-        </div>
-      </>
-    );
-  }
-}
-
 export const Sidebar: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="sidebar">
-    <Media query={{ maxWidth: 800 }} defaultMatches={false}>
-      {(matches: boolean) =>
-        !matches ? children : <SidebarMobile>{children}</SidebarMobile>
-      }
-    </Media>
-  </div>
+  <div className="sidebar">{children}</div>
 );
 
 export const Content: React.SFC<{ children: React.ReactNode }> = ({ children }) => (
@@ -301,15 +215,18 @@ class Layout extends React.Component<{}, State> {
             </div>
           </div>
         </div>
-        <div style={{ gridArea: "ads", width: "100%" }}>
+        <div
+          style={{
+            gridArea: "ads",
+            width: "100%",
+          }}
+        >
           <Ads />
         </div>
         <Rules open={this.state.rulesOpened} closeAction={this.closeRulesModal} />
         <FAQ open={this.state.faqOpened} closeAction={this.closeFaqModal} />
+
         {this.props.children}
-        <div style={{ gridArea: "adsBottom", width: "100%" }}>
-          <Ads />
-        </div>
 
         <div className={footer}>
           <div>
@@ -332,6 +249,9 @@ class Layout extends React.Component<{}, State> {
               <a>Terms and Conditions</a>
             </Link>
           </div>
+        </div>
+        <div style={{ gridArea: "adsBottom", width: "100%", order: 4 }}>
+          <Ads />
         </div>
       </div>
     );

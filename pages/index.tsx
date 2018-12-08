@@ -1,11 +1,8 @@
 import * as React from "react";
-import { Query } from "react-apollo";
 import { css } from "emotion";
-import { byPage as qLeaderboard, PlayersList } from "../graphql/leaderboard";
-import Leaderboard from "../components/Leaderboard/Leaderboard";
+import LeaderboardContainer from "../components/Leaderboard/LeaderboardContainer";
 import Records from "../components/Records";
 import Layout, { Content, Sidebar } from "../components/common/Layout";
-import { SkeletonContext } from "../components/common/Skeleton";
 import Prizes from "../components/Prizes";
 import Time from "../components/Time";
 import BrokenMyth from "../components/Articles/BrokenMyth";
@@ -13,9 +10,12 @@ import Head from "next/head";
 
 type Props = {
   query: Record<string, string | string[] | undefined>;
+  weekendNumber: number;
 };
+
 type State = {
   page: number;
+  leaderboard: string;
 };
 
 const top = css`
@@ -23,57 +23,27 @@ const top = css`
   justify-content: center;
   flex-wrap: wrap;
 `;
-
 export default class Home extends React.Component<Props, State> {
-  state = {
-    page: 0,
-  };
-
-  next = () => {
-    this.setState(state => ({ page: state.page + 1 }));
-  };
-  previous = () => {
-    this.setState(state => ({ page: state.page - 1 }));
-  };
   render() {
     return (
       <>
         <Head>
           <title>VGPRIME</title>
         </Head>
-        <Query query={qLeaderboard} variables={{ page: this.state.page }}>
-          {({ error, data, loading }) => {
-            let players: PlayersList =
-              data && data.leaderboard && data.leaderboard.length > 0
-                ? data.leaderboard
-                : [];
 
-            return (
-              <SkeletonContext.Provider
-                value={loading || error || players.length === 0 ? "loading" : "loaded"}
-              >
-                <Layout>
-                  <Sidebar>
-                    <h4>Leaderboard</h4>
-                    <Leaderboard
-                      players={players}
-                      nextHandler={this.next}
-                      previousHandler={this.previous}
-                    />
-                  </Sidebar>
-                  <Content>
-                    <div className={top}>
-                      <BrokenMyth />
-                      <Prizes />
-                      <Time />
-                    </div>
-                    <Records />
-                  </Content>
-                </Layout>
-              </SkeletonContext.Provider>
-            );
-          }}
-        </Query>
+        <Layout>
+          <Sidebar>
+            <LeaderboardContainer />
+          </Sidebar>
+          <Content>
+            <div className={top}>
+              <BrokenMyth />
+              <Prizes />
+              <Time />
+            </div>
+            <Records />
+          </Content>
+        </Layout>
       </>
     );
   }

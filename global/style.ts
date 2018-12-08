@@ -87,4 +87,17 @@ injectGlobal`
   * {
     box-sizing:  border-box;
   }
+
+  .visibleOnMobile {
+    display: none;
+    @media screen and (max-width: 800px) {
+      display: block;
+    }
+  }
+  .invisibleOnMobile {
+    display: block;
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+  }
 `;
