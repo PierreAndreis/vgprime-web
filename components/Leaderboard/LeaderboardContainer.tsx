@@ -55,7 +55,7 @@ type Props = {
   playerName?: string;
 };
 
-const isItWeekend = new Date().getDay() == 6 || new Date().getDay() == 0;
+const isItWeekend = new Date().getUTCDay() == 6 || new Date().getUTCDay() == 0;
 
 class LeaderboardContainer extends React.Component<Props, State> {
   state: State = {
