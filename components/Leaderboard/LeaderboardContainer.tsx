@@ -104,7 +104,11 @@ class LeaderboardContainer extends React.Component<Props, State> {
             </div>
           </div>
         </header>
-        <Query query={qLeaderboard} variables={{ page, playerName, type }}>
+        <Query
+          query={qLeaderboard}
+          variables={{ page, playerName, type }}
+          fetchPolicy={"no-cache"}
+        >
           {({ data, loading }) => {
             let players = [];
             if (!loading && data && data.leaderboard) {
@@ -117,6 +121,7 @@ class LeaderboardContainer extends React.Component<Props, State> {
             return (
               <SkeletonContext.Provider value={loading}>
                 <Leaderboard
+                  key={type + page}
                   players={players}
                   playerName={playerName}
                   previousHandler={allowPrevHandler ? this.prevPage : undefined}
