@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/js-cookie": "^2.2.0",
     "@types/next": "^7.0.5",
-    "@types/react": "^16.7.13",
+    "@types/react": "^16.7.14",
     "@types/react-dom": "^16.0.11",
     "@types/recharts": "^1.1.2",
     "@types/styled-jsx": "^2.2.7",
