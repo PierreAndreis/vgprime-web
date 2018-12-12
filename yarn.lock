@@ -957,10 +957,10 @@
   resolved "https://registry.yarnpkg.com/@types/recharts-scale/-/recharts-scale-1.0.0.tgz#348c9220d6d9062c44a9d585d686644a97f7e25d"
   integrity sha512-HR/PrCcxYb2YHviTqH7CMdL1TUhUZLTUKzfrkMhxm1HTa5mg/QtP8XMiuSPz6dZ6wecazAOu8aYZ5DqkNlgHHQ==
 
-"@types/recharts@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.4.tgz#eee5cb80daea270498e8570d89c2ae2782b37020"
-  integrity sha512-Zh3BcOc/S8KCDF4yW3Q6DIf60yY/h68IBNXrHyamIDTZRikSVo97OV3/lTPPpw8Jn4+x41aOZaeDbaDellGDbw==
+"@types/recharts@^1.1.2":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.5.tgz#2eff925e3f8ed39c2ab517e413585a7b8584b4d1"
+  integrity sha512-UfHc5LAJ0vwzxTXcwYl5r39qxhv+9321j/pddgfYwrpv+sJNT6WyWgoQ5zypG90JLuIJP4Nt45wDjzytZ0P1Xw==
   dependencies:
     "@types/d3-shape" "*"
     "@types/react" "*"
@@ -5830,10 +5830,10 @@ react-spinners@^0.4.7:
     react-emotion "^9.1.1"
     recompose "0.27.1"
 
-react-spring@^6.1.10:
-  version "6.1.10"
-  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-6.1.10.tgz#ae28796dccfb32baa02d34fb94289c2088f63a1b"
-  integrity sha512-msMoHyXHzb3KdHNY6Yo6wm1t+1GKjy6k2kqaYT3bG6nM//HOL5798OD6Qg719SEDskRDh2vXxIyJ5KEoAUbecA==
+react-spring@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-7.1.0.tgz#2ec87137d3a74f82e498fd3ce90b389421415c93"
+  integrity sha512-ziwB6WsFNjf/KqTBVFNYFRAkoW/zruAW7GmbH+dhhS+QXQGyvtd5I7DUAA/mBlI1qv+zAYOHUXVTDb+xdLT3eg==
   dependencies:
     "@babel/runtime" "^7.0.0"
 
