@@ -1,50 +1,35 @@
 import * as React from "react";
-import { css } from "emotion";
-import LeaderboardContainer from "../components/Leaderboard/LeaderboardContainer";
-import Records from "../components/Records";
-import Layout, { Content, Sidebar } from "../components/common/Layout";
-import Prizes from "../components/Prizes";
-import Time from "../components/Time";
-import BrokenMyth from "../components/Articles/BrokenMyth";
-import Head from "next/head";
+import Button from "../components/common/Button";
 
 type Props = {
-  query: Record<string, string | string[] | undefined>;
-  weekendNumber: number;
+  playerName: string | null;
 };
 
-type State = {
-  page: number;
-  leaderboard: string;
-};
-
-const top = css`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
-export default class Home extends React.Component<Props, State> {
+class PlayerPage extends React.Component<Props> {
   render() {
     return (
-      <>
-        <Head>
-          <title>VGPRIME</title>
-        </Head>
-
-        <Layout>
-          <Sidebar>
-            <LeaderboardContainer />
-          </Sidebar>
-          <Content>
-            <div className={top}>
-              <BrokenMyth />
-              <Prizes />
-              <Time />
-            </div>
-            <Records />
-          </Content>
-        </Layout>
-      </>
+      <div
+        style={{
+          display: "flex",
+          position: "fixed",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100vw",
+          height: "100vh",
+          background: "#ECEEF1",
+          color: "#4a90e2",
+          fontSize: 35,
+          flexDirection: "column",
+        }}
+      >
+        <img src="/static/images/logo.png" style={{ marginBottom: 10 }} />
+        <p>will be back in February 2019</p>
+        <a href="https://vgpro.gg">
+          <Button>Go back to VGPRO.gg</Button>
+        </a>
+      </div>
     );
   }
 }
+
+export default PlayerPage;
