@@ -957,10 +957,10 @@
   resolved "https://registry.yarnpkg.com/@types/recharts-scale/-/recharts-scale-1.0.0.tgz#348c9220d6d9062c44a9d585d686644a97f7e25d"
   integrity sha512-HR/PrCcxYb2YHviTqH7CMdL1TUhUZLTUKzfrkMhxm1HTa5mg/QtP8XMiuSPz6dZ6wecazAOu8aYZ5DqkNlgHHQ==
 
-"@types/recharts@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.4.tgz#eee5cb80daea270498e8570d89c2ae2782b37020"
-  integrity sha512-Zh3BcOc/S8KCDF4yW3Q6DIf60yY/h68IBNXrHyamIDTZRikSVo97OV3/lTPPpw8Jn4+x41aOZaeDbaDellGDbw==
+"@types/recharts@^1.1.2":
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.10.tgz#786e76a3e9f7ad739fb47efd3e2e0684cdf87f41"
+  integrity sha512-7e4qJSyIFSz9DeKCC3xkddbdsPDuXTkJUtDjfW/osKwhGMs49PvifpFOCfoohxZnt/Sm4vy7httvrxszvKV7Sg==
   dependencies:
     "@types/d3-shape" "*"
     "@types/react" "*"
@@ -4629,12 +4629,7 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-lodash@^4.17.10, lodash@^4.17.4, lodash@^4.17.5:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-  integrity sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==
-
-lodash@^4.17.11, lodash@~4.17.4:
+lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.4:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
