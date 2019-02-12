@@ -957,10 +957,10 @@
   resolved "https://registry.yarnpkg.com/@types/recharts-scale/-/recharts-scale-1.0.0.tgz#348c9220d6d9062c44a9d585d686644a97f7e25d"
   integrity sha512-HR/PrCcxYb2YHviTqH7CMdL1TUhUZLTUKzfrkMhxm1HTa5mg/QtP8XMiuSPz6dZ6wecazAOu8aYZ5DqkNlgHHQ==
 
-"@types/recharts@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.4.tgz#eee5cb80daea270498e8570d89c2ae2782b37020"
-  integrity sha512-Zh3BcOc/S8KCDF4yW3Q6DIf60yY/h68IBNXrHyamIDTZRikSVo97OV3/lTPPpw8Jn4+x41aOZaeDbaDellGDbw==
+"@types/recharts@^1.1.2":
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/@types/recharts/-/recharts-1.1.10.tgz#786e76a3e9f7ad739fb47efd3e2e0684cdf87f41"
+  integrity sha512-7e4qJSyIFSz9DeKCC3xkddbdsPDuXTkJUtDjfW/osKwhGMs49PvifpFOCfoohxZnt/Sm4vy7httvrxszvKV7Sg==
   dependencies:
     "@types/d3-shape" "*"
     "@types/react" "*"
@@ -6951,10 +6951,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
-  integrity sha512-jw7P2z/h6aPT4AENXDGjcfHTu5CSqzsbZc6YlUIebTyBAq8XaKp78x7VcSh30xwSCcsu5irZkYZUSFP1MrAMbg==
+typescript@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.3.tgz#f1657fc7daa27e1a8930758ace9ae8da31403221"
+  integrity sha512-Y21Xqe54TBVp+VDSNbuDYdGw0BpoR/Q6wo/+35M8PAU0vipahnyduJWirxxdxjsAkS7hue53x2zp8gz7F05u0A==
 
 ua-parser-js@^0.7.18:
   version "0.7.18"
